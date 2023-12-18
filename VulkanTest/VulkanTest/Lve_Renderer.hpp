@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <memory>
-#include "lveWindow.hpp"
+#include "lve_Window.hpp"
 #include "lve_device.hpp"
 #include "lve_swap_chain.hpp"
 
@@ -18,6 +18,9 @@ namespace lve {
 		LveRenderer& operator=(const LveRenderer&) = delete;
 
 		VkRenderPass getSwapChainRenderPass() const { return lveSwapChain->getRenderPass(); }
+
+		float getAspectRatio() const { return lveSwapChain->extentAspectRatio(); }
+
 		bool isFrameInProgress() const { return isFrameStarted; }
 
 		VkCommandBuffer getCurrentCommandBuffer() const { 

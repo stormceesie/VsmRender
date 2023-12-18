@@ -143,9 +143,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="first_app.cpp" />
-    <ClCompile Include="LveRenderer.cpp" />
-    <ClCompile Include="LveRenderSystem.cpp" />
-    <ClCompile Include="LveWindow.cpp" />
+    <ClCompile Include="keyboard_movement_controller.cpp" />
+    <ClCompile Include="Lve_Camera.cpp" />
+    <ClCompile Include="Lve_Renderer.cpp" />
+    <ClCompile Include="Lve_RenderSystem.cpp" />
+    <ClCompile Include="Lve_Window.cpp" />
     <ClCompile Include="lve_model.cpp" />
     <ClCompile Include="lve_pipeline.cpp" />
     <ClCompile Include="main.cpp" />
@@ -154,10 +156,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="first_app.hpp" />
-    <ClInclude Include="LveRenderer.hpp" />
-    <ClInclude Include="LveRenderSystem.hpp" />
+    <ClInclude Include="keyboard_movement_controller.hpp" />
+    <ClInclude Include="Lve_Renderer.hpp" />
+    <ClInclude Include="Lve_RenderSystem.hpp" />
+    <ClInclude Include="Lve_Camera.hpp" />
     <ClInclude Include="lve_Game_Object.hpp" />
-    <ClInclude Include="LveWindow.hpp" />
+    <ClInclude Include="Lve_Window.hpp" />
     <ClInclude Include="lve_model.hpp" />
     <ClInclude Include="lve_pipeline.hpp" />
     <ClInclude Include="lve_device.hpp" />

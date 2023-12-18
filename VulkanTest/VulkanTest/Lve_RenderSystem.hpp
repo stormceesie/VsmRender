@@ -7,6 +7,7 @@
 #include "lve_device.hpp"
 #include "lve_Game_Object.hpp"
 #include "lve_swap_chain.hpp"
+#include "Lve_Camera.hpp"
 
 
 namespace lve {
@@ -18,7 +19,7 @@ namespace lve {
 		LveRenderSystem(const LveRenderSystem&) = delete;
 		LveRenderSystem& operator=(const LveRenderSystem&) = delete;
 
-		void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LveGameObject>& gameObjects);
+		void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LveGameObject>& gameObjects, const LveCamera &camera);
 
 	private:
 		void createPipelineLayout();

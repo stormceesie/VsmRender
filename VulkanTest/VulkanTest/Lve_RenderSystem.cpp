@@ -1,4 +1,4 @@
-#include "LveRenderSystem.hpp"
+#include "Lve_RenderSystem.hpp"
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -58,15 +58,15 @@ namespace lve {
 			pipelineConfig);
 	}
 
-	void LveRenderSystem::renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LveGameObject> &gameObjects) {
+	void LveRenderSystem::renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LveGameObject>& gameObjects, const LveCamera& camera) {
 		lvePipeline->bind(commandBuffer);
-		for (auto& obj : gameObjects) {
-			obj.transform.rotation.y = glm::mod(obj.transform.rotation.y + 0.001f, glm::two_pi<float>());
-			obj.transform.rotation.x = glm::mod(obj.transform.rotation.x + 0.001f, glm::two_pi<float>());
 
+		auto projectView = camera.getProjection() * camera.getView();
+
+		for (auto& obj : gameObjects) {
 			SimplePushConstantData push{};
 			push.color = obj.color;
-			push.transform = obj.transform.mat4();
+			push.transform = projectView * obj.transform.mat4();
 
 			vkCmdPushConstants(
 				commandBuffer,

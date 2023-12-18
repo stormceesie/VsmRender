@@ -2,10 +2,13 @@
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
-#include "LveRenderSystem.hpp"
+#include "Lve_RenderSystem.hpp"
+#include "Lve_Camera.hpp"
+#include "keyboard_movement_controller.hpp"
 
 #include "first_app.hpp"
 #include <stdexcept>
+#include <chrono>
 #include <array>
 
 namespace lve {
@@ -16,12 +19,33 @@ namespace lve {
 
     void FirstApp::run() {
         LveRenderSystem RenderSystem{ lveDevice, lveRenderer.getSwapChainRenderPass() };
+        LveCamera camera{};
+
+        camera.setViewTarget(glm::vec3(-1.f, -2.f, 2.f), glm::vec3(0.f, 0.f, 2.5f));
+
+        auto viewerObject = LveGameObject::createGameObject();
+        KeyboardMovementController cameraController{};
+
+        auto currentTime = std::chrono::high_resolution_clock::now();
 
         while (!lveWindow.ShouldClose()) {
             glfwPollEvents();
+
+            auto newTime = std::chrono::high_resolution_clock::now();
+
+            float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
+            currentTime = newTime;
+
+            cameraController.moveInPlaneXZ(lveWindow.getGLFWwindow(), frameTime, viewerObject);
+            camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
+
+            // Make sure the aspect ratio of the 3D model always stays the same
+            float aspect = lveRenderer.getAspectRatio();
+            camera.SetPerspectiveProjection(glm::radians(50.f), aspect, 0.1f, 10.f);
+
             if (auto commandBuffer = lveRenderer.beginFrame()) {
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
-                RenderSystem.renderGameObjects(commandBuffer, gameObjects);
+                RenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);
                 lveRenderer.endSwapChainRenderPass(commandBuffer);
                 lveRenderer.endFrame();
             }
@@ -94,7 +118,7 @@ namespace lve {
 
         auto cube = LveGameObject::createGameObject();
         cube.model = lveModel;
-        cube.transform.translation = { .0f, .0f, .5f };
+        cube.transform.translation = { .0f, .0f, 2.5f };
         cube.transform.scale = { .5f, .5f, .5f };
 
         gameObjects.push_back(std::move(cube));

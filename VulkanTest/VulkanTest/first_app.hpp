@@ -2,13 +2,13 @@
 #include <vector>
 #include <iostream>
 #include <memory>
-#include "lveWindow.hpp"
+#include "lve_Window.hpp"
 #include "lve_model.hpp"
 #include "lve_pipeline.hpp"
 #include "lve_device.hpp"
 #include "lve_swap_chain.hpp"
 #include "lve_Game_Object.hpp"
-#include "LveRenderer.hpp"
+#include "Lve_Renderer.hpp"
 
 namespace lve {
 	class FirstApp {

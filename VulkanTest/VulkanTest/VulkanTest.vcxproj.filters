@@ -21,7 +21,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LveWindow.cpp">
+    <ClCompile Include="Lve_Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="first_app.cpp">
@@ -39,15 +39,21 @@
     <ClCompile Include="lve_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LveRenderer.cpp">
+    <ClCompile Include="Lve_Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LveRenderSystem.cpp">
+    <ClCompile Include="Lve_RenderSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lve_Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard_movement_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LveWindow.hpp">
+    <ClInclude Include="Lve_Window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="first_app.hpp">
@@ -68,10 +74,16 @@
     <ClInclude Include="lve_Game_Object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LveRenderer.hpp">
+    <ClInclude Include="Lve_Renderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LveRenderSystem.hpp">
+    <ClInclude Include="Lve_RenderSystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lve_Camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard_movement_controller.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

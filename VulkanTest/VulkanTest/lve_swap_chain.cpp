@@ -9,6 +9,8 @@
 #include <set>
 #include <stdexcept>
 
+// Define IMMEDIATE_MODE, MAILBOX_MODE or nothing to change buffer render type
+
 namespace lve {
 
   LveSwapChain::LveSwapChain(LveDevice &deviceRef, VkExtent2D extent)
@@ -385,26 +387,30 @@ namespace lve {
   VkPresentModeKHR LveSwapChain::chooseSwapPresentMode(const std::vector<VkPresentModeKHR> &availablePresentModes) {
     // ################### MAILBOX ##################################
     // more updates on the GPU but more powerconsumption compared to FIFO. not recommended for IPC's because the high amount of updates are not needed for machines
-    
-    //for (const auto &availablePresentMode : availablePresentModes) {
-    //  if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
-    //    std::cout << "Present mode: Mailbox" << std::endl;
-    //    return availablePresentMode;
-    //  }
-    //}
-  
+
     // ################### IMMEDIATE ################################ 
     // highest power consumption but possibly higher FPS. not recommended for using for IPC's because it also costs CPU performance
-    // 
-    // for (const auto &availablePresentMode : availablePresentModes) {
-    //   if (availablePresentMode == VK_PRESENT_MODE_IMMEDIATE_KHR) {
-    //     std::cout << "Present mode: Immediate" << std::endl;
-    //     return availablePresentMode;
-    //   }
-    // }
-  
-      // FIFO is as fast as MAILBOX but less power consumption. Drawback user input may encounter latency FIFO is less frequently updated
-      // the less update frequency is millisecond update latency this is not relevant for machines like Voortman but can be for games
+
+    // FIFO is as fast as MAILBOX but less power consumption. Drawback user input may encounter latency FIFO is less frequently updated
+    // the less update frequency is millisecond update latency this is not relevant for machines like Voortman but can be for games
+    
+#ifdef MAILBOX_MODE
+    for (const auto &availablePresentMode : availablePresentModes) {
+      if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
+        std::cout << "Present mode: Mailbox" << std::endl;
+        return availablePresentMode;
+      }
+    }
+
+#elif defined(IMMEDIATE_MODE)
+     for (const auto &availablePresentMode : availablePresentModes) {
+       if (availablePresentMode == VK_PRESENT_MODE_IMMEDIATE_KHR) {
+         std::cout << "Present mode: Immediate" << std::endl;
+         return availablePresentMode;
+       }
+     }
+#endif
+
     std::cout << "Present mode: V-Sync" << std::endl;
     return VK_PRESENT_MODE_FIFO_KHR;
   }
