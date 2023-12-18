@@ -1,32 +1,32 @@
 #pragma once
 #include "lve_model.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 #include <memory>
 
 namespace lve {
 
-	struct Transform2dComponent {
-		glm::vec2 translation{};
-		glm::vec2 scale{ 1.f, 1.f };
-		float rotation;
-		glm::mat2 mat2() { 
-			const float s = glm::sin(rotation);
-			const float c = glm::cos(rotation);
-			glm::mat2 rotMatrix{ {c, s}, {-s, c} };
-			glm::mat2 scaleMat{ {scale.x, .0f}, {.0f, scale.y} };
-			return rotMatrix * scaleMat;
-		}
-	};
+	struct TransformComponent {
+		glm::vec3 translation{};
+		glm::vec3 scale{ 1.f, 1.f, 1.f };
+		glm::vec3 rotation{};
 
-	struct RigidBody2dComponent {
-		glm::vec2 velocity{ 0,0 };
-		float mass{ 0.5f };
+		glm::mat4 mat4() {
+			auto transform = glm::translate(glm::mat4{ 1.f }, translation);
+
+			// Matrix corresponds to translate * Ry * Rx * Rz
+			transform = glm::rotate(transform, rotation.y, { 0.f, 1.f, 0.f });
+			transform = glm::rotate(transform, rotation.x, { 1.f, 0.f, 0.f });
+			transform = glm::rotate(transform, rotation.z, { 0.f, 0.f, 1.f });
+
+			transform = glm::scale(transform, scale);
+			return transform;
+		}
 	};
 
 	class LveGameObject {
 	public:
 
 		using id_t = unsigned int;
-		RigidBody2dComponent rigidBody2d;
 
 		static LveGameObject createGameObject() {
 			static id_t currentId = 0;
@@ -42,7 +42,7 @@ namespace lve {
 
 		std::shared_ptr<LveModel> model{};
 		glm::vec3 color{};
-		Transform2dComponent transform2d{};
+		TransformComponent transform{};
 
 	private:
 		LveGameObject(id_t objId) : id{ objId } {}

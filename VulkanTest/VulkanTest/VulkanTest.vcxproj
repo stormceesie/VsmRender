@@ -154,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="first_app.hpp" />
-    <ClInclude Include="GravityPhysicsSystem.hpp" />
     <ClInclude Include="LveRenderer.hpp" />
     <ClInclude Include="LveRenderSystem.hpp" />
     <ClInclude Include="lve_Game_Object.hpp" />
