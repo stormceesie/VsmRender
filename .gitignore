@@ -1,32 +1,87 @@
-# Prerequisites
-*.d
+# Bestanden en mappen gegenereerd door Visual Studio
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
+# User-specifieke bestanden
+*.user
+*.userosscache
+*.suo
+*.userprefs
+
+# NuGet Packages
+**/packages/*
+
+# Builds
+*.pdb
+*.ilk
+*.aps
+*.ncb
+*.sdf
+*.opensdf
+*.tlog
+*.log
+*.vspscc
+*_i.c
+*_p.c
+*.iobj
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sb
+*.tlb
+*.tlh
+*.tli
+*.ilk
+*.meta
 *.obj
-
-# Precompiled Headers
-*.gch
 *.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+*.pdb
+*.ipch
+*.idb
+*.res
+*.sbr
 *.exe
-*.out
-*.app
+*.dll
+*.lib
+*.exp
+*.manifest
+
+# Visual Studio-cachebestanden
+ipch/
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+
+# Testbestanden
+TestResults/
+
+# Resharper-bestanden
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Teamcity-bestanden
+_TeamCity*
+
+# Visual Studio Code (voor degenen die het gebruiken)
+.vscode/
+
+# Systeembestanden
+.DS_Store
+Thumbs.db
+
+# Windows image file caches
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Mappen van Visual Studio-solutions
+.vs/
