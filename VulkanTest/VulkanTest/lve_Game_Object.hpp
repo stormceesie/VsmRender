@@ -17,9 +17,16 @@ namespace lve {
 		}
 	};
 
+	struct RigidBody2dComponent {
+		glm::vec2 velocity{ 0,0 };
+		float mass{ 0.5f };
+	};
+
 	class LveGameObject {
 	public:
+
 		using id_t = unsigned int;
+		RigidBody2dComponent rigidBody2d;
 
 		static LveGameObject createGameObject() {
 			static id_t currentId = 0;
@@ -41,7 +48,5 @@ namespace lve {
 		LveGameObject(id_t objId) : id{ objId } {}
 
 		id_t id;
-
-
 	};
 }
