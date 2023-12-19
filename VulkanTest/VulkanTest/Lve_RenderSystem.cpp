@@ -13,7 +13,7 @@ namespace lve {
 
 	struct SimplePushConstantData {
 		glm::mat4 transform{ 1.f };
-		alignas(16) glm::vec3 color;
+		glm::mat4 normalMatrix{ 1.f };
 	};
 
 	LveRenderSystem::LveRenderSystem(LveDevice& device, VkRenderPass renderPass) : lveDevice{device} {
@@ -58,26 +58,27 @@ namespace lve {
 			pipelineConfig);
 	}
 
-	void LveRenderSystem::renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LveGameObject>& gameObjects, const LveCamera& camera) {
-		lvePipeline->bind(commandBuffer);
+	void LveRenderSystem::renderGameObjects(FrameInfo &frameInfo, std::vector<LveGameObject>& gameObjects) {
+		lvePipeline->bind(frameInfo.commandBuffer);
 
-		auto projectView = camera.getProjection() * camera.getView();
+		auto projectView = frameInfo.camera.getProjection() * frameInfo.camera.getView();
 
 		for (auto& obj : gameObjects) {
 			SimplePushConstantData push{};
-			push.color = obj.color;
-			push.transform = projectView * obj.transform.mat4();
+			auto modelMatrix = obj.transform.mat4();
+			push.transform = projectView * modelMatrix;
+			push.normalMatrix = obj.transform.normalMatrix();
 
 			vkCmdPushConstants(
-				commandBuffer,
+				frameInfo.commandBuffer,
 				pipelineLayout,
 				VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
 				0,
 				sizeof(SimplePushConstantData),
 				&push);
 
-			obj.model->bind(commandBuffer);
-			obj.model->draw(commandBuffer);
+			obj.model->bind(frameInfo.commandBuffer);
+			obj.model->draw(frameInfo.commandBuffer);
 		}
 	}
 }
