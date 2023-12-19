@@ -146,6 +146,7 @@
     <ClCompile Include="keyboard_movement_controller.cpp" />
     <ClCompile Include="lve_buffer.cpp" />
     <ClCompile Include="Lve_Camera.cpp" />
+    <ClCompile Include="lve_descriptor.cpp" />
     <ClCompile Include="lve_Game_Object.cpp" />
     <ClCompile Include="Lve_Renderer.cpp" />
     <ClCompile Include="Lve_RenderSystem.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="first_app.hpp" />
     <ClInclude Include="keyboard_movement_controller.hpp" />
     <ClInclude Include="lve_buffer.hpp" />
+    <ClInclude Include="lve_descriptor.hpp" />
     <ClInclude Include="lve_frame_info.hpp" />
     <ClInclude Include="Lve_Renderer.hpp" />
     <ClInclude Include="Lve_RenderSystem.hpp" />

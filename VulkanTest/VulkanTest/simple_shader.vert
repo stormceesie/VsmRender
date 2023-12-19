@@ -6,23 +6,34 @@ layout(location = 3) in vec2 uv;
 
 layout(location = 0) out vec3 fragColor;
 
+layout(set = 0, binding = 0) uniform GlobalUbo {
+	mat4 projectionViewMatrix;
+	vec4 ambientLightColor;
+	vec3 lightPosition;
+	vec4 lightColor;
+} ubo;
+
 // only 2 mat4 can be used to garentee that all platforms can run!
 // this can be changed when the engine is ran on a specific system where you know the limit of
 
 layout(push_constant) uniform Push{
-    mat4 transform; // projection * view * model
+    mat4 modelMatrix; // projection * view * model
 	mat4 normalMatrix;
 } push;
 
-const vec3 DIRECTION_TO_LIGHT = normalize(vec3(1.0, -3.0, -1.0));
-const float AMBIENT = 0.02; // Add a small amount of light to the 3D model to create a better simulation of read light (indirect lighting)
-
 void main() {
-	gl_Position = push.transform * vec4(position, 1.0);
+	vec4 positionWorld = push.modelMatrix * vec4(position , 1.0);
+	gl_Position = ubo.projectionViewMatrix * push.modelMatrix * vec4(position, 1.0);
 
 	vec3 normalWorldSpace = normalize(mat3(push.normalMatrix) * normal);
 
-	float lightItensity = AMBIENT + max(dot(normalWorldSpace, DIRECTION_TO_LIGHT), 0);
+	vec3 directionToLight = ubo.lightPosition - positionWorld.xyz;
+	float attenuation = 1.0 / dot(directionToLight, directionToLight);
 
-	fragColor = lightItensity * color;
+	vec3 lightColor = ubo.lightColor.xyz * ubo.lightColor.w * attenuation;
+	vec3 ambientLight = ubo.ambientLightColor.xyz * ubo.ambientLightColor.w;
+
+	vec3 diffuseLight = lightColor * max(dot(normalWorldSpace, normalize(directionToLight)), 0);
+
+	fragColor = (diffuseLight + ambientLight) * color;
 }

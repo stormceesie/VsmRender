@@ -9,6 +9,7 @@
 #include "lve_swap_chain.hpp"
 #include "lve_Game_Object.hpp"
 #include "Lve_Renderer.hpp"
+#include "lve_descriptor.hpp"
 
 namespace lve {
 	class FirstApp {
@@ -29,6 +30,9 @@ namespace lve {
 		LveWindow lveWindow{ WIDTH, HEIGHT, "Voortman 3D renderer" };
 		LveDevice lveDevice{ lveWindow };
 		LveRenderer lveRenderer{ lveWindow, lveDevice };
+
+		// Order of declaration matters !
+		std::unique_ptr<LveDescriptorPool> globalPool{};
 		std::vector<LveGameObject> gameObjects;
 	};
 }

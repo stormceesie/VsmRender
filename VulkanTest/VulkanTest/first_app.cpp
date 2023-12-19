@@ -15,12 +15,24 @@
 
 namespace lve {
 
+    // make sure to use 16 bytes otherwise there will be gaps
     struct GlobalUbo {
         glm::mat4 projectionView{ 1.f };
-        glm::vec3 lightDirection = glm::normalize(glm::vec3{ 1.f, -3.f, -1.f });
+
+        glm::vec4 ambientLightColor{ 1.f, 1.f, 1.f, .02f };
+
+        glm::vec3 lightPosition{ -1.f };
+        alignas(16) glm::vec4 lightColor{ 1.f};
     };
 
-    FirstApp::FirstApp() { loadGameObjects(); }
+    FirstApp::FirstApp() {
+        globalPool = LveDescriptorPool::Builder(lveDevice)
+            .setMaxSets(LveSwapChain::MAX_FRAMES_IN_FLIGHT)
+            .addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, LveSwapChain::MAX_FRAMES_IN_FLIGHT)
+            .build();
+
+        loadGameObjects();
+    }
 
     FirstApp::~FirstApp() {}
 
@@ -37,7 +49,19 @@ namespace lve {
             uboBuffers[i]->map();
         }
 
-        LveRenderSystem RenderSystem{ lveDevice, lveRenderer.getSwapChainRenderPass() };
+        auto globalSetLayout = LveDescriptorSetLayout::Builder(lveDevice)
+            .addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT)
+            .build();
+
+        std::vector<VkDescriptorSet> globalDescriptorSets(LveSwapChain::MAX_FRAMES_IN_FLIGHT);
+        for (int i = 0; i < globalDescriptorSets.size(); i++) {
+            auto bufferInfo = uboBuffers[i]->descriptorInfo();
+            LveDescriptorWriter(*globalSetLayout, *globalPool)
+                .writeBuffer(0, &bufferInfo)
+                .build(globalDescriptorSets[i]);
+        }
+
+        LveRenderSystem RenderSystem{ lveDevice, lveRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
         LveCamera camera{};
 
         camera.setViewTarget(glm::vec3(-1.f, -2.f, 2.f), glm::vec3(0.f, 0.f, 2.5f));
@@ -68,7 +92,8 @@ namespace lve {
                     frameIndex,
                     frameTime,
                     commandBuffer,
-                    camera
+                    camera,
+                    globalDescriptorSets[frameIndex]
                 };
 
                 // update
@@ -96,7 +121,7 @@ namespace lve {
 
         auto gameObj = LveGameObject::createGameObject();
         gameObj.model = lveModel;
-        gameObj.transform.translation = { -.5f, .5f, 2.5f };
+        gameObj.transform.translation = { -.5f, .5f, 0.0f };
         gameObj.transform.scale = glm::vec3(3.f);
 
         gameObjects.push_back(std::move(gameObj));
@@ -105,9 +130,18 @@ namespace lve {
 
         auto smoothvase = LveGameObject::createGameObject();
         smoothvase.model = lveModel;
-        smoothvase.transform.translation = { .5f, .5f, 2.5f };
+        smoothvase.transform.translation = { .5f, .5f, 0.0f };
         smoothvase.transform.scale = glm::vec3(3.f);
 
         gameObjects.push_back(std::move(smoothvase));
+
+        lveModel = LveModel::createModelFromFile(lveDevice, "Models/quad.obj");
+
+        auto floor = LveGameObject::createGameObject();
+        floor.model = lveModel;
+        floor.transform.translation = { .0f, .5f, 0.0f };
+        floor.transform.scale = glm::vec3(3.f, 1.f, 3.f);
+
+        gameObjects.push_back(std::move(floor));
     }
 }
