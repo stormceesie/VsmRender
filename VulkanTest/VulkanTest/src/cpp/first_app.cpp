@@ -2,8 +2,8 @@
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
-#include "Lve_RenderSystem.hpp"
-#include "Lve_Camera.hpp"
+#include "lve_rendersystem.hpp"
+#include "lve_Camera.hpp"
 #include "keyboard_movement_controller.hpp"
 #include "lve_buffer.hpp"
 
@@ -93,7 +93,8 @@ namespace lve {
                     frameTime,
                     commandBuffer,
                     camera,
-                    globalDescriptorSets[frameIndex]
+                    globalDescriptorSets[frameIndex],
+                    gameObjects
                 };
 
                 // update
@@ -107,7 +108,7 @@ namespace lve {
                 // render
 
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
-                RenderSystem.renderGameObjects(frameInfo, gameObjects);
+                RenderSystem.renderGameObjects(frameInfo);
                 lveRenderer.endSwapChainRenderPass(commandBuffer);
                 lveRenderer.endFrame();
             }
@@ -124,7 +125,7 @@ namespace lve {
         gameObj.transform.translation = { -.5f, .5f, 0.0f };
         gameObj.transform.scale = glm::vec3(3.f);
 
-        gameObjects.push_back(std::move(gameObj));
+        gameObjects.emplace(gameObj.getId(), std::move(gameObj));
 
         lveModel = LveModel::createModelFromFile(lveDevice, "Models/smooth_vase.obj");
 
@@ -133,7 +134,7 @@ namespace lve {
         smoothvase.transform.translation = { .5f, .5f, 0.0f };
         smoothvase.transform.scale = glm::vec3(3.f);
 
-        gameObjects.push_back(std::move(smoothvase));
+        gameObjects.emplace(smoothvase.getId(), std::move(smoothvase));
 
         lveModel = LveModel::createModelFromFile(lveDevice, "Models/quad.obj");
 
@@ -142,6 +143,6 @@ namespace lve {
         floor.transform.translation = { .0f, .5f, 0.0f };
         floor.transform.scale = glm::vec3(3.f, 1.f, 3.f);
 
-        gameObjects.push_back(std::move(floor));
+        gameObjects.emplace(floor.getId(), std::move(floor));
     }
 }

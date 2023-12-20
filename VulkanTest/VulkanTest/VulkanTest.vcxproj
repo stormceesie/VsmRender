@@ -105,17 +105,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;C:\Git\VsmRender\VulkanTest\headers;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;$(ProjectDir)src\headers;$(ProjectDir)external;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\VulkanSDK\1.3.268.0\Lib;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(ProjectDir)compile.bat"</Command>
+      <Command>call "$(ProjectDir)shaders\compile.bat"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -126,7 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;C:\Git\VsmRender\VulkanTest\headers;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;$(ProjectDir)src\headers;$(ProjectDir)external;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -134,50 +134,58 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\VulkanSDK\1.3.268.0\Lib;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(ProjectDir)compile.bat"</Command>
+      <Command>call "$(ProjectDir)shaders\compile.bat"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="first_app.cpp" />
-    <ClCompile Include="keyboard_movement_controller.cpp" />
-    <ClCompile Include="lve_buffer.cpp" />
-    <ClCompile Include="Lve_Camera.cpp" />
-    <ClCompile Include="lve_descriptor.cpp" />
-    <ClCompile Include="lve_Game_Object.cpp" />
-    <ClCompile Include="Lve_Renderer.cpp" />
-    <ClCompile Include="Lve_RenderSystem.cpp" />
-    <ClCompile Include="Lve_Window.cpp" />
-    <ClCompile Include="lve_model.cpp" />
-    <ClCompile Include="lve_pipeline.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="lve_device.cpp" />
-    <ClCompile Include="lve_swap_chain.cpp" />
+    <ClCompile Include="src\cpp\first_app.cpp" />
+    <ClCompile Include="src\cpp\keyboard_movement_controller.cpp" />
+    <ClCompile Include="src\cpp\lve_buffer.cpp" />
+    <ClCompile Include="src\cpp\lve_camera.cpp" />
+    <ClCompile Include="src\cpp\lve_descriptor.cpp" />
+    <ClCompile Include="src\cpp\lve_game_object.cpp" />
+    <ClCompile Include="src\cpp\lve_renderer.cpp" />
+    <ClCompile Include="src\cpp\lve_rendersystem.cpp" />
+    <ClCompile Include="src\cpp\lve_window.cpp" />
+    <ClCompile Include="src\cpp\lve_model.cpp" />
+    <ClCompile Include="src\cpp\lve_pipeline.cpp" />
+    <ClCompile Include="src\cpp\main.cpp" />
+    <ClCompile Include="src\cpp\lve_device.cpp" />
+    <ClCompile Include="src\cpp\lve_swap_chain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="first_app.hpp" />
-    <ClInclude Include="keyboard_movement_controller.hpp" />
-    <ClInclude Include="lve_buffer.hpp" />
-    <ClInclude Include="lve_descriptor.hpp" />
-    <ClInclude Include="lve_frame_info.hpp" />
-    <ClInclude Include="Lve_Renderer.hpp" />
-    <ClInclude Include="Lve_RenderSystem.hpp" />
-    <ClInclude Include="Lve_Camera.hpp" />
-    <ClInclude Include="lve_Game_Object.hpp" />
-    <ClInclude Include="Lve_utils.hpp" />
-    <ClInclude Include="Lve_Window.hpp" />
-    <ClInclude Include="lve_model.hpp" />
-    <ClInclude Include="lve_pipeline.hpp" />
-    <ClInclude Include="lve_device.hpp" />
-    <ClInclude Include="lve_swap_chain.hpp" />
+    <ClInclude Include="src\headers\first_app.hpp" />
+    <ClInclude Include="src\headers\keyboard_movement_controller.hpp" />
+    <ClInclude Include="src\headers\lve_buffer.hpp" />
+    <ClInclude Include="src\headers\lve_descriptor.hpp" />
+    <ClInclude Include="src\headers\lve_frame_info.hpp" />
+    <ClInclude Include="src\headers\lve_renderer.hpp" />
+    <ClInclude Include="src\headers\lve_rendersystem.hpp" />
+    <ClInclude Include="src\headers\Lve_camera.hpp" />
+    <ClInclude Include="src\headers\lve_game_object.hpp" />
+    <ClInclude Include="src\headers\Lve_utils.hpp" />
+    <ClInclude Include="src\headers\lve_window.hpp" />
+    <ClInclude Include="src\headers\lve_model.hpp" />
+    <ClInclude Include="src\headers\lve_pipeline.hpp" />
+    <ClInclude Include="src\headers\lve_device.hpp" />
+    <ClInclude Include="src\headers\lve_swap_chain.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="compile.bat" />
-    <None Include="simple_shader.frag" />
-    <None Include="simple_shader.vert" />
+    <None Include=".env.cmake" />
+    <None Include="envUnixExample.cmake" />
+    <None Include="envWindowsExample.cmake" />
+    <None Include="mingwBuild.bat" />
+    <None Include="shaders\compile.bat" />
+    <None Include="shaders\simple_shader.frag" />
+    <None Include="shaders\simple_shader.vert" />
+    <None Include="WindowsBuild.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

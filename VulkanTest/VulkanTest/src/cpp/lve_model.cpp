@@ -1,6 +1,6 @@
 #include "lve_model.hpp"
 #include <stddef.h>
-#include "Lve_utils.hpp"
+#include "lve_utils.hpp"
 
 #define TINYOBJLOADER_IMPLEMENTATION
 
@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include <cstring>
 #include <cassert>
+
 
 namespace std {
 	template <>

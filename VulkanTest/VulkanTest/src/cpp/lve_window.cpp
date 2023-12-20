@@ -1,4 +1,4 @@
-#include "Lve_Window.hpp"
+#include "lve_window.hpp"
 #include "stdexcept"
 
 namespace lve {
