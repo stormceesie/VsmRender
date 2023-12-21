@@ -142,37 +142,39 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\cpp\first_app.cpp" />
-    <ClCompile Include="src\cpp\keyboard_movement_controller.cpp" />
-    <ClCompile Include="src\cpp\lve_buffer.cpp" />
-    <ClCompile Include="src\cpp\lve_camera.cpp" />
-    <ClCompile Include="src\cpp\lve_descriptor.cpp" />
-    <ClCompile Include="src\cpp\lve_game_object.cpp" />
-    <ClCompile Include="src\cpp\lve_renderer.cpp" />
-    <ClCompile Include="src\cpp\lve_rendersystem.cpp" />
-    <ClCompile Include="src\cpp\lve_window.cpp" />
-    <ClCompile Include="src\cpp\lve_model.cpp" />
-    <ClCompile Include="src\cpp\lve_pipeline.cpp" />
-    <ClCompile Include="src\cpp\main.cpp" />
-    <ClCompile Include="src\cpp\lve_device.cpp" />
-    <ClCompile Include="src\cpp\lve_swap_chain.cpp" />
+    <ClCompile Include="src\first_app.cpp" />
+    <ClCompile Include="src\keyboard_movement_controller.cpp" />
+    <ClCompile Include="src\lve_buffer.cpp" />
+    <ClCompile Include="src\lve_camera.cpp" />
+    <ClCompile Include="src\lve_descriptor.cpp" />
+    <ClCompile Include="src\lve_game_object.cpp" />
+    <ClCompile Include="src\lve_renderer.cpp" />
+    <ClCompile Include="src\systems\lve_rendersystem.cpp" />
+    <ClCompile Include="src\lve_window.cpp" />
+    <ClCompile Include="src\lve_model.cpp" />
+    <ClCompile Include="src\lve_pipeline.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\lve_device.cpp" />
+    <ClCompile Include="src\lve_swap_chain.cpp" />
+    <ClCompile Include="src\systems\point_light_system.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\headers\first_app.hpp" />
-    <ClInclude Include="src\headers\keyboard_movement_controller.hpp" />
-    <ClInclude Include="src\headers\lve_buffer.hpp" />
-    <ClInclude Include="src\headers\lve_descriptor.hpp" />
-    <ClInclude Include="src\headers\lve_frame_info.hpp" />
-    <ClInclude Include="src\headers\lve_renderer.hpp" />
-    <ClInclude Include="src\headers\lve_rendersystem.hpp" />
-    <ClInclude Include="src\headers\Lve_camera.hpp" />
-    <ClInclude Include="src\headers\lve_game_object.hpp" />
-    <ClInclude Include="src\headers\Lve_utils.hpp" />
-    <ClInclude Include="src\headers\lve_window.hpp" />
-    <ClInclude Include="src\headers\lve_model.hpp" />
-    <ClInclude Include="src\headers\lve_pipeline.hpp" />
-    <ClInclude Include="src\headers\lve_device.hpp" />
-    <ClInclude Include="src\headers\lve_swap_chain.hpp" />
+    <ClInclude Include="src\first_app.hpp" />
+    <ClInclude Include="src\keyboard_movement_controller.hpp" />
+    <ClInclude Include="src\lve_buffer.hpp" />
+    <ClInclude Include="src\lve_descriptor.hpp" />
+    <ClInclude Include="src\lve_frame_info.hpp" />
+    <ClInclude Include="src\lve_renderer.hpp" />
+    <ClInclude Include="src\systems\lve_rendersystem.hpp" />
+    <ClInclude Include="src\Lve_camera.hpp" />
+    <ClInclude Include="src\lve_game_object.hpp" />
+    <ClInclude Include="src\Lve_utils.hpp" />
+    <ClInclude Include="src\lve_window.hpp" />
+    <ClInclude Include="src\lve_model.hpp" />
+    <ClInclude Include="src\lve_pipeline.hpp" />
+    <ClInclude Include="src\lve_device.hpp" />
+    <ClInclude Include="src\lve_swap_chain.hpp" />
+    <ClInclude Include="src\systems\point_light_system.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".env.cmake" />
@@ -180,6 +182,8 @@
     <None Include="envWindowsExample.cmake" />
     <None Include="mingwBuild.bat" />
     <None Include="shaders\compile.bat" />
+    <None Include="shaders\point_light.frag" />
+    <None Include="shaders\point_light.vert" />
     <None Include="shaders\simple_shader.frag" />
     <None Include="shaders\simple_shader.vert" />
     <None Include="WindowsBuild.bat" />
