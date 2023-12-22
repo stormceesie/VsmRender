@@ -10,6 +10,8 @@ namespace lve {
 		glm::vec3 translation{};
 		glm::vec3 scale{ 1.f, 1.f, 1.f };
 		glm::vec3 rotation{};
+		glm::vec3 velocity{};
+		float mass{};
 
         // Intrepeter left to right for Intrinsic Rotations
         // Intrepeter right to left for Extrinsic Rotations
@@ -20,6 +22,7 @@ namespace lve {
 
 	struct PointLightComponent {
 		float lightIntensity = 1.0f;
+		float mass = 100.f;
 	};
 
 	class LveGameObject {
@@ -33,7 +36,7 @@ namespace lve {
 			return LveGameObject{ currentId++ };
 		}
 
-		static LveGameObject makePointLight(float intensity = 2.f, glm::vec3 color = glm::vec3(1.f), float radius = 0.05f);
+		static LveGameObject makePointLight(float intensity = 2.f, glm::vec3 color = glm::vec3(1.f), float radius = 0.05f, float mass = 1000.f);
 
 		LveGameObject(const LveGameObject&) = delete;
 		LveGameObject& operator=(const LveGameObject&) = delete;

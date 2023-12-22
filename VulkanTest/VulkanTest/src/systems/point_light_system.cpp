@@ -64,23 +64,53 @@ namespace lve {
 	}
 
 	void point_light_system::update(FrameInfo& frameInfo, GlobalUbo& ubo) {
+		// Constanten
+		const float G = 6.67430e-10f; // Gravitatieconstante
+		const float timestep = static_cast<float>(frameInfo.frameTime);
 
-		auto rotateLight = glm::rotate(glm::mat4(1.f), frameInfo.frameTime, { 0.f,-1.f,0.f });
-		int lightIndex = 0;
+		// Verzamel alle puntlichten
+		std::vector<LveGameObject*> pointLights;
 		for (auto& kv : frameInfo.gameObjects) {
-			auto& obj = kv.second;
-			if (obj.pointLight == nullptr) continue;
-
-			assert(lightIndex < MAX_LIGHT && "Point lights exceed maximum specified");
-
-			obj.transform.translation = glm::vec3(rotateLight * glm::vec4(obj.transform.translation, 1.f));
-
-			ubo.pointLights[lightIndex].position = glm::vec4(obj.transform.translation, 1.f);
-			ubo.pointLights[lightIndex].color = glm::vec4(obj.color, obj.pointLight->lightIntensity);
-
-			lightIndex += 1;
+			if (kv.second.pointLight != nullptr) {
+				pointLights.push_back(&(kv.second));
+			}
 		}
-		ubo.numLights = lightIndex;
+
+		if (pointLights.size() < 2) return; // Er zijn minstens twee lichten nodig voor een zinvolle simulatie
+
+		// Bereken de krachten tussen alle paren van lichten
+		for (size_t i = 0; i < pointLights.size(); i++) {
+			for (size_t j = i + 1; j < pointLights.size(); j++) {
+				LveGameObject* light1 = pointLights[i];
+				LveGameObject* light2 = pointLights[j];
+
+				glm::vec3 distanceVec = light2->transform.translation - light1->transform.translation;
+				float distance = glm::length(distanceVec);
+				float forceMagnitude = G * (light1->pointLight->mass * light2->pointLight->mass) / ((distance * distance) + 0.0001);
+				glm::vec3 forceDirection = glm::normalize(distanceVec);
+
+				// Bereken de versnelling
+				glm::vec3 acceleration1 = forceDirection * (forceMagnitude / light1->pointLight->mass);
+				glm::vec3 acceleration2 = -forceDirection * (forceMagnitude / light2->pointLight->mass);
+
+				// Update snelheden
+				light1->transform.velocity += acceleration1 * timestep;
+				light2->transform.velocity += acceleration2 * timestep;
+			}
+		}
+
+		// Update posities op basis van snelheden
+		for (auto& light : pointLights) {
+			light->transform.translation += light->transform.velocity * timestep;
+
+			// Update UBO
+			int lightIndex = 0;
+			ubo.pointLights[lightIndex].position = glm::vec4(light->transform.translation, 1.f);
+			ubo.pointLights[lightIndex].color = glm::vec4(light->color, light->pointLight->lightIntensity);
+			lightIndex++;
+		}
+
+		ubo.numLights = static_cast<uint32_t>(pointLights.size());
 	}
 
 	void point_light_system::render(FrameInfo& frameInfo) {
