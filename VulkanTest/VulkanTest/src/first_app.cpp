@@ -119,34 +119,20 @@ namespace lve {
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "Models/quad.obj");
 
         // Aanmaken van het "zon" puntlicht
-        auto sunLight = LveGameObject::makePointLight(2.f, { 1.f, 1.f, 0.8f }, 0.5f, 100000000.0f);  // Grote lichtintensiteit voor de zon
+        auto sunLight = LveGameObject::makePointLight(2.f, { 1.f, 1.f, 0.8f }, 0.05f, 1000000000.0f);  // Grote lichtintensiteit voor de zon
         sunLight.transform.translation = glm::vec3(0.f, -1.f, 0.f); // Zon staat in het midden
         gameObjects.emplace(sunLight.getId(), std::move(sunLight));
 
         // Aanmaken van Mercurius
-        auto mercuryLight = LveGameObject::makePointLight(2.f, { 0.5f, 0.5f, 0.5f }, 0.02f, 550000.0f);
-        mercuryLight.transform.translation = glm::vec3(0.4f, -1.f, 0.f);
-        mercuryLight.transform.velocity = glm::vec3(0.f, 0.f, 0.4f);
+        auto mercuryLight = LveGameObject::makePointLight(2.f, { 0.5f, 0.5f, 0.5f }, 0.01f, 550000.0f);
+        mercuryLight.transform.translation = glm::vec3(0.8f, -1.f, 0.4f);
+        mercuryLight.transform.velocity = glm::vec3(0.4f, 0.3f, 0.3f);
         gameObjects.emplace(mercuryLight.getId(), std::move(mercuryLight));
 
-        // Aanmaken van Venus
-        auto venusLight = LveGameObject::makePointLight(2.f, { 0.8f, 0.7f, 0.5f }, 0.04f, 815000.0f);
-        venusLight.transform.translation = glm::vec3(0.7f, -1.f, 0.f);
-        venusLight.transform.velocity = glm::vec3(0.f, 0.f, 0.35f);
-        gameObjects.emplace(venusLight.getId(), std::move(venusLight));
-
-        // Aanmaken van de Aarde
-        auto earthLight = LveGameObject::makePointLight(2.f, { 0.1f, 0.1f, 1.f }, 0.04f, 1000000.0f);
-        earthLight.transform.translation = glm::vec3(1.0f, -1.f, 0.f);
-        earthLight.transform.velocity = glm::vec3(0.f, 0.f, 0.3f);
-        gameObjects.emplace(earthLight.getId(), std::move(earthLight));
-
-        // Aanmaken van Mars
-        auto marsLight = LveGameObject::makePointLight(2.f, { 1.f, 0.5f, 0.2f }, 0.03f, 1070000.0f);
-        marsLight.transform.translation = glm::vec3(1.5f, -1.f, 0.f);
-        marsLight.transform.velocity = glm::vec3(0.f, 0.f, 0.24f);
-        gameObjects.emplace(marsLight.getId(), std::move(marsLight));
-
+        auto mercuryLight2 = LveGameObject::makePointLight(2.f, { 0.5f, 0.5f, 0.5f }, 0.01f, 400000.0f);
+        mercuryLight2.transform.translation = glm::vec3(-0.8f, -1.f, -0.4f);
+        mercuryLight2.transform.velocity = glm::vec3(-0.4f, -0.3f, -0.3f);
+        gameObjects.emplace(mercuryLight2.getId(), std::move(mercuryLight2));
 
         {
             lveModel = LveModel::createModelFromFile(lveDevice, "Models/smooth_vase.obj");
