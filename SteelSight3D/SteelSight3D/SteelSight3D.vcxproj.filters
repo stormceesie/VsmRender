@@ -21,9 +21,21 @@
     <ClCompile Include="SteelSightApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SteelSightDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SteelSightWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SteelSightApp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SteelSightDevice.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SteelSightWindow.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
