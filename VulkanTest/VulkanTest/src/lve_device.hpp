@@ -39,17 +39,16 @@ namespace lve {
         LveDevice(LveDevice&&) = delete;
         LveDevice& operator=(LveDevice&&) = delete;
 
-        VkCommandPool getCommandPool() { return commandPool; }
-        VkDevice device() { return device_; }
-        VkSurfaceKHR surface() { return surface_; }
-        VkQueue graphicsQueue() { return graphicsQueue_; }
-        VkQueue presentQueue() { return presentQueue_; }
+        inline VkCommandPool getCommandPool() { return commandPool; }
+        inline VkDevice device() { return device_; }
+        inline VkSurfaceKHR surface() { return surface_; }
+        inline VkQueue graphicsQueue() { return graphicsQueue_; }
+        inline VkQueue presentQueue() { return presentQueue_; }
 
         SwapChainSupportDetails getSwapChainSupport() { return querySwapChainSupport(physicalDevice); }
         uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
         QueueFamilyIndices findPhysicalQueueFamilies() { return findQueueFamilies(physicalDevice); }
-        VkFormat findSupportedFormat(
-            const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+        VkFormat findSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 
         // Buffer Helper Functions
         void createBuffer(
@@ -69,8 +68,6 @@ namespace lve {
             VkMemoryPropertyFlags properties,
             VkImage& image,
             VkDeviceMemory& imageMemory);
-
-        VkPhysicalDeviceProperties properties;
 
     private:
         void createInstance();
@@ -95,6 +92,8 @@ namespace lve {
         VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
         LveWindow& window;
         VkCommandPool commandPool;
+
+        VkPhysicalDeviceProperties properties;
 
         VkDevice device_;
         VkSurfaceKHR surface_;

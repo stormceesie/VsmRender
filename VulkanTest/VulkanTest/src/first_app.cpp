@@ -118,20 +118,26 @@ namespace lve {
     void FirstApp::loadGameObjects() {
         std::shared_ptr<LveModel> lveModel = LveModel::createModelFromFile(lveDevice, "Models/quad.obj");
 
+        auto floor = LveGameObject::createGameObject();
+        floor.model = lveModel;
+        floor.transform.translation = glm::vec3(0.0f, 0.5f, 0.0f);
+        floor.transform.scale = glm::vec3(4.f);
+        gameObjects.emplace(floor.getId(), std::move(floor));
+
         // Aanmaken van het "zon" puntlicht
-        auto sunLight = LveGameObject::makePointLight(2.f, { 1.f, 1.f, 0.8f }, 0.05f, 1000000000.0f);  // Grote lichtintensiteit voor de zon
-        sunLight.transform.translation = glm::vec3(0.f, -1.f, 0.f); // Zon staat in het midden
+        auto sunLight = LveGameObject::makePointLight(2.f, { 1.f, 1.f, 0.8f }, 0.2f, 1000000000.0f);
+        sunLight.transform.translation = glm::vec3(1.5f, -1.f, 0.f); // Zon staat in het midden
         gameObjects.emplace(sunLight.getId(), std::move(sunLight));
 
         // Aanmaken van Mercurius
-        auto mercuryLight = LveGameObject::makePointLight(2.f, { 0.5f, 0.5f, 0.5f }, 0.01f, 550000.0f);
-        mercuryLight.transform.translation = glm::vec3(0.8f, -1.f, 0.4f);
-        mercuryLight.transform.velocity = glm::vec3(0.4f, 0.3f, 0.3f);
+        auto mercuryLight = LveGameObject::makePointLight(1.f, { 0.5f, 0.1f, 0.1f }, 0.03f, 550000.0f);
+        mercuryLight.transform.translation = glm::vec3(2.3f, -1.f, 0.4f);
+        mercuryLight.transform.velocity = glm::vec3(0.4f, 0.5f, 0.3f);
         gameObjects.emplace(mercuryLight.getId(), std::move(mercuryLight));
 
-        auto mercuryLight2 = LveGameObject::makePointLight(2.f, { 0.5f, 0.5f, 0.5f }, 0.01f, 400000.0f);
-        mercuryLight2.transform.translation = glm::vec3(-0.8f, -1.f, -0.4f);
-        mercuryLight2.transform.velocity = glm::vec3(-0.4f, -0.3f, -0.3f);
+        auto mercuryLight2 = LveGameObject::makePointLight(1.f, { 0.1f, 0.1f, 0.5f }, 0.03f, 400000.0f);
+        mercuryLight2.transform.translation = glm::vec3(0.7f, -1.f, -0.4f);
+        mercuryLight2.transform.velocity = glm::vec3(-0.4f, -0.5f, -0.5f);
         gameObjects.emplace(mercuryLight2.getId(), std::move(mercuryLight2));
 
         {

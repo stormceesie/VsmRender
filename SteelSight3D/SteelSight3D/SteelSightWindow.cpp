@@ -1,5 +1,7 @@
 #include "SteelSightWindow.hpp"
 #include <stdexcept>
+#include "imgui.h"
+#include <stdio.h>
 
 namespace Voortman {
 	SteelSightWindow::SteelSightWindow(int w, int h, const std::string& name) : width{ w }, height{ h }, windowName{ name } {

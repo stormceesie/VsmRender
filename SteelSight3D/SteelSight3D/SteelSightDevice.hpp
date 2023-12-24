@@ -4,6 +4,13 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <limits>
+
+// Here define if you want to use MAILBOX_MODE mode or IMMEDIATE_MODE
+// Code will try to choose if this is available
+// #define MAILBOX_MODE
+// #define IMMEDIATE_MODE
 
 namespace Voortman {
 	struct SwapChainSupportDetails {
@@ -31,6 +38,27 @@ namespace Voortman {
 
 		inline VkCommandPool getCommandPool() { return commandPool; }
 		inline VkDevice device() { return device_; }
+		inline VkSurfaceKHR surface() { return surface_; }
+		inline VkQueue graphicsQueue() { return graphicsQueue_; }
+		inline VkQueue presentQueue() { return presentQueue_; }
+
+		SwapChainSupportDetails getSwapChainSupport() { return querySwapChainSupport(physicalDevice); }
+		uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
+		QueueFamilyIndices findPhysicalQueueFamilies() { return findQueueFamilies(physicalDevice); }
+		VkFormat findSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+
+		void createImageWithInfo(
+			const VkImageCreateInfo& imageInfo,
+			VkMemoryPropertyFlags properties,
+			VkImage& image,
+			VkDeviceMemory& imageMemory);
+
+		void createBuffer(
+			VkDeviceSize size,
+			VkBufferUsageFlags usage,
+			VkMemoryPropertyFlags properties,
+			VkBuffer& buffer,
+			VkDeviceMemory& bufferMemory);
 
 	private:
 		// Don't build any functions or variables related to validation layers
@@ -60,11 +88,20 @@ namespace Voortman {
 		QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
 		bool checkDeviceExtensionSupport(VkPhysicalDevice device);
 		SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
+		VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
+		VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
+		VkCommandBuffer beginSingleTimeCommands();
+		void endSingleTimeCommands(VkCommandBuffer commandBuffer);
+		void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
+		void copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, uint32_t layerCount);
+
 		void createSurface();
 		void CreateInstance();
 		void CreateLogicalDevice();
 		void setupDebugMessenger();
 		void pickPhysicalDevice();
+		void createCommandPool();
+		void createFramebuffers();
 		std::vector<const char*> getRequiredExtensions();
 	};
 }

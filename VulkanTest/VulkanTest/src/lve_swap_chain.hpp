@@ -23,18 +23,20 @@ class LveSwapChain {
   LveSwapChain(const LveSwapChain &) = delete;
   LveSwapChain& operator=(const LveSwapChain &) = delete;
 
-  VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
-  VkRenderPass getRenderPass() { return renderPass; }
-  VkImageView getImageView(int index) { return swapChainImageViews[index]; }
-  size_t imageCount() { return swapChainImages.size(); }
-  VkFormat getSwapChainImageFormat() { return swapChainImageFormat; }
-  VkExtent2D getSwapChainExtent() { return swapChainExtent; }
-  uint32_t width() { return swapChainExtent.width; }
-  uint32_t height() { return swapChainExtent.height; }
+  // Small functions can be inline for less overhead
+  inline VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
+  inline VkRenderPass getRenderPass() { return renderPass; }
+  inline VkImageView getImageView(int index) { return swapChainImageViews[index]; }
+  inline size_t imageCount() { return swapChainImages.size(); }
+  inline VkFormat getSwapChainImageFormat() { return swapChainImageFormat; }
+  inline VkExtent2D getSwapChainExtent() { return swapChainExtent; }
+  inline uint32_t width() { return swapChainExtent.width; }
+  inline uint32_t height() { return swapChainExtent.height; }
 
-  float extentAspectRatio() {
+  inline float extentAspectRatio() {
     return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height);
   }
+
   VkFormat findDepthFormat();
 
   VkResult acquireNextImage(uint32_t *imageIndex);
@@ -46,7 +48,7 @@ class LveSwapChain {
   }
 
  private:
-     void init();
+  void init();
   void createSwapChain();
   void createImageViews();
   void createDepthResources();

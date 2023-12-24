@@ -15,6 +15,7 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "SteelSightRenderer.hpp"
 #include "SteelSightDevice.hpp"
 
 namespace Voortman {
@@ -42,5 +43,6 @@ namespace Voortman {
 
 		SteelSightWindow SSWindow{ WIDTH, HEIGHT, "Voortman SteelSight3D" };
 		SteelSightDevice SSDevice{ SSWindow };
+		SteelSightRenderer VSMRenderer{ SSWindow, SSDevice };
 	};
 }
