@@ -113,6 +113,9 @@
       <AdditionalLibraryDirectories>C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\VulkanSDK\1.3.268.0\Lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>call "$(ProjectDir)shaders\compile.bat"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -126,37 +129,54 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\VulkanSDK\1.3.268.0\Lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>call "$(ProjectDir)shaders\compile.bat"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SteelSight3D.cpp" />
     <ClCompile Include="SteelSightApp.cpp" />
     <ClCompile Include="SteelSightBuffer.cpp" />
+    <ClCompile Include="SteelSightCamera.cpp" />
+    <ClCompile Include="SteelSightCameraMovement.cpp" />
+    <ClCompile Include="SteelSightDescriptor.cpp" />
     <ClCompile Include="SteelSightDevice.cpp" />
     <ClCompile Include="SteelSightModel.cpp" />
     <ClCompile Include="SteelSightPipeline.cpp" />
     <ClCompile Include="SteelSightRenderer.cpp" />
     <ClCompile Include="SteelSightRenderSystem.cpp" />
+    <ClCompile Include="SteelSightSimulationObject.cpp" />
     <ClCompile Include="SteelSightSwapChain.cpp" />
     <ClCompile Include="SteelSightWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SteelSightApp.hpp" />
     <ClInclude Include="SteelSightBuffer.hpp" />
+    <ClInclude Include="SteelSightCamera.hpp" />
+    <ClInclude Include="SteelSightCameraMovement.hpp" />
+    <ClInclude Include="SteelSightDescriptor.hpp" />
     <ClInclude Include="SteelSightDevice.hpp" />
+    <ClInclude Include="SteelSightFrameInfo.hpp" />
     <ClInclude Include="SteelSightModel.hpp" />
     <ClInclude Include="SteelSightPipeline.hpp" />
     <ClInclude Include="SteelSightRenderer.hpp" />
     <ClInclude Include="SteelSightRenderSystem.hpp" />
+    <ClInclude Include="SteelSightSimulationObject.hpp" />
     <ClInclude Include="SteelSightSwapChain.hpp" />
     <ClInclude Include="SteelSightUtils.hpp" />
     <ClInclude Include="SteelSightWindow.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\compile.bat" />
+    <None Include="shaders\simple_shader.frag" />
+    <None Include="shaders\simple_shader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

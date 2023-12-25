@@ -47,7 +47,7 @@ namespace Voortman {
 
         void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule);
 
-        SteelSightDevice& lveDevice;
+        SteelSightDevice& SSDevice;
         VkPipeline graphicsPipeline;
         VkShaderModule vertShaderModule;
         VkShaderModule fragShaderModule;

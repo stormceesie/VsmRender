@@ -15,8 +15,18 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "SteelSightWindow.hpp"
+#include "SteelSightModel.hpp"
 #include "SteelSightRenderer.hpp"
 #include "SteelSightDevice.hpp"
+#include "SteelSightPipeline.hpp"
+#include "SteelSightSwapChain.hpp"
+#include "SteelSightSimulationObject.hpp"
+#include "SteelSightDescriptor.hpp"
+#include "SteelSightFrameInfo.hpp"
+#include "SteelSightRenderSystem.hpp"
+#include "SteelSightCameraMovement.hpp"
+
 
 namespace Voortman {
 	constexpr uint32_t WIDTH{ 800 };
@@ -39,10 +49,14 @@ namespace Voortman {
 		SteelSightApp& operator=(const SteelSightApp&) = delete;
 
 	private:
-		void mainLoop();
+		void loadSimulationObjects();
 
 		SteelSightWindow SSWindow{ WIDTH, HEIGHT, "Voortman SteelSight3D" };
 		SteelSightDevice SSDevice{ SSWindow };
 		SteelSightRenderer VSMRenderer{ SSWindow, SSDevice };
+
+		// Order matters !
+		std::unique_ptr<SteelSightDescriptorPool> globalPool{};
+		SteelSightSimulationObject::map SimulationObjects;
 	};
 }

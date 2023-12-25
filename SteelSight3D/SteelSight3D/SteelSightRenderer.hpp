@@ -53,5 +53,4 @@ namespace Voortman {
 		int currentFrameIndex{ 0 };
 		bool isFrameStarted{ false };
 	};
-
 }
