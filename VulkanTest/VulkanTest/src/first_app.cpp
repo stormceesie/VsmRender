@@ -122,7 +122,7 @@ namespace lve {
         gameObjects.emplace(floor.getId(), std::move(floor));
 
         // Aanmaken van het "zon" puntlicht
-        auto sunLight = LveGameObject::makePointLight(2.f, { 1.f, 1.f, 0.8f }, 0.2f, 1000000000.0f);
+        auto sunLight = LveGameObject::makePointLight(0.f, { 0.f, 0.f, 0.f }, 0.2f, 1000000000.0f);
         sunLight.transform.translation = glm::vec3(1.5f, -1.f, 0.f); // Zon staat in het midden
         gameObjects.emplace(sunLight.getId(), std::move(sunLight));
 
@@ -136,6 +136,11 @@ namespace lve {
         mercuryLight2.transform.translation = glm::vec3(0.7f, -1.f, -0.4f);
         mercuryLight2.transform.velocity = glm::vec3(-0.4f, -0.5f, -0.5f);
         gameObjects.emplace(mercuryLight2.getId(), std::move(mercuryLight2));
+
+        auto mercuryLight3 = LveGameObject::makePointLight(1.f, { 0.1f, 0.5f, 0.1f }, 0.03f, 400000.0f);
+        mercuryLight3.transform.translation = glm::vec3(0.8f, -1.f, 0.6f);
+        mercuryLight3.transform.velocity = glm::vec3(-0.4f, 0.6f, 0.2f);
+        gameObjects.emplace(mercuryLight3.getId(), std::move(mercuryLight3));
 
         {
             lveModel = LveModel::createModelFromFile(lveDevice, "Models/smooth_vase.obj");

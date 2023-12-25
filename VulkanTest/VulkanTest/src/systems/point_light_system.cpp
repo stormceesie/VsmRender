@@ -101,18 +101,20 @@ namespace lve {
 			}
 		}
 
-		// Update posities op basis van snelheden
+		int lightIndex = 0;
 		for (auto& light : pointLights) {
 			light->transform.translation += light->transform.velocity * timestep;
 
+			// Zorg ervoor dat je niet meer lichten verwerkt dan MAX_LIGHTS
+			if (lightIndex >= MAX_LIGHTS) break;
+
 			// Update UBO
-			int lightIndex = 0;
 			ubo.pointLights[lightIndex].position = glm::vec4(light->transform.translation, 1.f);
 			ubo.pointLights[lightIndex].color = glm::vec4(light->color, light->pointLight->lightIntensity);
 			lightIndex++;
 		}
 
-		ubo.numLights = static_cast<uint32_t>(pointLights.size());
+		ubo.numLights = static_cast<uint32_t>(lightIndex);
 	}
 
 	void point_light_system::render(FrameInfo& frameInfo) {
