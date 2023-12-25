@@ -49,7 +49,7 @@ namespace Voortman {
 		void createVertexBuffers(const std::vector<Vertex>& verteces);
 		void createIndexBuffers(const std::vector<uint32_t>& indices);
 
-		SteelSightDevice& lveDevice;
+		SteelSightDevice& SSDevice;
 
 		std::unique_ptr<SteelSightBuffer> vertexBuffer;
 		uint32_t vertexCount;

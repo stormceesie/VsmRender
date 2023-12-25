@@ -36,11 +36,13 @@ namespace lve {
   
   LveSwapChain::~LveSwapChain() {
     for (auto imageView : swapChainImageViews) {
-      vkDestroyImageView(device.device(), imageView, nullptr);
+        if (imageView) {
+            vkDestroyImageView(device.device(), imageView, nullptr);
+        }
     }
     swapChainImageViews.clear();
   
-    if (swapChain != nullptr) {
+    if (swapChain) {
       vkDestroySwapchainKHR(device.device(), swapChain, nullptr);
       swapChain = nullptr;
     }
@@ -55,7 +57,9 @@ namespace lve {
       vkDestroyFramebuffer(device.device(), framebuffer, nullptr);
     }
   
-    vkDestroyRenderPass(device.device(), renderPass, nullptr);
+    if (renderPass) {
+        vkDestroyRenderPass(device.device(), renderPass, nullptr);
+    }
   
     // cleanup synchronization objects
     for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {

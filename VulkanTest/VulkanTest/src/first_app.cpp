@@ -15,9 +15,6 @@
 #include <numeric>
 
 namespace lve {
-
-    
-
     FirstApp::FirstApp() {
         globalPool = LveDescriptorPool::Builder(lveDevice)
             .setMaxSets(LveSwapChain::MAX_FRAMES_IN_FLIGHT)

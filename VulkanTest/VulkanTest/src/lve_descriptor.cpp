@@ -52,7 +52,9 @@ namespace lve {
     }
 
     LveDescriptorSetLayout::~LveDescriptorSetLayout() {
-        vkDestroyDescriptorSetLayout(lveDevice.device(), descriptorSetLayout, nullptr);
+        if (descriptorSetLayout) {
+            vkDestroyDescriptorSetLayout(lveDevice.device(), descriptorSetLayout, nullptr);
+        }
     }
 
     // *************** Descriptor Pool Builder *********************
@@ -99,7 +101,9 @@ namespace lve {
     }
 
     LveDescriptorPool::~LveDescriptorPool() {
-        vkDestroyDescriptorPool(lveDevice.device(), descriptorPool, nullptr);
+        if (descriptorPool) {
+            vkDestroyDescriptorPool(lveDevice.device(), descriptorPool, nullptr);
+        }
     }
 
     bool LveDescriptorPool::allocateDescriptor(
@@ -190,7 +194,7 @@ namespace lve {
         for (auto& write : writes) {
             write.dstSet = set;
         }
-        vkUpdateDescriptorSets(pool.lveDevice.device(), writes.size(), writes.data(), 0, nullptr);
+        vkUpdateDescriptorSets(pool.lveDevice.device(), (uint32_t)writes.size(), writes.data(), 0, nullptr);
     }
 
 }  // namespace lve

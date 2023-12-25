@@ -23,7 +23,9 @@ namespace lve {
 	}
 
 	point_light_system::~point_light_system() {
-		vkDestroyPipelineLayout(lveDevice.device(), pipelineLayout, nullptr);
+		if (pipelineLayout) {
+			vkDestroyPipelineLayout(lveDevice.device(), pipelineLayout, nullptr);
+		}
 	}
 
 	void point_light_system::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
@@ -86,7 +88,7 @@ namespace lve {
 
 				glm::vec3 distanceVec = light2->transform.translation - light1->transform.translation;
 				float distance = glm::length(distanceVec);
-				float forceMagnitude = G * (light1->pointLight->mass * light2->pointLight->mass) / ((distance * distance) + 0.0001);
+				float forceMagnitude = (float)(G * (light1->pointLight->mass * light2->pointLight->mass) / ((distance * distance) + 0.0001));
 				glm::vec3 forceDirection = glm::normalize(distanceVec);
 
 				// Bereken de versnelling

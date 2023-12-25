@@ -48,8 +48,13 @@ namespace lve {
 
     LveBuffer::~LveBuffer() {
         unmap();
-        vkDestroyBuffer(lveDevice.device(), buffer, nullptr);
-        vkFreeMemory(lveDevice.device(), memory, nullptr);
+        if (buffer) {
+            vkDestroyBuffer(lveDevice.device(), buffer, nullptr);
+        }
+
+        if (memory) {
+            vkFreeMemory(lveDevice.device(), memory, nullptr);
+        }
     }
 
     /**

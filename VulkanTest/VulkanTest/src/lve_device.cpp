@@ -58,15 +58,25 @@ namespace lve {
     }
 
     LveDevice::~LveDevice() {
-        vkDestroyCommandPool(device_, commandPool, nullptr);
-        vkDestroyDevice(device_, nullptr);
+        if (commandPool) {
+            vkDestroyCommandPool(device_, commandPool, nullptr);
+        }
+
+        if (device_) {
+            vkDestroyDevice(device_, nullptr);
+        }
 
         if (enableValidationLayers) {
             DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
         }
 
-        vkDestroySurfaceKHR(instance, surface_, nullptr);
-        vkDestroyInstance(instance, nullptr);
+        if (surface_) {
+            vkDestroySurfaceKHR(instance, surface_, nullptr);
+        }
+
+        if (instance) {
+            vkDestroyInstance(instance, nullptr);
+        }
     }
 
     void LveDevice::createInstance() {

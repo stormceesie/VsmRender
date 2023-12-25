@@ -7,7 +7,9 @@ namespace lve {
 	}
 
 	LveWindow::~LveWindow() {
-		glfwDestroyWindow(window);
+		if (window) {
+			glfwDestroyWindow(window);
+		}
 		glfwTerminate();
 	}
 

@@ -34,7 +34,7 @@ namespace Voortman {
 
 	SteelSightModel::~SteelSightModel() {}
 
-	std::unique_ptr<SteelSightModel> SteelSightModel::createModelFromFile(LveDevice& device, const std::string& filepath) {
+	std::unique_ptr<SteelSightModel> SteelSightModel::createModelFromFile(SteelSightDevice& device, const std::string& filepath) {
 		Builder builder{};
 		builder.loadModel(filepath);
 
@@ -70,8 +70,8 @@ namespace Voortman {
 		VkDeviceSize bufferSize = sizeof(vertices[0]) * vertexCount;
 		uint32_t vertexSize = sizeof(vertices[0]);
 
-		LveBuffer stagingBuffer{
-			lveDevice,
+		SteelSightBuffer stagingBuffer{
+			SSDevice,
 			vertexSize,
 			vertexCount,
 			VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
@@ -81,15 +81,15 @@ namespace Voortman {
 		stagingBuffer.map();
 		stagingBuffer.writeToBuffer((void*)vertices.data());
 
-		vertexBuffer = std::make_unique<LveBuffer>(
-			lveDevice,
+		vertexBuffer = std::make_unique<SteelSightBuffer>(
+			SSDevice,
 			vertexSize,
 			vertexCount,
 			VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
 			VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT
 		);
 
-		lveDevice.copyBuffer(stagingBuffer.getBuffer(), vertexBuffer->getBuffer(), bufferSize);
+		SSDevice.copyBuffer(stagingBuffer.getBuffer(), vertexBuffer->getBuffer(), bufferSize);
 	}
 
 	void SteelSightModel::createIndexBuffers(const std::vector<uint32_t>& indices) {
@@ -103,8 +103,8 @@ namespace Voortman {
 		VkDeviceSize bufferSize = sizeof(indices[0]) * indexCount;
 		uint32_t indexSize = sizeof(indices[0]);
 
-		LveBuffer stagingBuffer{
-			lveDevice,
+		SteelSightBuffer stagingBuffer{
+			SSDevice,
 			indexSize,
 			indexCount,
 			VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
@@ -114,14 +114,14 @@ namespace Voortman {
 		stagingBuffer.map();
 		stagingBuffer.writeToBuffer((void*)indices.data());
 
-		indexBuffer = std::make_unique<LveBuffer>(
-			lveDevice,
+		indexBuffer = std::make_unique<SteelSightBuffer>(
+			SSDevice,
 			indexSize,
 			indexCount,
 			VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
 			VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
 
-		lveDevice.copyBuffer(stagingBuffer.getBuffer(), indexBuffer->getBuffer(), bufferSize);
+		SSDevice.copyBuffer(stagingBuffer.getBuffer(), indexBuffer->getBuffer(), bufferSize);
 	}
 
 	std::vector<VkVertexInputBindingDescription> SteelSightModel::Vertex::getBindingDescriptions() {
