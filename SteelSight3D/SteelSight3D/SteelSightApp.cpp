@@ -135,18 +135,19 @@ namespace Voortman {
         mercuryLight2.transform.velocity = glm::vec3(-0.4f, -0.5f, -0.5f);
         SimulationObjects.emplace(mercuryLight2.getId(), std::move(mercuryLight2));
 
-        auto mercuryLight3 = SteelSightSimulationObject::makePointLight(1.f, { 0.1f, 0.5f, 0.1f }, 0.03f, 400000.0f);
+        auto mercuryLight3 = SteelSightSimulationObject::makePointLight(0.5f, { 0.1f, 0.5f, 0.1f }, 0.03f, 400000.0f);
         mercuryLight3.transform.translation = glm::vec3(0.8f, -1.f, 0.6f);
         mercuryLight3.transform.velocity = glm::vec3(-0.4f, 0.6f, 0.2f);
         SimulationObjects.emplace(mercuryLight3.getId(), std::move(mercuryLight3));
 
         {
-            SimulationModel = SteelSightModel::createModelFromFile(SSDevice, "Models/smooth_vase.obj");
+            SimulationModel = SteelSightModel::createModelFromFile(SSDevice, "Models/Voortman3D.obj");
 
             auto smoothvase = SteelSightSimulationObject::createSimulationObject();
             smoothvase.model = SimulationModel;
-            smoothvase.transform.translation = { 0.0f, .5f, 0.0f };
-            smoothvase.transform.scale = glm::vec3(3.f);
+            smoothvase.transform.translation = { 1.0f, -0.85f, -0.5f };
+            smoothvase.transform.rotation = {3.14f + 1.57f, 3.14f, 0.f};
+            smoothvase.transform.scale = glm::vec3(0.001f);
 
             SimulationObjects.emplace(smoothvase.getId(), std::move(smoothvase));
         }
