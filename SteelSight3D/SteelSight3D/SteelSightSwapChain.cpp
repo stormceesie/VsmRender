@@ -77,7 +77,9 @@ namespace Voortman {
             vkDestroyFramebuffer(device.device(), framebuffer, nullptr);
         }
 
-        vkDestroyRenderPass(device.device(), renderpass, nullptr);
+        if (renderpass) {
+            vkDestroyRenderPass(device.device(), renderpass, nullptr);
+        }
 
         // cleanup synchronization objects
         for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {

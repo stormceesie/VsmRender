@@ -38,6 +38,7 @@ namespace lve {
 		commandBuffers.clear();
 	}
 
+	// Swap chain must be recreated when the window was resized or the window was minimalized
 	void LveRenderer::recreateSwapChain() {
 		auto extent = lveWindow.getExtent();
 		while (extent.width == 0 || extent.height == 0) {

@@ -114,7 +114,7 @@
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(ProjectDir)shaders\compile.bat"</Command>
+      <Command>call "$(ProjectDir)shaders\compile.bat</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,10 +137,11 @@
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(ProjectDir)shaders\compile.bat"</Command>
+      <Command>call "$(ProjectDir)shaders\compile.bat</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SteelSightPointLight.cpp" />
     <ClCompile Include="SteelSight3D.cpp" />
     <ClCompile Include="SteelSightApp.cpp" />
     <ClCompile Include="SteelSightBuffer.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="SteelSightWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SteelSightPointLight.hpp" />
     <ClInclude Include="SteelSightApp.hpp" />
     <ClInclude Include="SteelSightBuffer.hpp" />
     <ClInclude Include="SteelSightCamera.hpp" />
@@ -175,6 +177,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\compile.bat" />
+    <None Include="shaders\point_light.frag" />
+    <None Include="shaders\point_light.vert" />
     <None Include="shaders\simple_shader.frag" />
     <None Include="shaders\simple_shader.vert" />
   </ItemGroup>

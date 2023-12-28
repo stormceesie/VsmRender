@@ -1,36 +1,35 @@
-#include "point_light_system.hpp"
+#include "SteelSightPointLight.hpp"
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
-#include "..\lve_game_object.hpp"
+#include "SteelSightSimulationObject.hpp"
 
 #include <stdexcept>
 #include <array>
 #include <map>
 #include <iterator>
 
-namespace lve {
-
+namespace Voortman {
 	struct PointLightPushConstants {
 		glm::vec4 position{};
 		glm::vec4 color{};
 		float radius;
 	};
 
-	point_light_system::point_light_system(LveDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout) : lveDevice{ device } {
+	SteelSightPointLight::SteelSightPointLight(SteelSightDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout) : SSDevice{ device } {
 		createPipelineLayout(globalSetLayout);
 		createPipeline(renderPass);
 	}
 
-	point_light_system::~point_light_system() {
+	SteelSightPointLight::~SteelSightPointLight() {
 		if (pipelineLayout) {
-			vkDestroyPipelineLayout(lveDevice.device(), pipelineLayout, nullptr);
+			vkDestroyPipelineLayout(SSDevice.device(), pipelineLayout, nullptr);
 		}
 	}
 
-	void point_light_system::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
+	void SteelSightPointLight::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
 
 		VkPushConstantRange pushConstantRange{};
 		pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
@@ -46,36 +45,36 @@ namespace lve {
 		pipelineLayoutInfo.pushConstantRangeCount = 1;
 		pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
 
-		if (vkCreatePipelineLayout(lveDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
+		if (vkCreatePipelineLayout(SSDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
 			throw std::runtime_error("failed to create pipeline layout!");
 		}
 	}
 
-	void point_light_system::createPipeline(VkRenderPass renderPass) {
+	void SteelSightPointLight::createPipeline(VkRenderPass renderPass) {
 		assert(pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
 
 		PipelineConfigInfo pipelineConfig{};
-		LvePipeline::defaultPipelineConfigInfo(pipelineConfig);
-		LvePipeline::enableAlphaBlending(pipelineConfig);
+		SteelSightPipeline::defaultPipelineConfigInfo(pipelineConfig);
+		SteelSightPipeline::enableAlphaBlending(pipelineConfig);
 		pipelineConfig.attributeDescriptions.clear();
 		pipelineConfig.bindingDescriptions.clear();
 		pipelineConfig.renderPass = renderPass;
 		pipelineConfig.pipelineLayout = pipelineLayout;
-		lvePipeline = std::make_unique<LvePipeline>(
-			lveDevice,
+		SSPipeline = std::make_unique<SteelSightPipeline>(
+			SSDevice,
 			"shaders\\point_light.vert.spv",
 			"shaders\\point_light.frag.spv",
 			pipelineConfig);
 	}
 
-	void point_light_system::update(FrameInfo& frameInfo, GlobalUbo& ubo) {
+	void SteelSightPointLight::update(FrameInfo& frameInfo, GlobalUbo& ubo) {
 		// Constanten
 		const float G = 6.67430e-10f; // Gravitatieconstante
 		const float timestep = static_cast<float>(frameInfo.frameTime);
 
 		// Verzamel alle puntlichten
-		std::vector<LveGameObject*> pointLights;
-		for (auto& kv : frameInfo.gameObjects) {
+		std::vector<SteelSightSimulationObject*> pointLights;
+		for (auto& kv : frameInfo.simulationObjects) {
 			if (kv.second.pointLight != nullptr) {
 				pointLights.push_back(&(kv.second));
 			}
@@ -86,8 +85,8 @@ namespace lve {
 		// Bereken de krachten tussen alle paren van lichten
 		for (size_t i = 0; i < pointLights.size(); i++) {
 			for (size_t j = i + 1; j < pointLights.size(); j++) {
-				LveGameObject* light1 = pointLights[i];
-				LveGameObject* light2 = pointLights[j];
+				SteelSightSimulationObject* light1 = pointLights[i];
+				SteelSightSimulationObject* light2 = pointLights[j];
 
 				glm::vec3 distanceVec = light2->transform.translation - light1->transform.translation;
 				float distance = glm::length(distanceVec);
@@ -120,9 +119,9 @@ namespace lve {
 		ubo.numLights = static_cast<uint32_t>(lightIndex);
 	}
 
-	void point_light_system::render(FrameInfo& frameInfo) {
-		std::map<float, LveGameObject::id_t> sorted;
-		for (auto& kv : frameInfo.gameObjects) {
+	void SteelSightPointLight::render(FrameInfo& frameInfo) {
+		std::map<float, SteelSightSimulationObject::id_t> sorted;
+		for (auto& kv : frameInfo.simulationObjects) {
 			auto& obj = kv.second;
 			if (obj.pointLight == nullptr) continue;
 
@@ -131,7 +130,7 @@ namespace lve {
 			sorted[disSquared] = obj.getId();
 		}
 
-		lvePipeline->bind(frameInfo.commandBuffer);
+		SSPipeline->bind(frameInfo.commandBuffer);
 
 		vkCmdBindDescriptorSets(
 			frameInfo.commandBuffer,
@@ -145,7 +144,7 @@ namespace lve {
 
 		// iterate through sorted lights in reverse order (from back to front)
 		for (auto it = sorted.rbegin(); it != sorted.rend(); ++it) {
-			auto& obj = frameInfo.gameObjects.at(it->second);
+			auto& obj = frameInfo.simulationObjects.at(it->second);
 
 			PointLightPushConstants push{};
 			push.position = glm::vec4(obj.transform.translation, 1.f);

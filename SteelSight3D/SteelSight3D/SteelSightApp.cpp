@@ -47,6 +47,7 @@ namespace Voortman {
         }
 
         SteelSightRenderSystem RenderSystem{ SSDevice, VSMRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout() };
+        SteelSightPointLight PointLightSystem{ SSDevice, VSMRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout() };
 
         SteelSightCamera camera{};
 
@@ -88,14 +89,19 @@ namespace Voortman {
                 GlobalUbo ubo{};
                 ubo.projection = camera.getProjection();
                 ubo.view = camera.getView();
+                ubo.inverseView = camera.getInverseView();
+
+                PointLightSystem.update(frameInfo, ubo);
                 uboBuffers[frameIndex]->writeToBuffer(&ubo);
                 uboBuffers[frameIndex]->flush();
-
-
                 // render
 
                 VSMRenderer.beginSwapChainRenderPass(commandBuffer);
+
+                // Order matters here because of transperancy
+                PointLightSystem.render(frameInfo);
                 RenderSystem.renderSimulationObjects(frameInfo);
+
                 VSMRenderer.endSwapChainRenderPass(commandBuffer);
                 VSMRenderer.endFrame();
             }
@@ -105,19 +111,40 @@ namespace Voortman {
 	}
 
     void SteelSightApp::loadSimulationObjects() {
-        std::shared_ptr<SteelSightModel> Model = SteelSightModel::createModelFromFile(SSDevice, "Models/quad.obj");
+        std::shared_ptr<SteelSightModel> SimulationModel = SteelSightModel::createModelFromFile(SSDevice, "Models/quad.obj");
 
         auto floor = SteelSightSimulationObject::createSimulationObject();
-        floor.model = Model;
+        floor.model = SimulationModel;
         floor.transform.translation = glm::vec3(0.0f, 0.5f, 0.0f);
         floor.transform.scale = glm::vec3(4.f);
         SimulationObjects.emplace(floor.getId(), std::move(floor));
 
+        // Aanmaken van het "zon" puntlicht
+        auto sunLight = SteelSightSimulationObject::makePointLight(0.f, { 0.f, 0.f, 0.f }, 0.2f, 1000000000.0f);
+        sunLight.transform.translation = glm::vec3(1.5f, -1.f, 0.f); // Zon staat in het midden
+        SimulationObjects.emplace(sunLight.getId(), std::move(sunLight));
+
+        // Aanmaken van Mercurius
+        auto mercuryLight = SteelSightSimulationObject::makePointLight(1.f, { 0.5f, 0.1f, 0.1f }, 0.03f, 550000.0f);
+        mercuryLight.transform.translation = glm::vec3(2.3f, -1.f, 0.4f);
+        mercuryLight.transform.velocity = glm::vec3(0.4f, 0.5f, 0.3f);
+        SimulationObjects.emplace(mercuryLight.getId(), std::move(mercuryLight));
+
+        auto mercuryLight2 = SteelSightSimulationObject::makePointLight(1.f, { 0.1f, 0.1f, 0.5f }, 0.03f, 400000.0f);
+        mercuryLight2.transform.translation = glm::vec3(0.7f, -1.f, -0.4f);
+        mercuryLight2.transform.velocity = glm::vec3(-0.4f, -0.5f, -0.5f);
+        SimulationObjects.emplace(mercuryLight2.getId(), std::move(mercuryLight2));
+
+        auto mercuryLight3 = SteelSightSimulationObject::makePointLight(1.f, { 0.1f, 0.5f, 0.1f }, 0.03f, 400000.0f);
+        mercuryLight3.transform.translation = glm::vec3(0.8f, -1.f, 0.6f);
+        mercuryLight3.transform.velocity = glm::vec3(-0.4f, 0.6f, 0.2f);
+        SimulationObjects.emplace(mercuryLight3.getId(), std::move(mercuryLight3));
+
         {
-            Model = SteelSightModel::createModelFromFile(SSDevice, "Models/smooth_vase.obj");
+            SimulationModel = SteelSightModel::createModelFromFile(SSDevice, "Models/smooth_vase.obj");
 
             auto smoothvase = SteelSightSimulationObject::createSimulationObject();
-            smoothvase.model = Model;
+            smoothvase.model = SimulationModel;
             smoothvase.transform.translation = { 0.0f, .5f, 0.0f };
             smoothvase.transform.scale = glm::vec3(3.f);
 

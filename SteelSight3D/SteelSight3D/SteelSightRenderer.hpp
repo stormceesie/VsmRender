@@ -18,7 +18,7 @@ namespace Voortman {
 		SteelSightRenderer(const SteelSightRenderer&) = delete;
 		SteelSightRenderer& operator=(const SteelSightRenderer&) = delete;
 
-		VkRenderPass getSwapChainRenderPass() const { return SSSwapChain->getRenderPass(); }
+		inline VkRenderPass getSwapChainRenderPass() const { return SSSwapChain->getRenderPass(); }
 
 		inline float getAspectRatio() const { return SSSwapChain->extentAspectRatio(); }
 

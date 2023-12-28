@@ -99,12 +99,14 @@ namespace lve {
                 uboBuffers[frameIndex]->writeToBuffer(&ubo);
                 uboBuffers[frameIndex]->flush();
 
-
                 // render
 
                 lveRenderer.beginSwapChainRenderPass(commandBuffer);
+
+                // Order matters because of transperency
                 RenderSystem.renderGameObjects(frameInfo);
                 PointLightSystem.render(frameInfo);
+
                 lveRenderer.endSwapChainRenderPass(commandBuffer);
                 lveRenderer.endFrame();
             }

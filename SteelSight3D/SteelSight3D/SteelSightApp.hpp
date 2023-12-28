@@ -26,21 +26,14 @@
 #include "SteelSightFrameInfo.hpp"
 #include "SteelSightRenderSystem.hpp"
 #include "SteelSightCameraMovement.hpp"
+#include "SteelSightPointLight.hpp"
 
 
 namespace Voortman {
-	constexpr uint32_t WIDTH{ 800 };
-	constexpr uint32_t HEIGHT{ 600 };
-
-#ifdef _DEBUG
-	const std::vector<const char*> validationLayers = {
-	"VK_LAYER_KHRONOS_validation"
-	};
-#endif
-
 	class SteelSightApp {
 	public:
-		void run();
+		static constexpr uint32_t WIDTH{ 800 };
+		static constexpr uint32_t HEIGHT{ 600 };
 
 		SteelSightApp();
 		~SteelSightApp();
@@ -48,6 +41,7 @@ namespace Voortman {
 		SteelSightApp(const SteelSightApp&) = delete;
 		SteelSightApp& operator=(const SteelSightApp&) = delete;
 
+		void run();
 	private:
 		void loadSimulationObjects();
 

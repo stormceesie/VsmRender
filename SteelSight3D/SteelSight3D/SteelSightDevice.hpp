@@ -102,7 +102,6 @@ namespace Voortman {
 		void setupDebugMessenger();
 		void pickPhysicalDevice();
 		void createCommandPool();
-		void createFramebuffers();
 		std::vector<const char*> getRequiredExtensions();
 	};
 }

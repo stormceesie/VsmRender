@@ -16,9 +16,12 @@ namespace Voortman {
 
 		inline const glm::mat4& getProjection() const { return projectionMatrix; }
 		inline const glm::mat4& getView() const { return viewMatrix; }
+		inline const glm::mat4& getInverseView() const { return inverseViewMatrix; }
+		inline const glm::vec3 getPosition() const { return glm::vec3(inverseViewMatrix[3]); }
 
 	private:
 		glm::mat4 projectionMatrix{ 1.f };
 		glm::mat4 viewMatrix{ 1.f };
+		glm::mat4 inverseViewMatrix{ 1.f };
 	};
 }

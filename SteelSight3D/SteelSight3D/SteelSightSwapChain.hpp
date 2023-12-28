@@ -14,12 +14,12 @@ namespace Voortman {
 		SteelSightSwapChain(SteelSightDevice& deviceRef, VkExtent2D windowExtent, std::shared_ptr<SteelSightSwapChain> previous);
 		~SteelSightSwapChain();
 
-		// SteelSightSwapChain(const SteelSightSwapChain &) = delete;
+		SteelSightSwapChain(const SteelSightSwapChain &) = delete;
 		SteelSightSwapChain& operator=(const SteelSightSwapChain &) = delete;
 
-		VkFramebuffer getFrameBuffer(int index) { return swapChainFrameBuffers[index]; }
-		VkRenderPass getRenderPass() { return renderpass; }
-		VkImageView getImageView(int index) { return swapChainImageViews[index]; }
+		inline VkFramebuffer getFrameBuffer(int index) { return swapChainFrameBuffers[index]; }
+		inline VkRenderPass getRenderPass() { return renderpass; }
+		inline VkImageView getImageView(int index) { return swapChainImageViews[index]; }
 		inline size_t imageCount() { return swapChainImages.size(); }
 		inline VkFormat getSwapChainImageFormat() { return swapChainImageFormat; }
 		inline VkExtent2D getSwapChainExtent() { return swapChainExtent; }
@@ -27,15 +27,11 @@ namespace Voortman {
 		inline uint32_t height() { return swapChainExtent.height; }
 
 		inline float extentAspectRatio() { return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height); }
-		VkFormat findDepthFormat();
+		inline bool comparedSwapFormats(const SteelSightSwapChain swapChain) const { return swapChain.swapChainDepthFormat == swapChainDepthFormat && swapChain.swapChainImageFormat == swapChainImageFormat; }
 
+		VkFormat findDepthFormat();
 		VkResult acquireNextImage(uint32_t* imageIndex);
 		VkResult submitCommandBuffers(const VkCommandBuffer* buffers, uint32_t* imageIndex);
-
-		inline bool comparedSwapFormats(const SteelSightSwapChain swapChain) const {
-			return swapChain.swapChainDepthFormat == swapChainDepthFormat && swapChain.swapChainImageFormat == swapChainImageFormat;
-		}
-
 	private:
 		void init();
 		void createSwapChain();
@@ -46,10 +42,8 @@ namespace Voortman {
 		void createSyncObjects();
 
 		// Helper functions
-		VkSurfaceFormatKHR chooseSwapSurfaceFormat(
-			const std::vector<VkSurfaceFormatKHR>& availableFormats);
-		VkPresentModeKHR chooseSwapPresentMode(
-			const std::vector<VkPresentModeKHR>& availablePresentModes);
+		VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
+		VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
 		VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 
 		VkFormat swapChainImageFormat;
@@ -65,7 +59,7 @@ namespace Voortman {
 		std::vector<VkImage> swapChainImages;
 		std::vector<VkImageView> swapChainImageViews;
 
-		SteelSightDevice& device;
+		SteelSightDevice &device;
 		VkExtent2D windowExtent;
 
 		VkSwapchainKHR swapChain;
@@ -76,6 +70,6 @@ namespace Voortman {
 		std::vector<VkFence> inFlightFences;
 		std::vector<VkFence> imagesInFlight;
 
-		size_t currentFrame{ 0 };
+		size_t currentFrame = 0;
 	};
 }
