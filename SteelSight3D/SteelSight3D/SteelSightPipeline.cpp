@@ -7,12 +7,7 @@
 #include <stdexcept>
 
 namespace Voortman {
-    SteelSightPipeline::SteelSightPipeline(
-        SteelSightDevice& device,
-        const std::string& vertFilepath,
-        const std::string& fragFilepath,
-        const PipelineConfigInfo& configInfo)
-        : SSDevice{ device } {
+    SteelSightPipeline::SteelSightPipeline(SteelSightDevice& device, const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& configInfo) : SSDevice{ device } {
         createGraphicsPipeline(vertFilepath, fragFilepath, configInfo);
     }
 
@@ -156,17 +151,17 @@ namespace Voortman {
         configInfo.rasterizationInfo.cullMode = VK_CULL_MODE_NONE;
         configInfo.rasterizationInfo.frontFace = VK_FRONT_FACE_CLOCKWISE;
         configInfo.rasterizationInfo.depthBiasEnable = VK_FALSE;
-        configInfo.rasterizationInfo.depthBiasConstantFactor = 0.0f;  // Optional
-        configInfo.rasterizationInfo.depthBiasClamp = 0.0f;           // Optional
-        configInfo.rasterizationInfo.depthBiasSlopeFactor = 0.0f;     // Optional
+        configInfo.rasterizationInfo.depthBiasConstantFactor = 0.0f; 
+        configInfo.rasterizationInfo.depthBiasClamp = 0.0f;          
+        configInfo.rasterizationInfo.depthBiasSlopeFactor = 0.0f;    
 
         configInfo.multisampleInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
         configInfo.multisampleInfo.sampleShadingEnable = VK_FALSE;
         configInfo.multisampleInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
-        configInfo.multisampleInfo.minSampleShading = 1.0f;           // Optional
-        configInfo.multisampleInfo.pSampleMask = nullptr;             // Optional
-        configInfo.multisampleInfo.alphaToCoverageEnable = VK_FALSE;  // Optional
-        configInfo.multisampleInfo.alphaToOneEnable = VK_FALSE;       // Optional
+        configInfo.multisampleInfo.minSampleShading = 1.0f;          
+        configInfo.multisampleInfo.pSampleMask = nullptr;            
+        configInfo.multisampleInfo.alphaToCoverageEnable = VK_FALSE; 
+        configInfo.multisampleInfo.alphaToOneEnable = VK_FALSE;      
 
         configInfo.colorBlendAttachment.colorWriteMask =
             VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT |

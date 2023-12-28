@@ -68,11 +68,13 @@ namespace Voortman {
 	}
 
 	void SteelSightPointLight::update(FrameInfo& frameInfo, GlobalUbo& ubo) {
-		// Constanten
-		const float G = 6.67430e-10f; // Gravitatieconstante
-		const float timestep = static_cast<float>(frameInfo.frameTime);
+		// Gravitational constant enlarged by a factor of 10
+		constexpr float G = 6.67430e-10f; 
 
-		// Verzamel alle puntlichten
+		// Give a limit to the timestep to prevent that the lights move out of frame when applications stops working (Moving the app)
+		const float timestep = std::min(static_cast<float>(frameInfo.frameTime), 0.05f);
+
+		// Collect every light for easy access
 		std::vector<SteelSightSimulationObject*> pointLights;
 		for (auto& kv : frameInfo.simulationObjects) {
 			if (kv.second.pointLight != nullptr) {
@@ -80,9 +82,11 @@ namespace Voortman {
 			}
 		}
 
-		if (pointLights.size() < 2) return; // Er zijn minstens twee lichten nodig voor een zinvolle simulatie
+		// There are at least 2 lights required for this calculation
+		// If there are to many lights then return because this can become very expensive
+		if (pointLights.size() < 2 || pointLights.size() > MAX_LIGHTS) return;
 
-		// Bereken de krachten tussen alle paren van lichten
+		// Go through every pair of objects and calculate the force between them
 		for (size_t i = 0; i < pointLights.size(); i++) {
 			for (size_t j = i + 1; j < pointLights.size(); j++) {
 				SteelSightSimulationObject* light1 = pointLights[i];
@@ -90,14 +94,14 @@ namespace Voortman {
 
 				glm::vec3 distanceVec = light2->transform.translation - light1->transform.translation;
 				float distance = glm::length(distanceVec);
-				float forceMagnitude = (float)(G * (light1->pointLight->mass * light2->pointLight->mass) / ((distance * distance) + 0.0001));
+				float forceMagnitude = G * light1->pointLight->mass * light2->pointLight->mass / static_cast<float>(pow(distance, 2));
 				glm::vec3 forceDirection = glm::normalize(distanceVec);
 
-				// Bereken de versnelling
+				// Calculate the acceleration of the objects
 				glm::vec3 acceleration1 = forceDirection * (forceMagnitude / light1->pointLight->mass);
 				glm::vec3 acceleration2 = -forceDirection * (forceMagnitude / light2->pointLight->mass);
 
-				// Update snelheden
+				// Update the speed
 				light1->transform.velocity += acceleration1 * timestep;
 				light2->transform.velocity += acceleration2 * timestep;
 			}
@@ -106,9 +110,6 @@ namespace Voortman {
 		int lightIndex = 0;
 		for (auto& light : pointLights) {
 			light->transform.translation += light->transform.velocity * timestep;
-
-			// Zorg ervoor dat je niet meer lichten verwerkt dan MAX_LIGHTS
-			if (lightIndex >= MAX_LIGHTS) break;
 
 			// Update UBO
 			ubo.pointLights[lightIndex].position = glm::vec4(light->transform.translation, 1.f);

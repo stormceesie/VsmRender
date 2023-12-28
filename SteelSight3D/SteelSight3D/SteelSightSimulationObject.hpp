@@ -26,6 +26,7 @@ namespace Voortman {
 	class SteelSightSimulationObject {
 	public:
 		using id_t = unsigned int;
+		// Unordered map is used here this is fine because all the objects should fit inside cache
 		using map = std::unordered_map<id_t, SteelSightSimulationObject>;
 
 		static SteelSightSimulationObject createSimulationObject() { 

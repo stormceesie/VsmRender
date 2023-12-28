@@ -27,9 +27,7 @@ namespace Voortman {
 
     // *************** Descriptor Set Layout *********************
 
-    SteelSightDescriptorSetLayout::SteelSightDescriptorSetLayout(
-        SteelSightDevice& SSDevice, std::unordered_map<uint32_t, VkDescriptorSetLayoutBinding> bindings)
-        : SSDevice{ SSDevice }, bindings{ bindings } {
+    SteelSightDescriptorSetLayout::SteelSightDescriptorSetLayout(SteelSightDevice& SSDevice, std::unordered_map<uint32_t, VkDescriptorSetLayoutBinding> bindings) : SSDevice{ SSDevice }, bindings{ bindings } {
         std::vector<VkDescriptorSetLayoutBinding> setLayoutBindings{};
         for (auto& kv : bindings) {
             setLayoutBindings.push_back(kv.second);
@@ -57,8 +55,7 @@ namespace Voortman {
 
     // *************** Descriptor Pool Builder *********************
 
-    SteelSightDescriptorPool::Builder& SteelSightDescriptorPool::Builder::addPoolSize(
-        VkDescriptorType descriptorType, uint32_t count) {
+    SteelSightDescriptorPool::Builder& SteelSightDescriptorPool::Builder::addPoolSize(VkDescriptorType descriptorType, uint32_t count) {
         poolSizes.push_back({ descriptorType, count });
         return *this;
     }

@@ -99,8 +99,8 @@ namespace Voortman {
                 VSMRenderer.beginSwapChainRenderPass(commandBuffer);
 
                 // Order matters here because of transperancy
-                PointLightSystem.render(frameInfo);
                 RenderSystem.renderSimulationObjects(frameInfo);
+                PointLightSystem.render(frameInfo);
 
                 VSMRenderer.endSwapChainRenderPass(commandBuffer);
                 VSMRenderer.endFrame();

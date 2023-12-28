@@ -160,7 +160,9 @@ namespace Voortman {
 		vertices.clear();
 		indices.clear();
 
-		// Very fast way to check if index buffer is already inside
+		// Unordered_map is used here this is fine for small objects
+		// for larger objects you can do better by using other unoredered maps
+		// This really pays off when the amount of indexbuffer exceeds cache size (won't happen realy fast)
 		std::unordered_map<Vertex, uint32_t> uniqueVertices{};
 
 		for (const auto& shape : shapes) {
@@ -173,8 +175,8 @@ namespace Voortman {
 										attrib.vertices[3 * index.vertex_index + 2] };
 
 					vertex.color = { attrib.colors[3 * index.vertex_index + 0],
-										attrib.colors[3 * index.vertex_index + 1],
-										attrib.colors[3 * index.vertex_index + 2] };
+									 attrib.colors[3 * index.vertex_index + 1],
+									 attrib.colors[3 * index.vertex_index + 2] };
 
 				}
 

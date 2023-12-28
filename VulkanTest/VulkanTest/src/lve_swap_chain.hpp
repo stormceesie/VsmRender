@@ -33,19 +33,13 @@ class LveSwapChain {
   inline uint32_t width() { return swapChainExtent.width; }
   inline uint32_t height() { return swapChainExtent.height; }
 
-  inline float extentAspectRatio() {
-    return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height);
-  }
+  inline float extentAspectRatio() {return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height);}
+  inline bool compareSwapFormats(const LveSwapChain& swapChain) const { return swapChain.swapChainDepthFormat == swapChainDepthFormat && swapChain.swapChainImageFormat == swapChainImageFormat; }
 
   VkFormat findDepthFormat();
 
   VkResult acquireNextImage(uint32_t *imageIndex);
   VkResult submitCommandBuffers(const VkCommandBuffer *buffers, uint32_t *imageIndex);
-
-  inline bool compareSwapFormats(const LveSwapChain& swapChain) const {
-      return swapChain.swapChainDepthFormat == swapChainDepthFormat &&
-          swapChain.swapChainImageFormat == swapChainImageFormat;
-  }
 
  private:
   void init();
@@ -57,10 +51,8 @@ class LveSwapChain {
   void createSyncObjects();
 
   // Helper functions
-  VkSurfaceFormatKHR chooseSwapSurfaceFormat(
-      const std::vector<VkSurfaceFormatKHR> &availableFormats);
-  VkPresentModeKHR chooseSwapPresentMode(
-      const std::vector<VkPresentModeKHR> &availablePresentModes);
+  VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR> &availableFormats);
+  VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> &availablePresentModes);
   VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR &capabilities);
 
   VkFormat swapChainImageFormat;
