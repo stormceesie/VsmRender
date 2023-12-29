@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -22,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{796ccfd3-d33a-43ec-b802-5354b9275f0e}</ProjectGuid>
-    <RootNamespace>VulkanTest</RootNamespace>
+    <ProjectGuid>{914d19c8-6d2d-4fd2-a74e-345c66b7f1ad}</ProjectGuid>
+    <RootNamespace>SteelSight3D</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -105,17 +104,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;$(ProjectDir)src\headers;$(ProjectDir)external;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;C:\Git\VsmRender\SteelSight3D\extern\glm-0.9.9.8;C:\Users\Florent Kegler\Downloads\imgui-master\imgui-master;C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;C:\Git\VsmRender\SteelSight3D\extern\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\VulkanSDK\1.3.268.0\Lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(ProjectDir)shaders\compile.bat"</Command>
+      <Command>call "$(ProjectDir)shaders\compile.bat</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -126,7 +125,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;$(ProjectDir)src\headers;$(ProjectDir)external;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;C:\Git\VsmRender\SteelSight3D\extern\glm-0.9.9.8;C:\Users\Florent Kegler\Downloads\imgui-master\imgui-master;C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;C:\Git\VsmRender\SteelSight3D\extern\</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -134,70 +133,69 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)external;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\VulkanSDK\1.3.268.0\Lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>call "$(ProjectDir)shaders\compile.bat"</Command>
+      <Command>call "$(ProjectDir)shaders\compile.bat</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\first_app.cpp" />
-    <ClCompile Include="src\keyboard_movement_controller.cpp" />
-    <ClCompile Include="src\lve_buffer.cpp" />
-    <ClCompile Include="src\lve_camera.cpp" />
-    <ClCompile Include="src\lve_descriptor.cpp" />
-    <ClCompile Include="src\lve_game_object.cpp" />
-    <ClCompile Include="src\lve_renderer.cpp" />
-    <ClCompile Include="src\systems\lve_rendersystem.cpp" />
-    <ClCompile Include="src\lve_window.cpp" />
-    <ClCompile Include="src\lve_model.cpp" />
-    <ClCompile Include="src\lve_pipeline.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\lve_device.cpp" />
-    <ClCompile Include="src\lve_swap_chain.cpp" />
-    <ClCompile Include="src\systems\point_light_system.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_demo.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="ImGui\imgui_tables.cpp" />
+    <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="SteelSightPointLight.cpp" />
+    <ClCompile Include="SteelSight3D.cpp" />
+    <ClCompile Include="SteelSightApp.cpp" />
+    <ClCompile Include="SteelSightBuffer.cpp" />
+    <ClCompile Include="SteelSightCamera.cpp" />
+    <ClCompile Include="SteelSightCameraMovement.cpp" />
+    <ClCompile Include="SteelSightDescriptor.cpp" />
+    <ClCompile Include="SteelSightDevice.cpp" />
+    <ClCompile Include="SteelSightModel.cpp" />
+    <ClCompile Include="SteelSightPipeline.cpp" />
+    <ClCompile Include="SteelSightRenderer.cpp" />
+    <ClCompile Include="SteelSightRenderSystem.cpp" />
+    <ClCompile Include="SteelSightSimulationObject.cpp" />
+    <ClCompile Include="SteelSightSwapChain.cpp" />
+    <ClCompile Include="SteelSightWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\first_app.hpp" />
-    <ClInclude Include="src\keyboard_movement_controller.hpp" />
-    <ClInclude Include="src\lve_buffer.hpp" />
-    <ClInclude Include="src\lve_descriptor.hpp" />
-    <ClInclude Include="src\lve_frame_info.hpp" />
-    <ClInclude Include="src\lve_renderer.hpp" />
-    <ClInclude Include="src\systems\lve_rendersystem.hpp" />
-    <ClInclude Include="src\Lve_camera.hpp" />
-    <ClInclude Include="src\lve_game_object.hpp" />
-    <ClInclude Include="src\Lve_utils.hpp" />
-    <ClInclude Include="src\lve_window.hpp" />
-    <ClInclude Include="src\lve_model.hpp" />
-    <ClInclude Include="src\lve_pipeline.hpp" />
-    <ClInclude Include="src\lve_device.hpp" />
-    <ClInclude Include="src\lve_swap_chain.hpp" />
-    <ClInclude Include="src\systems\point_light_system.hpp" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="ImGui\imgui.h" />
+    <ClInclude Include="ImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="SteelSightPointLight.hpp" />
+    <ClInclude Include="SteelSightApp.hpp" />
+    <ClInclude Include="SteelSightBuffer.hpp" />
+    <ClInclude Include="SteelSightCamera.hpp" />
+    <ClInclude Include="SteelSightCameraMovement.hpp" />
+    <ClInclude Include="SteelSightDescriptor.hpp" />
+    <ClInclude Include="SteelSightDevice.hpp" />
+    <ClInclude Include="SteelSightFrameInfo.hpp" />
+    <ClInclude Include="SteelSightModel.hpp" />
+    <ClInclude Include="SteelSightPipeline.hpp" />
+    <ClInclude Include="SteelSightRenderer.hpp" />
+    <ClInclude Include="SteelSightRenderSystem.hpp" />
+    <ClInclude Include="SteelSightSimulationObject.hpp" />
+    <ClInclude Include="SteelSightSwapChain.hpp" />
+    <ClInclude Include="SteelSightUtils.hpp" />
+    <ClInclude Include="SteelSightWindow.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".env.cmake" />
-    <None Include="envUnixExample.cmake" />
-    <None Include="envWindowsExample.cmake" />
-    <None Include="mingwBuild.bat" />
     <None Include="shaders\compile.bat" />
     <None Include="shaders\point_light.frag" />
     <None Include="shaders\point_light.vert" />
     <None Include="shaders\simple_shader.frag" />
     <None Include="shaders\simple_shader.vert" />
-    <None Include="WindowsBuild.bat" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.220531.1\build\native\Microsoft.Windows.CppWinRT.targets')" />
   </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-  </Target>
 </Project>

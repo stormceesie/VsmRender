@@ -3,9 +3,9 @@
 [Rr]elease/
 x64/
 x86/
+extern/
 [Bb]uild/
 [Bb]in/
-[Oo]bj/
 [Ll]og/
 [Ll]ogs/
 
@@ -33,6 +33,7 @@ x86/
 *.iobj
 *.ipdb
 *.pgc
+*.obj
 *.pgd
 *.rsp
 *.sb
@@ -41,7 +42,6 @@ x86/
 *.tli
 *.ilk
 *.meta
-*.obj
 *.pch
 *.pdb
 *.ipch
