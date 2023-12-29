@@ -3,7 +3,6 @@
 #include "SteelSightUtils.hpp"
 
 #define TINYOBJLOADER_IMPLEMENTATION
-
 #include <tiny_obj_loader.h>
 
 #define GLM_FORCE_RADIANS
@@ -14,6 +13,9 @@
 #include <unordered_map>
 #include <cstring>
 #include <cassert>
+
+#include <iostream>
+#include <chrono>
 
 
 namespace std {
@@ -152,6 +154,9 @@ namespace Voortman {
 		std::vector<tinyobj::material_t> materials;
 
 		std::string warn, err;
+#ifdef _DEBUG
+		auto start = std::chrono::high_resolution_clock::now();
+#endif
 
 		if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filepath.c_str())) {
 			throw std::runtime_error(warn + err);
@@ -174,10 +179,9 @@ namespace Voortman {
 										attrib.vertices[3 * index.vertex_index + 1],
 										attrib.vertices[3 * index.vertex_index + 2] };
 
-					vertex.color = { attrib.colors[3 * index.vertex_index + 0],
-									 attrib.colors[3 * index.vertex_index + 1],
-									 attrib.colors[3 * index.vertex_index + 2] };
-
+					 vertex.color = { attrib.colors[3 * index.vertex_index + 0],
+					 				  attrib.colors[3 * index.vertex_index + 1],
+					 				  attrib.colors[3 * index.vertex_index + 2] };
 				}
 
 				if (index.normal_index >= 0) {
@@ -199,5 +203,13 @@ namespace Voortman {
 				indices.push_back(uniqueVertices[vertex]);
 			}
 		}
+		// Information about the 3D models
+#ifdef _DEBUG
+		auto stop = std::chrono::high_resolution_clock::now();
+		std::cout << filepath << std::endl;
+		std::cout << "Vertices: " << vertices.size() << std::endl;
+		std::cout << "Indices: " << indices.size() << std::endl;
+		std::cout << "Loading time: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl << std::endl;
+#endif
 	}
 }

@@ -1,15 +1,8 @@
 #pragma once
-#include "imgui.h"
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_vulkan.h"
 
 #define GLFW_INCLUDE_VULKAN
 #include "GLFW/glfw3.h"
 #include <string>
-
-#ifdef _DEBUG
-#define IMGUI_VULKAN_DEBUG_REPORT
-#endif
 
 namespace Voortman {
 	class SteelSightWindow {

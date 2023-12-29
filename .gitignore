@@ -6,7 +6,6 @@ x86/
 extern/
 [Bb]uild/
 [Bb]in/
-[Oo]bj/
 [Ll]og/
 [Ll]ogs/
 
@@ -34,6 +33,7 @@ extern/
 *.iobj
 *.ipdb
 *.pgc
+*.obj
 *.pgd
 *.rsp
 *.sb
@@ -42,7 +42,6 @@ extern/
 *.tli
 *.ilk
 *.meta
-*.obj
 *.pch
 *.pdb
 *.ipch

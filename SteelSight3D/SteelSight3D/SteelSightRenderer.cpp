@@ -2,6 +2,8 @@
 #include "SteelSightApp.hpp"
 #include <stdexcept>
 #include <array>
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_glfw.h"
 
 namespace Voortman {
 

@@ -1,6 +1,5 @@
 #include "SteelSightWindow.hpp"
 #include <stdexcept>
-#include "imgui.h"
 #include <stdio.h>
 
 namespace Voortman {
