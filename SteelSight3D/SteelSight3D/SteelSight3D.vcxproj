@@ -40,13 +40,11 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -104,13 +102,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;C:\Git\VsmRender\SteelSight3D\extern\glm-0.9.9.8;C:\Users\Florent Kegler\Downloads\imgui-master\imgui-master;C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;C:\Git\VsmRender\SteelSight3D\extern\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)VULKAN\Include;$(ProjectDir)GLM;$(ProjectDir)GLFW\include;$(ProjectDir)TinyObjLoader</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\VulkanSDK\1.3.268.0\Lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)GLFW\;$(ProjectDir)VULKAN\</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -125,7 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.268.0\Include;C:\Git\VsmRender\SteelSight3D\extern\glm-0.9.9.8;C:\Users\Florent Kegler\Downloads\imgui-master\imgui-master;C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;C:\Git\VsmRender\SteelSight3D\extern\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)VULKAN\Include;$(ProjectDir)GLM;$(ProjectDir)GLFW\include;$(ProjectDir)TinyObjLoader</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -133,7 +131,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Git\VsmRender\SteelSight3D\extern\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\VulkanSDK\1.3.268.0\Lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)GLFW\;$(ProjectDir)VULKAN\</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -141,12 +139,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ImGui\imgui.cpp" />
-    <ClCompile Include="ImGui\imgui_demo.cpp" />
-    <ClCompile Include="ImGui\imgui_draw.cpp" />
-    <ClCompile Include="ImGui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="ImGui\imgui_tables.cpp" />
-    <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="SteelSightPointLight.cpp" />
     <ClCompile Include="SteelSight3D.cpp" />
     <ClCompile Include="SteelSightApp.cpp" />
@@ -164,13 +156,6 @@
     <ClCompile Include="SteelSightWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ImGui\imconfig.h" />
-    <ClInclude Include="ImGui\imgui.h" />
-    <ClInclude Include="ImGui\imgui_impl_glfw.h" />
-    <ClInclude Include="ImGui\imgui_internal.h" />
-    <ClInclude Include="ImGui\imstb_rectpack.h" />
-    <ClInclude Include="ImGui\imstb_textedit.h" />
-    <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="SteelSightPointLight.hpp" />
     <ClInclude Include="SteelSightApp.hpp" />
     <ClInclude Include="SteelSightBuffer.hpp" />

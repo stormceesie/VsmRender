@@ -5,19 +5,12 @@
 
 #include "SteelSightWindow.hpp"
 
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_glfw.h"
-
 #include "SteelSightApp.hpp"
 #include <stdexcept>
 #include <chrono>
 #include <array>
 #include <vector>
 #include <numeric>
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
-#pragma comment(lib, "legacy_stdio_definitions")
-#endif
 
 namespace Voortman {
 	SteelSightApp::SteelSightApp() {

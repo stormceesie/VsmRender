@@ -23,7 +23,7 @@ layout(push_constant) uniform Push {
   float radius;
 } push;
 
-const float M_PI = 3.1415926538;
+const float M_PI = 3.14159265358;
 
 void main() {
   float dis = sqrt(dot(fragOffset, fragOffset));
