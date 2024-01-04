@@ -48,9 +48,9 @@ extern/
 *.idb
 *.res
 *.sbr
-#*.exe
+*.exe
 *.dll
-#*.lib
+*.lib
 *.exp
 *.manifest
 
