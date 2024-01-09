@@ -102,8 +102,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)VULKAN\Include;$(ProjectDir)GLM;$(ProjectDir)GLFW\include;$(ProjectDir)TinyObjLoader</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)RobinHoodHashMap;$(ProjectDir)VULKAN\Include;$(ProjectDir)GLM;$(ProjectDir)GLFW\include;$(ProjectDir)RapidObjLoader;$(ProjectDir)TinyObjLoader</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,11 +124,11 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)VULKAN\Include;$(ProjectDir)GLM;$(ProjectDir)GLFW\include;$(ProjectDir)TinyObjLoader</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)RobinHoodHashMap;$(ProjectDir)VULKAN\Include;$(ProjectDir)GLM;$(ProjectDir)GLFW\include;$(ProjectDir)RapidObjLoader;$(ProjectDir)TinyObjLoader</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -156,6 +157,8 @@
     <ClCompile Include="SteelSightWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RapidObjLoader\rapidobj.hpp" />
+    <ClInclude Include="RobinHoodHashMap\RobinHoodHashing.h" />
     <ClInclude Include="SteelSightPointLight.hpp" />
     <ClInclude Include="SteelSightApp.hpp" />
     <ClInclude Include="SteelSightBuffer.hpp" />

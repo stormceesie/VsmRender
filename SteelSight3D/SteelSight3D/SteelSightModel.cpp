@@ -148,9 +148,7 @@ namespace Voortman {
 	}
 
 	void SteelSightModel::Builder::loadModel(const std::string& filepath) {
-#ifdef _DEBUG
 		auto start = std::chrono::high_resolution_clock::now();
-#endif
 
 		// With rapidobj the .obj files will be loaded asynchronous with multi threaded parsing if the file is bigger than 1 MB
 		// rapidobj is not the most memory efficient but this should not be a big problem because loading the files takes just a few seconds at max
@@ -163,7 +161,8 @@ namespace Voortman {
 
 		if (!succes) throw std::runtime_error(result.error.code.message());
 
-		size_t num_triangles{};
+		auto stop = std::chrono::high_resolution_clock::now();
+		std::cout << "rapidobj parse time: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl << std::endl;
 
 		vertices.clear();
 		indices.clear();
@@ -183,6 +182,7 @@ namespace Voortman {
 						result.attributes.positions[3 * index.position_index + 2]
 					};
 
+					// Temp standard vertex color
 					vertex.color = {.5f,.5f,.5f};
 				}
 
@@ -213,12 +213,10 @@ namespace Voortman {
 		}
 
 		// Information about the 3D models
-#ifdef _DEBUG
-		auto stop = std::chrono::high_resolution_clock::now();
+		stop = std::chrono::high_resolution_clock::now();
 		std::cout << filepath << std::endl;
 		std::cout << "Vertices: " << vertices.size() << std::endl;
 		std::cout << "Indices: " << indices.size() << std::endl;
-		std::cout << "Loading time: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl << std::endl;
-#endif
+		std::cout << "Total time: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl << std::endl;
 	}
 }
