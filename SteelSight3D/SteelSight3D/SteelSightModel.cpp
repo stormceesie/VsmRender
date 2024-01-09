@@ -2,8 +2,8 @@
 #include <stddef.h>
 #include "SteelSightUtils.hpp"
 
-#define TINYOBJLOADER_IMPLEMENTATION
-#include <tiny_obj_loader.h>
+#include <rapidobj.hpp>
+#include <RobinHoodHashing.h>
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -16,7 +16,6 @@
 
 #include <iostream>
 #include <chrono>
-
 
 namespace std {
 	// Hash function to use hash vertexes using an unordered map
@@ -149,60 +148,70 @@ namespace Voortman {
 	}
 
 	void SteelSightModel::Builder::loadModel(const std::string& filepath) {
-		tinyobj::attrib_t attrib;
-		std::vector<tinyobj::shape_t> shapes;
-		std::vector<tinyobj::material_t> materials;
-
-		std::string warn, err;
 #ifdef _DEBUG
 		auto start = std::chrono::high_resolution_clock::now();
 #endif
 
-		if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filepath.c_str())) {
-			throw std::runtime_error(warn + err);
-		}
+		// With rapidobj the .obj files will be loaded asynchronous with multi threaded parsing if the file is bigger than 1 MB
+		// rapidobj is not the most memory efficient but this should not be a big problem because loading the files takes just a few seconds at max
+		// Requires C++17 or above compiler
+		rapidobj::Result result = rapidobj::ParseFile(filepath);
+
+		if (result.error) throw std::runtime_error(result.error.code.message());
+
+		bool succes = rapidobj::Triangulate(result);
+
+		if (!succes) throw std::runtime_error(result.error.code.message());
+
+		size_t num_triangles{};
 
 		vertices.clear();
 		indices.clear();
 
-		// Unordered_map is used here this is fine for small objects
-		// for larger objects you can do better by using other unoredered maps
-		// This really pays off when the amount of indexbuffer exceeds cache size (won't happen realy fast)
-		std::unordered_map<Vertex, uint32_t> uniqueVertices{};
+		// Significantly faster than std::unordered_map
+		robin_hood::unordered_map<Vertex, uint32_t> uniqueVertices{};
 
-		for (const auto& shape : shapes) {
+		for (const auto& shape : result.shapes) {
 			for (const auto& index : shape.mesh.indices) {
 				Vertex vertex{};
 
-				if (index.vertex_index >= 0) {
-					vertex.position = { attrib.vertices[3 * index.vertex_index + 0],
-										attrib.vertices[3 * index.vertex_index + 1],
-										attrib.vertices[3 * index.vertex_index + 2] };
+				// Position
+				if (index.position_index >= 0) {
+					vertex.position = {
+						result.attributes.positions[3 * index.position_index + 0],
+						result.attributes.positions[3 * index.position_index + 1],
+						result.attributes.positions[3 * index.position_index + 2]
+					};
 
-					 vertex.color = { attrib.colors[3 * index.vertex_index + 0],
-					 				  attrib.colors[3 * index.vertex_index + 1],
-					 				  attrib.colors[3 * index.vertex_index + 2] };
+					vertex.color = {.5f,.5f,.5f};
 				}
 
+				// Normals
 				if (index.normal_index >= 0) {
-					vertex.normal = { attrib.normals[3 * index.normal_index + 0],
-									  attrib.normals[3 * index.normal_index + 1],
-									  attrib.normals[3 * index.normal_index + 2] };
+					vertex.normal = {
+						result.attributes.normals[3 * index.normal_index + 0],
+						result.attributes.normals[3 * index.normal_index + 1],
+						result.attributes.normals[3 * index.normal_index + 2]
+					};
 				}
 
+				// Texture Coordinates
 				if (index.texcoord_index >= 0) {
-					vertex.uv = { attrib.texcoords[2 * index.texcoord_index + 0],
-								  attrib.texcoords[2 * index.texcoord_index + 1] };
+					vertex.uv = {
+						result.attributes.texcoords[2 * index.texcoord_index + 0],
+						result.attributes.texcoords[2 * index.texcoord_index + 1]
+					};
 				}
 
+				// Check for unique vertex and update indices
 				if (uniqueVertices.count(vertex) == 0) {
 					uniqueVertices[vertex] = static_cast<uint32_t>(vertices.size());
 					vertices.push_back(vertex);
 				}
-
 				indices.push_back(uniqueVertices[vertex]);
 			}
 		}
+
 		// Information about the 3D models
 #ifdef _DEBUG
 		auto stop = std::chrono::high_resolution_clock::now();

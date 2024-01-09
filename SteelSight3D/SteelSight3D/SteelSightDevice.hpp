@@ -6,6 +6,10 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
+#include <cstring>
+#include <iostream>
+#include <set>
+#include <unordered_set>
 
 // Here define if you want to use MAILBOX_MODE mode or IMMEDIATE_MODE
 // Code will try to choose if this is available
@@ -36,11 +40,12 @@ namespace Voortman {
 		SteelSightDevice(SteelSightDevice&&) = delete;
 		SteelSightDevice& operator=(SteelSightDevice&&) = delete;
 
-		inline VkCommandPool getCommandPool() { return commandPool; }
-		inline VkDevice device() { return device_; }
-		inline VkSurfaceKHR surface() { return surface_; }
-		inline VkQueue graphicsQueue() { return graphicsQueue_; }
-		inline VkQueue presentQueue() { return presentQueue_; }
+		inline VkCommandPool getCommandPool() const { return commandPool; }
+		inline VkDevice device() const { return device_; }
+		inline VkSurfaceKHR surface() const { return surface_; }
+		inline VkQueue graphicsQueue() const { return graphicsQueue_; }
+		inline VkQueue presentQueue() const { return presentQueue_; }
+		inline VkSampleCountFlagBits GetSampleCountFlagBits() const { return msaaSamples; }
 
 		SwapChainSupportDetails getSwapChainSupport() { return querySwapChainSupport(physicalDevice); }
 		uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
@@ -82,6 +87,7 @@ namespace Voortman {
 
 		VkQueue graphicsQueue_;
 		VkQueue presentQueue_;
+		VkSampleCountFlagBits msaaSamples;
 
 		// Reference to the window
 		SteelSightWindow& window;
@@ -95,6 +101,7 @@ namespace Voortman {
 		VkCommandBuffer beginSingleTimeCommands();
 		void endSingleTimeCommands(VkCommandBuffer commandBuffer);
 		void copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, uint32_t layerCount);
+		VkSampleCountFlagBits getMaxUsableSampleCount();
 
 		void createSurface();
 		void CreateInstance();
@@ -102,6 +109,7 @@ namespace Voortman {
 		void setupDebugMessenger();
 		void pickPhysicalDevice();
 		void createCommandPool();
-		std::vector<const char*> getRequiredExtensions();
+
+		static std::vector<const char*> getRequiredExtensions();
 	};
 }

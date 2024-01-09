@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 namespace Voortman {
-	SteelSightWindow::SteelSightWindow(int w, int h, const std::string& name) : width{ w }, height{ h }, windowName{ name } {
+	SteelSightWindow::SteelSightWindow(const int w, const int h, const std::string& name) : width{ w }, height{ h }, windowName{ name } {
 		initWindow();
 	}
 
@@ -24,13 +24,13 @@ namespace Voortman {
 		glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
 	}
 
-	void SteelSightWindow::createWindowSurface(VkInstance instance, VkSurfaceKHR* surface) {
+	void SteelSightWindow::createWindowSurface(const VkInstance& instance, VkSurfaceKHR* surface) {
 		if (glfwCreateWindowSurface(instance, window, nullptr, surface) != VK_SUCCESS) {
 			throw std::runtime_error("failed to create window surface");
 		}
 	}
 
-	void SteelSightWindow::framebufferResizeCallback(GLFWwindow* window, int width, int height) {
+	void SteelSightWindow::framebufferResizeCallback(GLFWwindow* window, const int width, const int height) {
 		auto SSWindow = reinterpret_cast<SteelSightWindow*>(glfwGetWindowUserPointer(window));
 		SSWindow->framebufferResized = true;
 		SSWindow->width = width;

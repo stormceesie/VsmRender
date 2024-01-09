@@ -8,7 +8,7 @@
 namespace Voortman {
 	class SteelSightSwapChain {
 	public:
-		static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
+		static constexpr int MAX_FRAMES_IN_FLIGHT{ 2 };
 
 		SteelSightSwapChain(SteelSightDevice& deviceRef, VkExtent2D windowExent);
 		SteelSightSwapChain(SteelSightDevice& deviceRef, VkExtent2D windowExtent, std::shared_ptr<SteelSightSwapChain> previous);
@@ -17,17 +17,18 @@ namespace Voortman {
 		SteelSightSwapChain(const SteelSightSwapChain &) = delete;
 		SteelSightSwapChain& operator=(const SteelSightSwapChain &) = delete;
 
-		inline VkFramebuffer getFrameBuffer(int index) { return swapChainFrameBuffers[index]; }
-		inline VkRenderPass getRenderPass() { return renderpass; }
-		inline VkImageView getImageView(int index) { return swapChainImageViews[index]; }
-		inline size_t imageCount() { return swapChainImages.size(); }
-		inline VkFormat getSwapChainImageFormat() { return swapChainImageFormat; }
-		inline VkExtent2D getSwapChainExtent() { return swapChainExtent; }
-		inline uint32_t width() { return swapChainExtent.width; }
-		inline uint32_t height() { return swapChainExtent.height; }
+		// inline const to reduce overhead
+		inline VkFramebuffer getFrameBuffer(int index) const { return swapChainFrameBuffers[index]; }
+		inline VkRenderPass getRenderPass() const { return renderpass; }
+		inline VkImageView getImageView(int index) const { return swapChainImageViews[index]; }
+		inline size_t imageCount() const { return swapChainImages.size(); }
+		inline VkFormat getSwapChainImageFormat() const { return swapChainImageFormat; }
+		inline VkExtent2D getSwapChainExtent() const { return swapChainExtent; }
+		inline uint32_t width() const { return swapChainExtent.width; }
+		inline uint32_t height() const { return swapChainExtent.height; }
 
-		inline float extentAspectRatio() { return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height); }
-		inline bool comparedSwapFormats(const SteelSightSwapChain swapChain) const { return swapChain.swapChainDepthFormat == swapChainDepthFormat && swapChain.swapChainImageFormat == swapChainImageFormat; }
+		inline float extentAspectRatio() const { return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height); }
+		inline bool comparedSwapFormats(const SteelSightSwapChain& swapChain) const { return swapChain.swapChainDepthFormat == swapChainDepthFormat && swapChain.swapChainImageFormat == swapChainImageFormat; }
 
 		VkFormat findDepthFormat();
 		VkResult acquireNextImage(uint32_t* imageIndex);
@@ -70,6 +71,6 @@ namespace Voortman {
 		std::vector<VkFence> inFlightFences;
 		std::vector<VkFence> imagesInFlight;
 
-		size_t currentFrame = 0;
+		size_t currentFrame{0};
 	};
 }
