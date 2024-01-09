@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{914d19c8-6d2d-4fd2-a74e-345c66b7f1ad}</ProjectGuid>
-    <RootNamespace>SteelSight3D</RootNamespace>
+    <ProjectGuid>{dd252b84-888a-409a-9a13-eaaf2ed1371e}</ProjectGuid>
+    <RootNamespace>VulkanTutorial</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,11 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -102,19 +104,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)RobinHoodHashMap;$(ProjectDir)VULKAN\Include;$(ProjectDir)GLM;$(ProjectDir)GLFW\include;$(ProjectDir)RapidObjLoader;$(ProjectDir)TinyObjLoader</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Florent Kegler\source\repos\OpenGL\dependencies\glm;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;C:\VulkanSDK\1.3.268.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MachineSimulatorPCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)GLFW\;$(ProjectDir)VULKAN\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\VulkanSDK\1.3.268.0\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);vulkan-1.lib;glfw3.lib</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>call "$(ProjectDir)shaders\compile.bat</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -124,65 +125,39 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)RobinHoodHashMap;$(ProjectDir)VULKAN\Include;$(ProjectDir)GLM;$(ProjectDir)GLFW\include;$(ProjectDir)RapidObjLoader;$(ProjectDir)TinyObjLoader</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Florent Kegler\source\repos\OpenGL\dependencies\glm;C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;C:\VulkanSDK\1.3.268.0\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>MachineSimulatorPCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)GLFW\;$(ProjectDir)VULKAN\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glfw3.lib;vulkan-1.lib;/NODEFAULTLIB:library</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Florent Kegler\Downloads\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\VulkanSDK\1.3.268.0\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);vulkan-1.lib;glfw3.lib</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>call "$(ProjectDir)shaders\compile.bat</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SteelSightPointLight.cpp" />
-    <ClCompile Include="SteelSight3D.cpp" />
-    <ClCompile Include="SteelSightApp.cpp" />
-    <ClCompile Include="SteelSightBuffer.cpp" />
-    <ClCompile Include="SteelSightCamera.cpp" />
-    <ClCompile Include="SteelSightCameraMovement.cpp" />
-    <ClCompile Include="SteelSightDescriptor.cpp" />
-    <ClCompile Include="SteelSightDevice.cpp" />
-    <ClCompile Include="SteelSightModel.cpp" />
-    <ClCompile Include="SteelSightPipeline.cpp" />
-    <ClCompile Include="SteelSightRenderer.cpp" />
-    <ClCompile Include="SteelSightRenderSystem.cpp" />
-    <ClCompile Include="SteelSightSimulationObject.cpp" />
-    <ClCompile Include="SteelSightSwapChain.cpp" />
-    <ClCompile Include="SteelSightWindow.cpp" />
+    <ClCompile Include="MachineSimulator.cpp" />
+    <ClCompile Include="MachineSimulatorDevice.cpp" />
+    <ClCompile Include="MachineSimulatorPCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="MachineSimulatorSwapChain.cpp" />
+    <ClCompile Include="MachineSimulatorWindow.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RapidObjLoader\rapidobj.hpp" />
-    <ClInclude Include="RobinHoodHashMap\RobinHoodHashing.h" />
-    <ClInclude Include="SteelSightPointLight.hpp" />
-    <ClInclude Include="SteelSightApp.hpp" />
-    <ClInclude Include="SteelSightBuffer.hpp" />
-    <ClInclude Include="SteelSightCamera.hpp" />
-    <ClInclude Include="SteelSightCameraMovement.hpp" />
-    <ClInclude Include="SteelSightDescriptor.hpp" />
-    <ClInclude Include="SteelSightDevice.hpp" />
-    <ClInclude Include="SteelSightFrameInfo.hpp" />
-    <ClInclude Include="SteelSightModel.hpp" />
-    <ClInclude Include="SteelSightPipeline.hpp" />
-    <ClInclude Include="SteelSightRenderer.hpp" />
-    <ClInclude Include="SteelSightRenderSystem.hpp" />
-    <ClInclude Include="SteelSightSimulationObject.hpp" />
-    <ClInclude Include="SteelSightSwapChain.hpp" />
-    <ClInclude Include="SteelSightUtils.hpp" />
-    <ClInclude Include="SteelSightWindow.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\compile.bat" />
-    <None Include="shaders\point_light.frag" />
-    <None Include="shaders\point_light.vert" />
-    <None Include="shaders\simple_shader.frag" />
-    <None Include="shaders\simple_shader.vert" />
+    <ClInclude Include="MachineSimulator.hpp" />
+    <ClInclude Include="MachineSimulatorDefines.hpp" />
+    <ClInclude Include="MachineSimulatorDevice.hpp" />
+    <ClInclude Include="MachineSimulatorPCH.hpp" />
+    <ClInclude Include="MachineSimulatorSwapChain.hpp" />
+    <ClInclude Include="MachineSimulatorWindow.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

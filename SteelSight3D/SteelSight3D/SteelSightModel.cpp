@@ -147,13 +147,15 @@ namespace Voortman {
 		return attributeDescriptions;
 	}
 
+	// Function to load 3D models and to create the index buffer for efficient memory
+	// Please make sure the .mtl file is present if this is referenced in the .obj file
 	void SteelSightModel::Builder::loadModel(const std::string& filepath) {
 		auto start = std::chrono::high_resolution_clock::now();
 
 		// With rapidobj the .obj files will be loaded asynchronous with multi threaded parsing if the file is bigger than 1 MB
 		// rapidobj is not the most memory efficient but this should not be a big problem because loading the files takes just a few seconds at max
 		// Requires C++17 or above compiler
-		rapidobj::Result result = rapidobj::ParseFile(filepath);
+		rapidobj::Result result = rapidobj::ParseFile(filepath.c_str());
 
 		if (result.error) throw std::runtime_error(result.error.code.message());
 
@@ -170,6 +172,7 @@ namespace Voortman {
 		// Significantly faster than std::unordered_map
 		robin_hood::unordered_map<Vertex, uint32_t> uniqueVertices{};
 
+		// Very frequent vector pushbacks are quit slow but reserving memory is impossible because the amount of indices is unknown before you compute them
 		for (const auto& shape : result.shapes) {
 			for (const auto& index : shape.mesh.indices) {
 				Vertex vertex{};
@@ -183,7 +186,7 @@ namespace Voortman {
 					};
 
 					// Temp standard vertex color
-					vertex.color = {.5f,.5f,.5f};
+					vertex.color = {.5f, .5f, .5f};
 				}
 
 				// Normals

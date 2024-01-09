@@ -101,7 +101,6 @@ namespace Voortman {
 		VkCommandBuffer beginSingleTimeCommands();
 		void endSingleTimeCommands(VkCommandBuffer commandBuffer);
 		void copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, uint32_t layerCount);
-		VkSampleCountFlagBits getMaxUsableSampleCount();
 
 		void createSurface();
 		void CreateInstance();
