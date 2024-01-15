@@ -17,18 +17,18 @@ namespace Voortman {
 		SteelSightSwapChain(const SteelSightSwapChain &) = delete;
 		SteelSightSwapChain& operator=(const SteelSightSwapChain &) = delete;
 
-		// inline const to reduce overhead
-		inline VkFramebuffer getFrameBuffer(int index) const { return swapChainFrameBuffers[index]; }
-		inline VkRenderPass getRenderPass() const { return renderpass; }
-		inline VkImageView getImageView(int index) const { return swapChainImageViews[index]; }
-		inline size_t imageCount() const { return swapChainImages.size(); }
-		inline VkFormat getSwapChainImageFormat() const { return swapChainImageFormat; }
-		inline VkExtent2D getSwapChainExtent() const { return swapChainExtent; }
-		inline uint32_t width() const { return swapChainExtent.width; }
-		inline uint32_t height() const { return swapChainExtent.height; }
+		// inline const noexcept to reduce overhead
+		inline VkFramebuffer getFrameBuffer(int index) const noexcept { return swapChainFrameBuffers[index]; }
+		inline VkRenderPass getRenderPass() const noexcept { return renderpass; }
+		inline VkImageView getImageView(int index) const noexcept { return swapChainImageViews[index]; }
+		inline size_t imageCount() const noexcept{ return swapChainImages.size(); }
+		inline VkFormat getSwapChainImageFormat() const noexcept { return swapChainImageFormat; }
+		inline VkExtent2D getSwapChainExtent() const noexcept { return swapChainExtent; }
+		inline uint32_t width() const noexcept { return swapChainExtent.width; }
+		inline uint32_t height() const noexcept { return swapChainExtent.height; }
 
-		inline float extentAspectRatio() const { return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height); }
-		inline bool comparedSwapFormats(const SteelSightSwapChain& swapChain) const { return swapChain.swapChainDepthFormat == swapChainDepthFormat && swapChain.swapChainImageFormat == swapChainImageFormat; }
+		inline float extentAspectRatio() const noexcept { return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height); }
+		inline bool comparedSwapFormats(const SteelSightSwapChain& swapChain) const noexcept { return swapChain.swapChainDepthFormat == swapChainDepthFormat && swapChain.swapChainImageFormat == swapChainImageFormat; }
 
 		VkFormat findDepthFormat();
 		VkResult acquireNextImage(uint32_t* imageIndex);
@@ -43,8 +43,8 @@ namespace Voortman {
 		void createSyncObjects();
 
 		// Helper functions
-		VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
-		VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
+		static inline VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
+		static inline VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
 		VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 
 		VkFormat swapChainImageFormat;

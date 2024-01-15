@@ -13,11 +13,11 @@ namespace Voortman {
 		SteelSightWindow(const SteelSightWindow&) = delete;
 		SteelSightWindow& operator=(const SteelSightWindow&) = delete;
 
-		inline bool ShouldClose() const { return glfwWindowShouldClose(window); }
-		inline VkExtent2D getExtent() const { return { static_cast<uint32_t>(width), static_cast<uint32_t>(height) }; }
-		inline bool wasWindowResized() const { return framebufferResized; }
-		inline void resetWindowResizedFlag() { framebufferResized = false; }
-		inline GLFWwindow* getGLFWwindow() const { return window; }
+		inline bool ShouldClose() const noexcept { return glfwWindowShouldClose(window); }
+		inline VkExtent2D getExtent() const noexcept { return { static_cast<uint32_t>(width), static_cast<uint32_t>(height) }; }
+		inline bool wasWindowResized() const noexcept { return framebufferResized; }
+		inline void resetWindowResizedFlag() noexcept { framebufferResized = false; }
+		inline GLFWwindow* getGLFWwindow() const noexcept { return window; }
 
 		void createWindowSurface(const VkInstance& instance, VkSurfaceKHR* surface);
 

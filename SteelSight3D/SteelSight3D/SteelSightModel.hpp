@@ -21,7 +21,7 @@ namespace Voortman {
 			static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
 			static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
 
-			bool operator==(const Vertex& other) const {return position == other.position && color == other.color && normal == other.normal && uv == other.uv;}
+			inline bool operator==(const Vertex& other) const noexcept {return position == other.position && color == other.color && normal == other.normal && uv == other.uv;}
 		};
 
 		struct Builder final {
@@ -51,7 +51,7 @@ namespace Voortman {
 		std::unique_ptr<SteelSightBuffer> vertexBuffer;
 		uint32_t vertexCount;
 
-		bool hasIndexBuffer = false;
+		bool hasIndexBuffer{ false };
 
 		std::unique_ptr<SteelSightBuffer> indexBuffer;
 		uint32_t indexCount;

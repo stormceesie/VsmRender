@@ -102,7 +102,7 @@ namespace Voortman {
 		void endSingleTimeCommands(VkCommandBuffer commandBuffer);
 		void copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, uint32_t layerCount);
 
-		void createSurface();
+		inline void createSurface();
 		void CreateInstance();
 		void CreateLogicalDevice();
 		void setupDebugMessenger();

@@ -21,7 +21,7 @@ namespace std {
 	// Hash function to use hash vertexes using an unordered map
 	template <>
 	struct hash<Voortman::SteelSightModel::Vertex> {
-		size_t operator()(Voortman::SteelSightModel::Vertex const& vertex) const {
+		inline size_t operator()(Voortman::SteelSightModel::Vertex const& vertex) const noexcept {
 			size_t seed = 0;
 			Voortman::hashCombine(seed, vertex.position, vertex.color, vertex.normal, vertex.uv);
 			return seed;

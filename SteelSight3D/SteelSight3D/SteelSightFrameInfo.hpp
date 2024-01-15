@@ -12,7 +12,7 @@ struct PointLight {
 };
 
 namespace Voortman {
-	struct GlobalUbo {
+	struct GlobalUbo final {
 		glm::mat4 projection{ 1.f };
 		glm::mat4 view{ 1.f };
 		glm::mat4 inverseView{ 1.f };
@@ -23,12 +23,12 @@ namespace Voortman {
 		int numLights;
 	};
 
-	struct FrameInfo {
-		int frameIndex;
-		float frameTime;
-		VkCommandBuffer commandBuffer;
+	struct FrameInfo final {
+		int frameIndex{};
+		float frameTime{};
+		VkCommandBuffer commandBuffer{};
 		SteelSightCamera& Camera;
-		VkDescriptorSet globalDescriptorSet;
+		VkDescriptorSet globalDescriptorSet{};
 		SteelSightSimulationObject::map& simulationObjects;
 	};
 }
