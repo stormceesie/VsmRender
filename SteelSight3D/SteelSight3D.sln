@@ -5,10 +5,6 @@ VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SteelSight3D", "SteelSight3D\SteelSight3D.vcxproj", "{914D19C8-6D2D-4FD2-A74E-345C66B7F1AD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MachineSimulator", "MachineSimulator\MachineSimulator.vcxproj", "{AB573596-FF82-4E7E-BBC4-20182C85E244}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MachineSimulatorCore", "MachineSimulatorCore\MachineSimulatorCore.vcxproj", "{1F83BEBA-FF82-4883-B479-BDFEB55DA155}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -25,22 +21,6 @@ Global
 		{914D19C8-6D2D-4FD2-A74E-345C66B7F1AD}.Release|x64.Build.0 = Release|x64
 		{914D19C8-6D2D-4FD2-A74E-345C66B7F1AD}.Release|x86.ActiveCfg = Release|Win32
 		{914D19C8-6D2D-4FD2-A74E-345C66B7F1AD}.Release|x86.Build.0 = Release|Win32
-		{AB573596-FF82-4E7E-BBC4-20182C85E244}.Debug|x64.ActiveCfg = Debug|x64
-		{AB573596-FF82-4E7E-BBC4-20182C85E244}.Debug|x64.Build.0 = Debug|x64
-		{AB573596-FF82-4E7E-BBC4-20182C85E244}.Debug|x86.ActiveCfg = Debug|Win32
-		{AB573596-FF82-4E7E-BBC4-20182C85E244}.Debug|x86.Build.0 = Debug|Win32
-		{AB573596-FF82-4E7E-BBC4-20182C85E244}.Release|x64.ActiveCfg = Release|x64
-		{AB573596-FF82-4E7E-BBC4-20182C85E244}.Release|x64.Build.0 = Release|x64
-		{AB573596-FF82-4E7E-BBC4-20182C85E244}.Release|x86.ActiveCfg = Release|Win32
-		{AB573596-FF82-4E7E-BBC4-20182C85E244}.Release|x86.Build.0 = Release|Win32
-		{1F83BEBA-FF82-4883-B479-BDFEB55DA155}.Debug|x64.ActiveCfg = Debug|x64
-		{1F83BEBA-FF82-4883-B479-BDFEB55DA155}.Debug|x64.Build.0 = Debug|x64
-		{1F83BEBA-FF82-4883-B479-BDFEB55DA155}.Debug|x86.ActiveCfg = Debug|Win32
-		{1F83BEBA-FF82-4883-B479-BDFEB55DA155}.Debug|x86.Build.0 = Debug|Win32
-		{1F83BEBA-FF82-4883-B479-BDFEB55DA155}.Release|x64.ActiveCfg = Release|x64
-		{1F83BEBA-FF82-4883-B479-BDFEB55DA155}.Release|x64.Build.0 = Release|x64
-		{1F83BEBA-FF82-4883-B479-BDFEB55DA155}.Release|x86.ActiveCfg = Release|Win32
-		{1F83BEBA-FF82-4883-B479-BDFEB55DA155}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

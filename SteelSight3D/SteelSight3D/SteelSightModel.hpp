@@ -10,12 +10,11 @@
 #include <memory>
 
 namespace Voortman {
-	class SteelSightModel {
+	class SteelSightModel final {
 	public:
-
-		struct Vertex {
-			glm::vec3 position;
-			glm::vec3 color;
+		struct Vertex final {
+			glm::vec3 position{};
+			glm::vec3 color{0.5f,0.5f,0.5f};
 			glm::vec3 normal{};
 			glm::vec2 uv{};
 
@@ -25,7 +24,7 @@ namespace Voortman {
 			bool operator==(const Vertex& other) const {return position == other.position && color == other.color && normal == other.normal && uv == other.uv;}
 		};
 
-		struct Builder {
+		struct Builder final {
 			std::vector<Vertex> vertices{};
 			std::vector<uint32_t> indices{};
 

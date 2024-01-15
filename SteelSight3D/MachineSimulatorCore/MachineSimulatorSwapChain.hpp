@@ -9,14 +9,8 @@
 */
 
 #pragma once
+#include "pch.h"
 
-#include <stdlib.h>
-#include <string>
-#include <assert.h>
-#include <stdio.h>
-#include <vector>
-
-#include <vulkan/vulkan.h>
 #include "VulkanTools.hpp"
 
 #ifdef __ANDROID__

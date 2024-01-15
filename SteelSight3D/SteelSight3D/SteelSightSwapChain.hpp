@@ -6,7 +6,7 @@
 #include <string>
 
 namespace Voortman {
-	class SteelSightSwapChain {
+	class SteelSightSwapChain final {
 	public:
 		static constexpr int MAX_FRAMES_IN_FLIGHT{ 2 };
 

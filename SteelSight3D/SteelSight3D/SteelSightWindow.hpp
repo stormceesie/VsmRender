@@ -5,7 +5,7 @@
 #include <string>
 
 namespace Voortman {
-	class SteelSightWindow {
+	class SteelSightWindow final {
 	public:
 		SteelSightWindow(const int w, const int h, const std::string& name);
 		~SteelSightWindow();

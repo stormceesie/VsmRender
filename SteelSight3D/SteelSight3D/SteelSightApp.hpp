@@ -30,7 +30,7 @@
 
 
 namespace Voortman {
-	class SteelSightApp {
+	class SteelSightApp final {
 	public:
 		static constexpr uint32_t WIDTH{ 800 };
 		static constexpr uint32_t HEIGHT{ 600 };

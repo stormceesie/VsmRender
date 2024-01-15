@@ -17,7 +17,7 @@ namespace Voortman {
 		glm::mat4 view{ 1.f };
 		glm::mat4 inverseView{ 1.f };
 
-		glm::vec4 ambientLightColor{ 1.f, 1.f, 1.f, .02f };
+		glm::vec4 ambientLightColor{ 1.f, 1.f, 1.f, .05f };
 
 		PointLight pointLights[MAX_LIGHTS];
 		int numLights;
@@ -27,7 +27,7 @@ namespace Voortman {
 		int frameIndex;
 		float frameTime;
 		VkCommandBuffer commandBuffer;
-		SteelSightCamera& camera;
+		SteelSightCamera& Camera;
 		VkDescriptorSet globalDescriptorSet;
 		SteelSightSimulationObject::map& simulationObjects;
 	};

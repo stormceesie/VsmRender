@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../pch.h"
+#include "pch.h"
 #include "VulkanBuffer.hpp"
 #include "VulkanTools.hpp"
 #include "vulkan/vulkan.h"

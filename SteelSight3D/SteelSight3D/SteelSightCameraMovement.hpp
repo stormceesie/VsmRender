@@ -3,9 +3,9 @@
 #include "SteelSightWindow.hpp"
 
 namespace Voortman {
-	class SteelSightCameraMovement {
+	class SteelSightCameraMovement final {
 	public:
-		struct KeyMappings {
+		struct KeyMappings final {
 			int moveLeft = GLFW_KEY_A;
 			int moveRight = GLFW_KEY_D;
 			int moveForward = GLFW_KEY_W;

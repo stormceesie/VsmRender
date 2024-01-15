@@ -82,6 +82,18 @@ namespace Voortman {
 			}
 		}
 
+		int lightIndex = 0;
+		for (auto& light : pointLights) {
+			light->transform.translation += light->transform.velocity * timestep;
+
+			// Update UBO
+			ubo.pointLights[lightIndex].position = glm::vec4(light->transform.translation, 1.f);
+			ubo.pointLights[lightIndex].color = glm::vec4(light->color, light->pointLight->lightIntensity);
+			lightIndex++;
+		}
+
+		ubo.numLights = static_cast<uint32_t>(lightIndex);
+
 		// There are at least 2 lights required for this calculation
 		// If there are to many lights then return because this can become very expensive
 		if (pointLights.size() < 2 || pointLights.size() > MAX_LIGHTS) return;
@@ -106,18 +118,6 @@ namespace Voortman {
 				light2->transform.velocity += acceleration2 * timestep;
 			}
 		}
-
-		int lightIndex = 0;
-		for (auto& light : pointLights) {
-			light->transform.translation += light->transform.velocity * timestep;
-
-			// Update UBO
-			ubo.pointLights[lightIndex].position = glm::vec4(light->transform.translation, 1.f);
-			ubo.pointLights[lightIndex].color = glm::vec4(light->color, light->pointLight->lightIntensity);
-			lightIndex++;
-		}
-
-		ubo.numLights = static_cast<uint32_t>(lightIndex);
 	}
 
 	void SteelSightPointLight::render(FrameInfo& frameInfo) {
@@ -126,7 +126,7 @@ namespace Voortman {
 			auto& obj = kv.second;
 			if (obj.pointLight == nullptr) continue;
 
-			auto offset = frameInfo.camera.getPosition() - obj.transform.translation;
+			auto offset = frameInfo.Camera.getPosition() - obj.transform.translation;
 			float disSquared = glm::dot(offset, offset);
 			sorted[disSquared] = obj.getId();
 		}

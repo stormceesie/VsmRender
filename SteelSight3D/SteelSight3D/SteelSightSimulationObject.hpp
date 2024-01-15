@@ -5,7 +5,7 @@
 #include <memory>
 
 namespace Voortman {
-	struct TransformComponent {
+	struct TransformComponent final {
 		glm::vec3 translation{};
 		glm::vec3 scale{ 1.f, 1.f, 1.f };
 		glm::vec3 rotation{};
@@ -23,7 +23,7 @@ namespace Voortman {
 		float mass = 100.f;
 	};
 
-	class SteelSightSimulationObject {
+	class SteelSightSimulationObject final {
 	public:
 		using id_t = unsigned int;
 		// Unordered map is used here this is fine because all the objects should fit inside cache

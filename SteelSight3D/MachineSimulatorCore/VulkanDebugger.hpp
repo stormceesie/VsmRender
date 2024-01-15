@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "../pch.h"
+#include "pch.h"
 
 #ifdef _WIN32
 #include <windows.h>

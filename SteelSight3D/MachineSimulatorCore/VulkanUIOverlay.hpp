@@ -8,14 +8,14 @@
 
 #pragma once
 
-#include "../pch.h"
+#include "pch.h"
 
 #include <vulkan/vulkan.h>
 #include "VulkanTools.hpp"
 #include "VulkanDebugger.hpp"
 #include "VulkanBuffer.hpp"
 #include "VulkanDevice.hpp"
-#include "../external/imgui/imgui.h"
+#include "ImGui/imgui.h"
 
 #if defined(__ANDROID__)
 #include "VulkanAndroid.h"

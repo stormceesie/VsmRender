@@ -171,8 +171,11 @@ namespace Voortman {
 		robin_hood::unordered_map<Vertex, uint32_t> uniqueVertices{};
 
 		for (const auto& shape : result.shapes) {
-			for (const auto& index : shape.mesh.indices) {
+			for (size_t i = 0; i < shape.mesh.indices.size(); ++i) {
 				Vertex vertex{};
+
+				const auto& index = shape.mesh.indices[i];
+				int material_index = shape.mesh.material_ids.empty() ? -1 : shape.mesh.material_ids[i / 3]; // Assuming each face is a triangle
 
 				// Position
 				if (index.position_index >= 0) {
@@ -181,9 +184,17 @@ namespace Voortman {
 						result.attributes.positions[3 * index.position_index + 1],
 						result.attributes.positions[3 * index.position_index + 2]
 					};
+				}
 
-					// Temp standard vertex color
-					vertex.color = {.5f,.5f,.5f};
+				// Assign color based on material
+				// Rapidobj does not support vertex colors instead rapidobj uses the more efficient .mtl files to set each vertex color
+				if (material_index >= 0) {
+					const auto& material = result.materials[material_index];
+					vertex.color = {
+						material.diffuse[0],
+						material.diffuse[1],
+						material.diffuse[2]
+					};
 				}
 
 				// Normals
@@ -204,7 +215,7 @@ namespace Voortman {
 				}
 
 				// Check for unique vertex and update indices
-				if (uniqueVertices.count(vertex) == 0) {
+				if (!uniqueVertices.contains(vertex)) {
 					uniqueVertices[vertex] = static_cast<uint32_t>(vertices.size());
 					vertices.push_back(vertex);
 				}

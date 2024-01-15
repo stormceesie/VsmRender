@@ -9,7 +9,7 @@
 
 namespace Voortman {
 
-    class SteelSightDescriptorSetLayout {
+    class SteelSightDescriptorSetLayout final {
     public:
         class Builder {
         public:

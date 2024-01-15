@@ -129,11 +129,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MachineSimulatorCore\MachineSimulatorCore.vcxproj">
-      <Project>{1f83beba-ff82-4883-b479-bdfeb55da155}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

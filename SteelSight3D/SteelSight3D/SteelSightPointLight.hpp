@@ -12,7 +12,7 @@
 #include "SteelSightFrameInfo.hpp"
 
 namespace Voortman {
-	class SteelSightPointLight {
+	class SteelSightPointLight final {
 	public:
 		SteelSightPointLight(SteelSightDevice& device, VkRenderPass renderpass, VkDescriptorSetLayout globalSetLayout);
 		~SteelSightPointLight();

@@ -7,6 +7,7 @@
 #ifndef PCH_H
 #define PCH_H
 
+#include "windows.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,5 +43,6 @@
 #include <stdexcept>
 
 #include "vulkan/vulkan.h"
+#include "vulkan/vulkan_core.h"
 
 #endif //PCH_H

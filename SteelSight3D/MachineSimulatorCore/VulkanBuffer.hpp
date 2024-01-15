@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../pch.h"
+#include "pch.h"
 #include "VulkanTools.hpp"
 
 namespace vks

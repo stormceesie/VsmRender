@@ -2,7 +2,7 @@
 #include "SteelSightDevice.hpp"
 
 namespace Voortman {
-    class SteelSightBuffer {
+    class SteelSightBuffer final {
     public:
         SteelSightBuffer(SteelSightDevice& device, VkDeviceSize instanceSize, uint32_t instanceCount, VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VkDeviceSize minOffsetAlignment = 1);
         ~SteelSightBuffer();
@@ -23,14 +23,14 @@ namespace Voortman {
         VkDescriptorBufferInfo descriptorInfoForIndex(int index);
         VkResult invalidateIndex(int index);
 
-        VkBuffer getBuffer() const { return buffer; }
-        void* getMappedMemory() const { return mapped; }
-        uint32_t getInstanceCount() const { return instanceCount; }
-        VkDeviceSize getInstanceSize() const { return instanceSize; }
-        VkDeviceSize getAlignmentSize() const { return instanceSize; }
-        VkBufferUsageFlags getUsageFlags() const { return usageFlags; }
-        VkMemoryPropertyFlags getMemoryPropertyFlags() const { return memoryPropertyFlags; }
-        VkDeviceSize getBufferSize() const { return bufferSize; }
+        inline VkBuffer getBuffer() const { return buffer; }
+        inline void* getMappedMemory() const { return mapped; }
+        inline uint32_t getInstanceCount() const { return instanceCount; }
+        inline VkDeviceSize getInstanceSize() const { return instanceSize; }
+        inline VkDeviceSize getAlignmentSize() const { return instanceSize; }
+        inline VkBufferUsageFlags getUsageFlags() const { return usageFlags; }
+        inline VkMemoryPropertyFlags getMemoryPropertyFlags() const { return memoryPropertyFlags; }
+        inline VkDeviceSize getBufferSize() const { return bufferSize; }
 
     private:
         static VkDeviceSize getAlignment(VkDeviceSize instanceSize, VkDeviceSize minOffsetAlignment);

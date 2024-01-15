@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 
 namespace Voortman {
-	class SteelSightCamera {
+	class SteelSightCamera final {
 	public:
 		void SetOrthographicProjection(float left, float right, float top, float bottom, float near, float far);
 		void SetPerspectiveProjection(float fovy, float aspect, float near, float far);

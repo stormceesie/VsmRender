@@ -154,21 +154,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
-    <ClInclude Include="HelperFunctions\benchmark.hpp" />
-    <ClInclude Include="HelperFunctions\CommandLineParser.hpp" />
-    <ClInclude Include="HelperFunctions\keycodes.hpp" />
-    <ClInclude Include="HelperFunctions\VulkanBuffer.hpp" />
-    <ClInclude Include="HelperFunctions\VulkanDebugger.hpp" />
-    <ClInclude Include="HelperFunctions\VulkanDevice.hpp" />
-    <ClInclude Include="HelperFunctions\VulkanUIOverlay.hpp" />
+    <ClInclude Include="benchmark.hpp" />
+    <ClInclude Include="CommandLineParser.hpp" />
     <ClInclude Include="MachineSimulatorCore.hpp" />
+    <ClInclude Include="keycodes.hpp" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="MachineSimulatorCamera.hpp" />
+    <ClInclude Include="VulkanBuffer.hpp" />
+    <ClInclude Include="VulkanDebugger.hpp" />
+    <ClInclude Include="VulkanDevice.hpp" />
+    <ClInclude Include="VulkanUIOverlay.hpp" />
+    <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="MachineSimulatorSwapChain.hpp" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="HelperFunctions\VulkanInitializers.hpp" />
-    <ClInclude Include="HelperFunctions\VulkanTools.hpp" />
+    <ClInclude Include="VulkanInitializers.hpp" />
+    <ClInclude Include="VulkanTools.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MachineSimulatorCore.cpp" />
+    <ClCompile Include="VulkanBuffer.cpp" />
+    <ClCompile Include="VulkanDebugger.cpp" />
+    <ClCompile Include="VulkanDevice.cpp" />
+    <ClCompile Include="VulkanTools.cpp" />
+    <ClCompile Include="VulkanUIOverlay.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_demo.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

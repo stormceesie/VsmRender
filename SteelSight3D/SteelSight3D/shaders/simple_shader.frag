@@ -30,8 +30,8 @@ void main() {
   vec3 specularLight = vec3(0.0);
   vec3 surfaceNormal = normalize(fragNormalWorld);
 
-  vec3 cameraPosWorld = ubo.invView[3].xyz;
-  vec3 viewDirection = normalize(cameraPosWorld - fragPosWorld);
+  vec3 CameraPosWorld = ubo.invView[3].xyz;
+  vec3 viewDirection = normalize(CameraPosWorld - fragPosWorld);
 
   for (int i = 0; i < ubo.numLights; i++) {
     PointLight light = ubo.pointLights[i];

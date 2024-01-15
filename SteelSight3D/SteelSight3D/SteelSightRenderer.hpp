@@ -9,7 +9,7 @@
 #include "SteelSightSwapChain.hpp"
 
 namespace Voortman {
-	class SteelSightRenderer {
+	class SteelSightRenderer final {
 	public:
 
 		SteelSightRenderer(SteelSightWindow& Window, SteelSightDevice& Device);
