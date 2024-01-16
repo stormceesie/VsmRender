@@ -110,10 +110,10 @@
     <ClInclude Include="SteelSightPointLight.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RobinHoodHashMap\RobinHoodHashing.h">
+    <ClInclude Include="RapidObjLoader\rapidobj.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RapidObjLoader\rapidobj.hpp">
+    <ClInclude Include="RobinHoodHashMap\unordered_dense.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

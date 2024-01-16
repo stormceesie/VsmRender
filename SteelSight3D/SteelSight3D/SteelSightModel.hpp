@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <memory>
+#include "unordered_dense.h"
 
 namespace Voortman {
 	class SteelSightModel final {

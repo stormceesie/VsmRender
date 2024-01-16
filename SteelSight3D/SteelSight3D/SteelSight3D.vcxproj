@@ -116,6 +116,10 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BuildStlModules>true</BuildStlModules>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <EnableModules>false</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,6 +155,10 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BuildStlModules>true</BuildStlModules>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <EnableModules>false</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -187,7 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RapidObjLoader\rapidobj.hpp" />
-    <ClInclude Include="RobinHoodHashMap\RobinHoodHashing.h" />
+    <ClInclude Include="RobinHoodHashMap\unordered_dense.h" />
     <ClInclude Include="SteelSightPointLight.hpp" />
     <ClInclude Include="SteelSightApp.hpp" />
     <ClInclude Include="SteelSightBuffer.hpp" />

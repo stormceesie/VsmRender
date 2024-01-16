@@ -3,14 +3,12 @@
 #include "SteelSightUtils.hpp"
 
 #include <rapidobj.hpp>
-#include <RobinHoodHashing.h>
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/hash.hpp>
 
-#include <unordered_map>
 #include <cstring>
 #include <cassert>
 
@@ -168,7 +166,7 @@ namespace Voortman {
 		indices.clear();
 
 		// Significantly faster than std::unordered_map
-		robin_hood::unordered_map<Vertex, uint32_t> uniqueVertices{};
+		ankerl::unordered_dense::map<Vertex, uint32_t> uniqueVertices{};
 
 		for (const auto& shape : result.shapes) {
 			for (size_t i = 0; i < shape.mesh.indices.size(); ++i) {
@@ -189,11 +187,10 @@ namespace Voortman {
 				// Assign color based on material
 				// Rapidobj does not support vertex colors instead rapidobj uses the more efficient .mtl files to set each vertex color
 				if (material_index >= 0) {
-					const auto& material = result.materials[material_index];
 					vertex.color = {
-						material.diffuse[0],
-						material.diffuse[1],
-						material.diffuse[2]
+						result.materials[material_index].diffuse[0],
+						result.materials[material_index].diffuse[1],
+						result.materials[material_index].diffuse[2]
 					};
 				}
 
