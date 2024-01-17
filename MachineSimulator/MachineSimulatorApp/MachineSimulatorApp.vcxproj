@@ -118,6 +118,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>C:\Git\VsmRender\MachineSimulator\MachineSimulatorCore;C:\Git\VsmRender\MachineSimulator\MachineSimulatorCore\VULKAN\Include;C:\Git\VsmRender\MachineSimulator\MachineSimulatorCore\GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,6 +131,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MachineSimulator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MachineSimulatorCore\MachineSimulatorCore.vcxproj">
+      <Project>{072128a5-6095-4a51-9395-af83eb8bbef7}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
