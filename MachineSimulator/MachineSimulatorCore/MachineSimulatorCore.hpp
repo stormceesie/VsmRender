@@ -29,30 +29,55 @@
 #pragma once
 #include <windows.h>
 #include <cstdint>
+#include <vector>
+#include <vulkan/vulkan.h>
 
-class MachineSimulatorCore {
-public:
+namespace Voortman {
+	class MachineSimulatorCore {
+	public:
+		static std::vector<const char*> args;
+
+		MachineSimulatorCore();
+		virtual ~MachineSimulatorCore();
+
+		bool initVulkan();
+
+		virtual VkResult createInstance(bool enableValidation);
+
+		struct Settings {
+			bool validation = false;
+			bool fullscreen = false;
+			bool vsync = false;
+			bool overlay = true;
+		} settings;
+
+
+	protected:
+
+
+	private:
+
+	};
+
 #if defined(_WIN32)
-	virtual void OnHandleMessage(HWND hWnd, UINT uMsg, WPARAM, LPARAM lParam);
-#endif
+#define MachineSimulatorCoreMain()
+	MachineSimulatorCore* machineSimulator;
+	LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+		if (!machineSimulator) {
 
+		}
+		return (DefWindowProc(hWnd, uMsg, wParam, lParam));
+	}
 
-protected:
+	int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
+		for (int32_t i = 0; i < __argc; i++) 
+			MachineSimulatorCore::args.push_back(__argv[i]);
 
+		machineSimulator = new MachineSimulatorCore();
+		machineSimulator->initVulkan();
 
-private:
-
-};
-
-#if defined(_WIN32)
-#define MachineSimulatorCore()
-
-LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-
-}
-
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int) {
-	for (int32_t i = 0; i < __argc; i++) {}
-}
+		return 0;
+	}
 
 #endif
+}
