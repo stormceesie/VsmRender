@@ -20,7 +20,7 @@ namespace std {
 	template <>
 	struct hash<Voortman::SteelSightModel::Vertex> {
 		inline size_t operator()(Voortman::SteelSightModel::Vertex const& vertex) const noexcept {
-			size_t seed = 0;
+			size_t seed{0};
 			Voortman::hashCombine(seed, vertex.position, vertex.color, vertex.normal, vertex.uv);
 			return seed;
 		}
@@ -185,7 +185,7 @@ namespace Voortman {
 				}
 
 				// Assign color based on material
-				// Rapidobj does not support vertex colors instead rapidobj uses the more efficient .mtl files to set each vertex color
+				// Rapidobj does not support vertex colors instead rapidobj uses .mtl files to set each vertex color
 				if (material_index >= 0) {
 					vertex.color = {
 						result.materials[material_index].diffuse[0],
