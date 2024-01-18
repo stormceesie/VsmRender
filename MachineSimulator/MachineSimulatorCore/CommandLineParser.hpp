@@ -6,9 +6,11 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#pragma once
+#ifndef COMMANDLINEPARSER_HPP
+#define COMMANDLINEPARSER_HPP
 
 #include <vector>
+// Faster than std::unordered_map
 #include "HashMap/unordered_dense.h"
 #include <string>
 #include <iostream>
@@ -118,3 +120,4 @@ public:
 		return int32_t();
 	}
 };
+#endif
