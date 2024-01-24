@@ -20,11 +20,11 @@ namespace Voortman {
 
 		inline VkRenderPass getSwapChainRenderPass() const { return SSSwapChain->getRenderPass(); }
 
-		inline float getAspectRatio() const { return SSSwapChain->extentAspectRatio(); }
+		inline float getAspectRatio() const noexcept { return SSSwapChain->extentAspectRatio(); }
 
-		inline bool isFrameInProgress() const { return isFrameStarted; }
+		inline bool isFrameInProgress() const noexcept { return isFrameStarted; }
 
-		VkCommandBuffer getCurrentCommandBuffer() const {
+		inline VkCommandBuffer getCurrentCommandBuffer() const {
 			assert(isFrameStarted && "Cannot get command buffer when frame is in progress");
 			return commandBuffers[currentFrameIndex];
 		}

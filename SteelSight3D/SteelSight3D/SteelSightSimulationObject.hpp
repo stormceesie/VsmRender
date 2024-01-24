@@ -27,7 +27,7 @@ namespace Voortman {
 	public:
 		using id_t = unsigned int;
 		// Unordered map is used here this is fine because all the objects should fit inside cache
-		using map = std::unordered_map<id_t, SteelSightSimulationObject>;
+		using map = ankerl::unordered_dense::map<id_t, SteelSightSimulationObject>;
 
 		static SteelSightSimulationObject createSimulationObject() { 
 			static id_t currentId = 0;
