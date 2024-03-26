@@ -13,6 +13,9 @@
 #include <numeric>
 
 namespace Voortman {
+	/// <summary>
+	/// SteelSightApp constructor to initialize some variables
+	/// </summary>
 	SteelSightApp::SteelSightApp() {
 		globalPool = SteelSightDescriptorPool::Builder(SSDevice)
 			.setMaxSets(SteelSightSwapChain::MAX_FRAMES_IN_FLIGHT)
@@ -21,8 +24,14 @@ namespace Voortman {
 		loadSimulationObjects();
 	}
 
+	/// <summary>
+	/// Deconstructor of the SteelSightApp
+	/// </summary>
 	SteelSightApp::~SteelSightApp() {}
 
+	/// <summary>
+	/// The general run function this function contains the program whileloop that handles all the messages
+	/// </summary>
 	void SteelSightApp::run() {
         std::vector<std::unique_ptr<SteelSightBuffer>> uboBuffers(SteelSightSwapChain::MAX_FRAMES_IN_FLIGHT);
         for (int i = 0; i < uboBuffers.size(); i++) {
@@ -111,19 +120,54 @@ namespace Voortman {
         vkDeviceWaitIdle(SSDevice.device());
 	}
 
+    /// <summary>
+    /// Function that loads all the objects that are simulated this is done with the rapidobj loader parsed with multiple threads
+    /// </summary>
     void SteelSightApp::loadSimulationObjects() {
-        // Aanmaken van het "zon" puntlicht
-        auto sunLight = SteelSightSimulationObject::makePointLight(3.f, { 1.f, 1.f, 1.f }, 0.2f, 1000000000.0f);
-        sunLight.transform.translation = glm::vec3(1.5f, -3.f, -1.f); // Zon staat in het midden
-        SimulationObjects.emplace(sunLight.getId(), std::move(sunLight));
+        std::shared_ptr<SteelSightModel> SimulationModel = SteelSightModel::createModelFromFile(SSDevice, "Models/quad.obj");
 
         {
-            std::shared_ptr<SteelSightModel> SimulationModel = SteelSightModel::createModelFromFile(SSDevice, "C:/Users/f.kegler/Documents/Stage Files/untitled.obj");
+            auto floor = SteelSightSimulationObject::createSimulationObject();
+            floor.model = SimulationModel;
+            floor.transform.translation = glm::vec3(0.0f, 0.5f, 0.0f);
+            floor.transform.scale = glm::vec3(4.f);
+            SimulationObjects.emplace(floor.getId(), std::move(floor));
+        }
+
+        {
+            auto sunLight = SteelSightSimulationObject::makePointLight(0.f, { 0.f, 0.f, 0.f }, 0.2f, 1000000000.0f);
+            sunLight.transform.translation = glm::vec3(1.5f, -1.f, 0.f); // Zon staat in het midden
+            SimulationObjects.emplace(sunLight.getId(), std::move(sunLight));
+        }
+        
+        {
+            auto mercuryLight = SteelSightSimulationObject::makePointLight(1.f, { 0.5f, 0.1f, 0.1f }, 0.03f, 550000.0f);
+            mercuryLight.transform.translation = glm::vec3(2.3f, -1.f, 0.4f);
+            mercuryLight.transform.velocity = glm::vec3(0.4f, 0.5f, 0.3f);
+            SimulationObjects.emplace(mercuryLight.getId(), std::move(mercuryLight));
+        }
+
+        {
+            auto mercuryLight2 = SteelSightSimulationObject::makePointLight(1.f, { 0.1f, 0.1f, 0.5f }, 0.03f, 400000.0f);
+            mercuryLight2.transform.translation = glm::vec3(0.7f, -1.f, -0.4f);
+            mercuryLight2.transform.velocity = glm::vec3(-0.4f, -0.5f, -0.5f);
+            SimulationObjects.emplace(mercuryLight2.getId(), std::move(mercuryLight2));
+        }
+        
+        {
+            auto mercuryLight3 = SteelSightSimulationObject::makePointLight(0.5f, { 0.1f, 0.5f, 0.1f }, 0.03f, 400000.0f);
+            mercuryLight3.transform.translation = glm::vec3(0.8f, -1.f, 0.6f);
+            mercuryLight3.transform.velocity = glm::vec3(-0.4f, 0.6f, 0.2f);
+            SimulationObjects.emplace(mercuryLight3.getId(), std::move(mercuryLight3));
+        }
+
+        {
+            SimulationModel = SteelSightModel::createModelFromFile(SSDevice, "Models/Voortman3D.obj");
 
             auto smoothvase = SteelSightSimulationObject::createSimulationObject();
             smoothvase.model = SimulationModel;
-            smoothvase.transform.translation = {0.0f, 0.4f, 0.f};
-            smoothvase.transform.rotation = {1.57f, 0.0f, 0.0f};
+            smoothvase.transform.translation = { 1.0f, -0.85f, -0.5f };
+            smoothvase.transform.rotation = { 3.14f + 1.57f, 3.14f, 0.f };
             smoothvase.transform.scale = glm::vec3(0.001f);
 
             SimulationObjects.emplace(smoothvase.getId(), std::move(smoothvase));
