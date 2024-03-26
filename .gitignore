@@ -8,6 +8,8 @@ extern/
 [Bb]in/
 [Ll]og/
 [Ll]ogs/
+html/
+latex/
 
 # User-specifieke bestanden
 *.user
