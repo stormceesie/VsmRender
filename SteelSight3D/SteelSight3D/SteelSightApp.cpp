@@ -162,6 +162,14 @@ namespace Voortman {
         }
 
         {
+            auto mercuryLight4 = SteelSightSimulationObject::makePointLight(0.5f, { 0.1f, 0.5f, 0.1f }, 0.03f, 400000.0f);
+            mercuryLight4.transform.translation = glm::vec3(1.2f, -1.f, 0.6f);
+            mercuryLight4.transform.velocity = glm::vec3(0.4f, 0.6f, 0.2f);
+            SimulationObjects.emplace(mercuryLight4.getId(), std::move(mercuryLight4));
+        }
+
+
+        {
             SimulationModel = SteelSightModel::createModelFromFile(SSDevice, "Models/Voortman3D.obj");
 
             auto smoothvase = SteelSightSimulationObject::createSimulationObject();
