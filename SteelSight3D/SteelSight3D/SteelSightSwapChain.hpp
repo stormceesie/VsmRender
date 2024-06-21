@@ -18,14 +18,14 @@ namespace Voortman {
 		SteelSightSwapChain& operator=(const SteelSightSwapChain &) = delete;
 
 		// inline const noexcept to reduce overhead
-		inline VkFramebuffer getFrameBuffer(int index) const noexcept { return swapChainFrameBuffers[index]; }
-		inline VkRenderPass getRenderPass() const noexcept { return renderpass; }
-		inline VkImageView getImageView(int index) const noexcept { return swapChainImageViews[index]; }
-		inline size_t imageCount() const noexcept{ return swapChainImages.size(); }
-		inline VkFormat getSwapChainImageFormat() const noexcept { return swapChainImageFormat; }
-		inline VkExtent2D getSwapChainExtent() const noexcept { return swapChainExtent; }
-		inline uint32_t width() const noexcept { return swapChainExtent.width; }
-		inline uint32_t height() const noexcept { return swapChainExtent.height; }
+		_NODISCARD const inline VkFramebuffer getFrameBuffer(int index) const noexcept { return swapChainFrameBuffers[index]; }
+		_NODISCARD const inline VkRenderPass getRenderPass()            const noexcept { return renderpass; }
+		_NODISCARD const inline VkImageView getImageView(int index)     const noexcept { return swapChainImageViews[index]; }
+		_NODISCARD const inline size_t imageCount()                     const noexcept { return swapChainImages.size(); }
+		_NODISCARD const inline VkFormat getSwapChainImageFormat()      const noexcept { return swapChainImageFormat; }
+		_NODISCARD const inline VkExtent2D getSwapChainExtent()         const noexcept { return swapChainExtent; }
+		_NODISCARD const inline uint32_t width()                        const noexcept { return swapChainExtent.width; }
+		_NODISCARD const inline uint32_t height()                       const noexcept { return swapChainExtent.height; }
 
 		inline float extentAspectRatio() const noexcept { return static_cast<float>(swapChainExtent.width) / static_cast<float>(swapChainExtent.height); }
 		inline bool comparedSwapFormats(const SteelSightSwapChain& swapChain) const noexcept { return swapChain.swapChainDepthFormat == swapChainDepthFormat && swapChain.swapChainImageFormat == swapChainImageFormat; }

@@ -1,6 +1,6 @@
 #include "SteelSightApp.hpp"
 
-int main()
+int WinMain()
 {
     Voortman::SteelSightApp app{};
 

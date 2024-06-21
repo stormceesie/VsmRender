@@ -76,14 +76,14 @@ namespace Voortman {
 
 		// Collect every light for easy access
 		std::vector<SteelSightSimulationObject*> pointLights;
-		for (auto& kv : frameInfo.simulationObjects) {
-			if (kv.second.pointLight != nullptr) {
+		for (auto& kv : frameInfo.simulationObjects) _LIKELY {
+			if (kv.second.pointLight != nullptr) _LIKELY {
 				pointLights.push_back(&(kv.second));
 			}
 		}
 
 		int lightIndex = 0;
-		for (auto& light : pointLights) {
+		for (auto& light : pointLights) _LIKELY {
 			light->transform.translation += light->transform.velocity * timestep;
 
 			// Update UBO
@@ -99,8 +99,8 @@ namespace Voortman {
 		if (pointLights.size() < 2 || pointLights.size() > MAX_LIGHTS) return;
 
 		// Go through every pair of objects and calculate the force between them
-		for (size_t i = 0; i < pointLights.size(); i++) {
-			for (size_t j = i + 1; j < pointLights.size(); j++) {
+		for (size_t i = 0; i < pointLights.size(); i++) _LIKELY {
+			for (size_t j = i + 1; j < pointLights.size(); j++) _LIKELY {
 				SteelSightSimulationObject* light1 = pointLights[i];
 				SteelSightSimulationObject* light2 = pointLights[j];
 
@@ -122,7 +122,7 @@ namespace Voortman {
 
 	void SteelSightPointLight::render(FrameInfo& frameInfo) {
 		std::map<float, SteelSightSimulationObject::id_t> sorted;
-		for (auto& kv : frameInfo.simulationObjects) {
+		for (auto& kv : frameInfo.simulationObjects) _LIKELY {
 			auto& obj = kv.second;
 			if (obj.pointLight == nullptr) continue;
 
@@ -144,8 +144,8 @@ namespace Voortman {
 			nullptr);
 
 		// iterate through sorted lights in reverse order (from back to front)
-		for (auto it = sorted.rbegin(); it != sorted.rend(); ++it) {
-			auto& obj = frameInfo.simulationObjects.at(it->second);
+		for (auto it = sorted.rbegin(); it != sorted.rend(); ++it) _LIKELY {
+			const auto& obj = frameInfo.simulationObjects.at(it->second);
 
 			PointLightPushConstants push{};
 			push.position = glm::vec4(obj.transform.translation, 1.f);

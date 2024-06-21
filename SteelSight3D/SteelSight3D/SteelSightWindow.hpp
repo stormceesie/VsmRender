@@ -40,19 +40,19 @@ namespace Voortman {
 		/// Check if the window should close return the result
 		/// </summary>
 		/// <returns>If the window should close</returns>
-		inline bool ShouldClose() const noexcept { return glfwWindowShouldClose(window); }
+		_NODISCARD const inline bool ShouldClose() const noexcept { return glfwWindowShouldClose(window); }
 
 		/// <summary>
 		/// Function that gets the VkExtent2D of the window
 		/// </summary>
 		/// <returns>The VkExtent2D based on the width and the height of the window</returns>
-		inline VkExtent2D getExtent() const noexcept { return { static_cast<uint32_t>(width), static_cast<uint32_t>(height) }; }
+		_NODISCARD const inline VkExtent2D getExtent() const noexcept { return { static_cast<uint32_t>(width), static_cast<uint32_t>(height) }; }
 
 		/// <summary>
 		/// Function to check if the window was resized
 		/// </summary>
 		/// <returns>True if the window was resized</returns>
-		inline bool wasWindowResized() const noexcept { return framebufferResized; }
+		_NODISCARD const inline bool wasWindowResized() const noexcept { return framebufferResized; }
 
 		/// <summary>
 		/// Function to reset the window resize flag.
@@ -63,7 +63,7 @@ namespace Voortman {
 		/// Getter of the GLFWwindow pointer.
 		/// </summary>
 		/// <returns>The GLFWwindow pointer</returns>
-		inline GLFWwindow* getGLFWwindow() const noexcept { return window; }
+		_NODISCARD inline GLFWwindow* getGLFWwindow() const noexcept { return window; }
 
 		/// <summary>
 		/// Function that creates a window surface with the current VkInstance

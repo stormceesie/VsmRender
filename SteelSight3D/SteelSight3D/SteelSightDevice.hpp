@@ -40,12 +40,12 @@ namespace Voortman {
 		SteelSightDevice(SteelSightDevice&&) = delete;
 		SteelSightDevice& operator=(SteelSightDevice&&) = delete;
 
-		inline VkCommandPool getCommandPool() const { return commandPool; }
-		inline VkDevice device() const { return device_; }
-		inline VkSurfaceKHR surface() const { return surface_; }
-		inline VkQueue graphicsQueue() const { return graphicsQueue_; }
-		inline VkQueue presentQueue() const { return presentQueue_; }
-		inline VkSampleCountFlagBits GetSampleCountFlagBits() const { return msaaSamples; }
+		_NODISCARD const inline VkCommandPool getCommandPool()                 const noexcept { return commandPool; }
+		_NODISCARD const inline VkDevice device()                              const noexcept { return device_; }
+		_NODISCARD const inline VkSurfaceKHR surface()                         const noexcept { return surface_; }
+		_NODISCARD const inline VkQueue graphicsQueue()                        const noexcept { return graphicsQueue_; }
+		_NODISCARD const inline VkQueue presentQueue()                         const noexcept { return presentQueue_; }
+		_NODISCARD const inline VkSampleCountFlagBits GetSampleCountFlagBits() const noexcept { return msaaSamples; }
 
 		SwapChainSupportDetails getSwapChainSupport() { return querySwapChainSupport(physicalDevice); }
 		uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);

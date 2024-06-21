@@ -28,7 +28,6 @@
 #include "SteelSightCameraMovement.hpp"
 #include "SteelSightPointLight.hpp"
 
-
 namespace Voortman {
 	class SteelSightApp final {
 	public:

@@ -19,7 +19,7 @@ namespace std {
 	// Hash function to use hash vertexes using an unordered map
 	template <>
 	struct hash<Voortman::SteelSightModel::Vertex> {
-		inline size_t operator()(Voortman::SteelSightModel::Vertex const& vertex) const noexcept {
+		_NODISCARD inline size_t operator()(Voortman::SteelSightModel::Vertex const& vertex) const noexcept {
 			size_t seed{0};
 			Voortman::hashCombine(seed, vertex.position, vertex.color, vertex.normal, vertex.uv);
 			return seed;
@@ -32,8 +32,6 @@ namespace Voortman {
 		createVertexBuffers(builder.vertices);
 		createIndexBuffers(builder.indices);
 	}
-
-	SteelSightModel::~SteelSightModel() {}
 
 	std::unique_ptr<SteelSightModel> SteelSightModel::createModelFromFile(SteelSightDevice& device, const std::string& filepath) {
 		Builder builder{};
@@ -50,17 +48,17 @@ namespace Voortman {
 		VkDeviceSize offsets[] = { 0 };
 		vkCmdBindVertexBuffers(commandBuffer, 0, 1, buffers, offsets);
 
-		if (hasIndexBuffer) {
+		if (hasIndexBuffer) _LIKELY {
 			// UINT32 is used because models can have easy have more than 65000 triangles
 			vkCmdBindIndexBuffer(commandBuffer, indexBuffer->getBuffer(), 0, VK_INDEX_TYPE_UINT32);
 		}
 	}
 
 	void SteelSightModel::draw(VkCommandBuffer commandBuffer) {
-		if (hasIndexBuffer) {
+		if (hasIndexBuffer) _LIKELY {
 			vkCmdDrawIndexed(commandBuffer, indexCount, 1, 0, 0, 0);
 		}
-		else {
+		else _UNLIKELY {
 			vkCmdDraw(commandBuffer, vertexCount, 1, 0, 0);
 		}
 	}
@@ -97,7 +95,7 @@ namespace Voortman {
 		indexCount = static_cast<uint32_t>(indices.size());
 		hasIndexBuffer = indexCount > 0;
 
-		if (!hasIndexBuffer) {
+		if (!hasIndexBuffer) _UNLIKELY {
 			return;
 		}
 
@@ -153,11 +151,11 @@ namespace Voortman {
 		// Requires C++17 or above compiler
 		rapidobj::Result result = rapidobj::ParseFile(filepath);
 
-		if (result.error) throw std::runtime_error(result.error.code.message());
+		if (result.error) _UNLIKELY throw std::runtime_error(result.error.code.message());
 
 		bool succes = rapidobj::Triangulate(result);
 
-		if (!succes) throw std::runtime_error(result.error.code.message());
+		if (!succes) _UNLIKELY throw std::runtime_error(result.error.code.message());
 
 		auto stop = std::chrono::high_resolution_clock::now();
 		std::cout << "rapidobj parse time: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl << std::endl;
@@ -168,15 +166,15 @@ namespace Voortman {
 		// Significantly faster than std::unordered_map
 		ankerl::unordered_dense::map<Vertex, uint32_t> uniqueVertices{};
 
-		for (const auto& shape : result.shapes) {
-			for (size_t i = 0; i < shape.mesh.indices.size(); ++i) {
+		for (const auto& shape : result.shapes) _LIKELY {
+			for (size_t i = 0; i < shape.mesh.indices.size(); ++i) _LIKELY {
 				Vertex vertex{};
 
 				const auto& index = shape.mesh.indices[i];
 				int material_index = shape.mesh.material_ids.empty() ? -1 : shape.mesh.material_ids[i / 3]; // Assuming each face is a triangle
 
 				// Position
-				if (index.position_index >= 0) {
+				if (index.position_index >= 0) _LIKELY {
 					vertex.position = {
 						result.attributes.positions[3 * index.position_index + 0],
 						result.attributes.positions[3 * index.position_index + 1],
@@ -186,7 +184,7 @@ namespace Voortman {
 
 				// Assign color based on material
 				// Rapidobj does not support vertex colors instead rapidobj uses .mtl files to set each vertex color
-				if (material_index >= 0) {
+				if (material_index >= 0) _LIKELY {
 					vertex.color = {
 						result.materials[material_index].diffuse[0],
 						result.materials[material_index].diffuse[1],
@@ -195,7 +193,7 @@ namespace Voortman {
 				}
 
 				// Normals
-				if (index.normal_index >= 0) {
+				if (index.normal_index >= 0) _LIKELY {
 					vertex.normal = {
 						result.attributes.normals[3 * index.normal_index + 0],
 						result.attributes.normals[3 * index.normal_index + 1],
@@ -204,7 +202,7 @@ namespace Voortman {
 				}
 
 				// Texture Coordinates
-				if (index.texcoord_index >= 0) {
+				if (index.texcoord_index >= 0) _LIKELY {
 					vertex.uv = {
 						result.attributes.texcoords[2 * index.texcoord_index + 0],
 						result.attributes.texcoords[2 * index.texcoord_index + 1]
@@ -212,7 +210,7 @@ namespace Voortman {
 				}
 
 				// Check for unique vertex and update indices
-				if (!uniqueVertices.contains(vertex)) {
+				if (!uniqueVertices.contains(vertex)) _LIKELY {
 					uniqueVertices[vertex] = static_cast<uint32_t>(vertices.size());
 					vertices.push_back(vertex);
 				}

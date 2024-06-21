@@ -22,7 +22,8 @@ namespace Voortman {
 			static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
 			static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
 
-			inline bool operator==(const Vertex& other) const noexcept {return position == other.position && color == other.color && normal == other.normal && uv == other.uv;}
+			inline bool _NODISCARD operator==(const Vertex& other)
+				const noexcept {return position == other.position && color == other.color && normal == other.normal && uv == other.uv;}
 		};
 
 		struct Builder final {
@@ -33,7 +34,7 @@ namespace Voortman {
 		};
 
 		SteelSightModel(SteelSightDevice& device, const SteelSightModel::Builder& builder);
-		~SteelSightModel();
+		~SteelSightModel() = default;
 
 		SteelSightModel(const SteelSightModel&) = delete;
 		SteelSightModel& operator=(const SteelSightModel&) = delete;

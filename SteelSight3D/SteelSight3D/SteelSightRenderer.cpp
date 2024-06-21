@@ -23,7 +23,7 @@ namespace Voortman {
 		allocInfo.commandPool = SSDevice.getCommandPool();
 		allocInfo.commandBufferCount = static_cast<uint32_t>(commandBuffers.size());
 
-		if (vkAllocateCommandBuffers(SSDevice.device(), &allocInfo, commandBuffers.data()) != VK_SUCCESS) {
+		if (vkAllocateCommandBuffers(SSDevice.device(), &allocInfo, commandBuffers.data()) != VK_SUCCESS) _UNLIKELY {
 			throw std::runtime_error("Could not allocate command buffers");
 		}
 	}
@@ -45,10 +45,10 @@ namespace Voortman {
 		}
 		vkDeviceWaitIdle(SSDevice.device());
 
-		if (SSSwapChain == nullptr) {
+		if (SSSwapChain == nullptr) _UNLIKELY {
 			SSSwapChain = std::make_unique<SteelSightSwapChain>(SSDevice, extent);
 		}
-		else {
+		else _LIKELY {
 			std::shared_ptr<SteelSightSwapChain> oldSwapChain = std::move(SSSwapChain);
 			SSSwapChain = std::make_unique<SteelSightSwapChain>(SSDevice, extent, oldSwapChain);
 
@@ -66,12 +66,12 @@ namespace Voortman {
 
 		auto result = SSSwapChain->acquireNextImage(&currentImageIndex);
 
-		if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+		if (result == VK_ERROR_OUT_OF_DATE_KHR) _UNLIKELY {
 			recreateSwapChain();
 			return nullptr;
 		}
 
-		if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+		if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) _UNLIKELY {
 			throw std::runtime_error("failed to acquire swap chain image!");
 		}
 
@@ -81,7 +81,7 @@ namespace Voortman {
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 
-		if (vkBeginCommandBuffer(commandBuffer, &beginInfo) != VK_SUCCESS) {
+		if (vkBeginCommandBuffer(commandBuffer, &beginInfo) != VK_SUCCESS) _UNLIKELY {
 			throw std::runtime_error("failed to begin recording command buffers");
 		}
 		return commandBuffer;
@@ -90,16 +90,18 @@ namespace Voortman {
 	void SteelSightRenderer::endFrame() {
 		assert(isFrameStarted && "Can't call endFrame while frame is not in progress");
 		auto commandBuffer = getCurrentCommandBuffer();
-		if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) {
+		if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) _UNLIKELY {
 			throw std::runtime_error("failed to record command buffer!");
 		}
 
 		auto result = SSSwapChain->submitCommandBuffers(&commandBuffer, &currentImageIndex);
-		if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || SSWindow.wasWindowResized()) {
+
+		// Most of the time this will be true
+		if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || SSWindow.wasWindowResized()) _UNLIKELY {
 			SSWindow.resetWindowResizedFlag();
 			recreateSwapChain();
 		}
-		else if (result != VK_SUCCESS) {
+		else if (result != VK_SUCCESS) _UNLIKELY {
 			throw std::runtime_error("failed to present swap chain image!");
 		}
 

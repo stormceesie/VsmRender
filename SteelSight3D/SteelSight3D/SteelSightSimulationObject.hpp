@@ -29,7 +29,7 @@ namespace Voortman {
 		// Unordered map is used here this is fine because all the objects should fit inside cache
 		using map = ankerl::unordered_dense::map<id_t, SteelSightSimulationObject>;
 
-		static SteelSightSimulationObject createSimulationObject() { 
+		_NODISCARD static inline const SteelSightSimulationObject createSimulationObject() noexcept { 
 			static id_t currentId = 0;
 			return SteelSightSimulationObject{currentId++};
 		}
@@ -38,6 +38,7 @@ namespace Voortman {
 
 		SteelSightSimulationObject(const SteelSightSimulationObject&) = delete;
 		SteelSightSimulationObject& operator=(const SteelSightSimulationObject&) = delete;
+
 		SteelSightSimulationObject(SteelSightSimulationObject&&) = default;
 		SteelSightSimulationObject& operator=(SteelSightSimulationObject&&) = default;
 

@@ -18,7 +18,6 @@ namespace Voortman {
     SteelSightSwapChain::SteelSightSwapChain(SteelSightDevice& deviceRef, VkExtent2D extent, std::shared_ptr<SteelSightSwapChain> previous)
         : device{ deviceRef }, windowExtent{ extent }, oldSwapChain{ previous } {
         init();
-        // cleaning
         oldSwapChain = nullptr;
     }
 
@@ -50,7 +49,7 @@ namespace Voortman {
                 device.device(),
                 &framebufferInfo,
                 nullptr,
-                &swapChainFrameBuffers[i]) != VK_SUCCESS) {
+                &swapChainFrameBuffers[i]) != VK_SUCCESS) _UNLIKELY {
                 throw std::runtime_error("failed to create framebuffer!");
             }
         }

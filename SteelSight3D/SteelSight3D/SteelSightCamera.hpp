@@ -14,10 +14,10 @@ namespace Voortman {
 		void setViewTarget(glm::vec3 position, glm::vec3 Target, glm::vec3 up = glm::vec3{ 0.f, -1.f, 0.f });
 		void setViewYXZ(glm::vec3 position, glm::vec3 rotation);
 
-		inline const glm::mat4& getProjection() const noexcept { return projectionMatrix; }
-		inline const glm::mat4& getView() const noexcept { return viewMatrix; }
-		inline const glm::mat4& getInverseView() const noexcept{ return inverseViewMatrix; }
-		inline const glm::vec3 getPosition() const noexcept { return glm::vec3(inverseViewMatrix[3]); }
+		_NODISCARD inline const glm::mat4& getProjection() const noexcept { return projectionMatrix; }
+		_NODISCARD inline const glm::mat4& getView() const noexcept { return viewMatrix; }
+		_NODISCARD inline const glm::mat4& getInverseView() const noexcept{ return inverseViewMatrix; }
+		_NODISCARD inline const glm::vec3 getPosition() const noexcept { return glm::vec3(inverseViewMatrix[3]); }
 
 	private:
 		glm::mat4 projectionMatrix{ 1.f };

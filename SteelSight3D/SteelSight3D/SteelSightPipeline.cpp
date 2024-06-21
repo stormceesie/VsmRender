@@ -12,15 +12,15 @@ namespace Voortman {
     }
 
     SteelSightPipeline::~SteelSightPipeline() {
-        if (vertShaderModule) {
+        if (vertShaderModule) _LIKELY {
             vkDestroyShaderModule(SSDevice.device(), vertShaderModule, nullptr);
         }
 
-        if (fragShaderModule) {
+        if (fragShaderModule) _LIKELY {
             vkDestroyShaderModule(SSDevice.device(), fragShaderModule, nullptr);
         }
 
-        if (graphicsPipeline) {
+        if (graphicsPipeline) _LIKELY {
             vkDestroyPipeline(SSDevice.device(), graphicsPipeline, nullptr);
         }
     }
@@ -29,7 +29,7 @@ namespace Voortman {
         std::string enginePath = filepath;
         std::ifstream file{ enginePath, std::ios::ate | std::ios::binary };
 
-        if (!file.is_open()) {
+        if (!file.is_open()) _UNLIKELY {
             throw std::runtime_error("failed to open file: " + enginePath);
         }
 
@@ -112,7 +112,7 @@ namespace Voortman {
             1,
             &pipelineInfo,
             nullptr,
-            &graphicsPipeline) != VK_SUCCESS) {
+            &graphicsPipeline) != VK_SUCCESS) _UNLIKELY {
             throw std::runtime_error("failed to create graphics pipeline");
         }
     }
@@ -123,7 +123,7 @@ namespace Voortman {
         createInfo.codeSize = code.size();
         createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());
 
-        if (vkCreateShaderModule(SSDevice.device(), &createInfo, nullptr, shaderModule) != VK_SUCCESS) {
+        if (vkCreateShaderModule(SSDevice.device(), &createInfo, nullptr, shaderModule) != VK_SUCCESS) _UNLIKELY {
             throw std::runtime_error("failed to create shader module");
         }
     }

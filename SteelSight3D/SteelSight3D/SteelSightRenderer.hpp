@@ -18,18 +18,18 @@ namespace Voortman {
 		SteelSightRenderer(const SteelSightRenderer&) = delete;
 		SteelSightRenderer& operator=(const SteelSightRenderer&) = delete;
 
-		inline VkRenderPass getSwapChainRenderPass() const { return SSSwapChain->getRenderPass(); }
+		_NODISCARD inline VkRenderPass getSwapChainRenderPass() const noexcept { return SSSwapChain->getRenderPass(); }
 
-		inline float getAspectRatio() const noexcept { return SSSwapChain->extentAspectRatio(); }
+		_NODISCARD inline float getAspectRatio() const noexcept { return SSSwapChain->extentAspectRatio(); }
 
-		inline bool isFrameInProgress() const noexcept { return isFrameStarted; }
+		_NODISCARD inline bool isFrameInProgress() const noexcept { return isFrameStarted; }
 
-		inline VkCommandBuffer getCurrentCommandBuffer() const {
+		_NODISCARD inline VkCommandBuffer getCurrentCommandBuffer() const {
 			assert(isFrameStarted && "Cannot get command buffer when frame is in progress");
 			return commandBuffers[currentFrameIndex];
 		}
 
-		inline int getFrameIndex() const {
+		_NODISCARD inline int getFrameIndex() const {
 			assert(isFrameStarted && "Cannot get frame index when frame not in progress");
 			return currentFrameIndex;
 		}
