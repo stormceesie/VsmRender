@@ -4,7 +4,8 @@
 #include "Windows.h"
 
 namespace Voortman {
-	SteelSightWindow::SteelSightWindow(const int w, const int h, const std::string& name) : width{ w }, height{ h }, windowName{ name } {
+	SteelSightWindow::SteelSightWindow(const int w, const int h, const std::string& name) 
+		: width{ w }, height{ h }, windowName{ name } {
 		initWindow();
 	}
 
@@ -19,6 +20,7 @@ namespace Voortman {
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
 		window = glfwCreateWindow(width, height, windowName.c_str(), nullptr, nullptr);
+
 		if (!window) _UNLIKELY throw std::runtime_error("failed to create a window!");
 		
 		glfwSetWindowUserPointer(window, this);

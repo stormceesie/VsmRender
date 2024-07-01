@@ -21,7 +21,7 @@ namespace Voortman {
 	}
 
 	SteelSightRenderSystem::~SteelSightRenderSystem() {
-		if (pipelineLayout) _LIKELY {
+		if (pipelineLayout) [[LIKELY]] {
 			vkDestroyPipelineLayout(SSDevice.device(), pipelineLayout, nullptr);
 		}
 	}
@@ -42,7 +42,7 @@ namespace Voortman {
 		pipelineLayoutInfo.pushConstantRangeCount = 1;
 		pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
 
-		if (vkCreatePipelineLayout(SSDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) _UNLIKELY {
+		if (vkCreatePipelineLayout(SSDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) [[UNLIKELY]] {
 			throw std::runtime_error("failed to create pipeline layout!");
 		}
 	}

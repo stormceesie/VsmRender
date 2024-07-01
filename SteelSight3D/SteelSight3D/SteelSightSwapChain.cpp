@@ -231,7 +231,7 @@ namespace Voortman {
             viewInfo.subresourceRange.layerCount = 1;
 
             if (vkCreateImageView(device.device(), &viewInfo, nullptr, &swapChainImageViews[i]) !=
-                VK_SUCCESS) {
+                VK_SUCCESS) _UNLIKELY {
                 throw std::runtime_error("failed to create texture image view!");
             }
         }
@@ -293,7 +293,7 @@ namespace Voortman {
         renderPassInfo.dependencyCount = 1;
         renderPassInfo.pDependencies = &dependency;
 
-        if (vkCreateRenderPass(device.device(), &renderPassInfo, nullptr, &renderpass) != VK_SUCCESS) {
+        if (vkCreateRenderPass(device.device(), &renderPassInfo, nullptr, &renderpass) != VK_SUCCESS) _UNLIKELY {
             throw std::runtime_error("failed to create render pass!");
         }
     }
@@ -341,7 +341,7 @@ namespace Voortman {
             viewInfo.subresourceRange.baseArrayLayer = 0;
             viewInfo.subresourceRange.layerCount = 1;
 
-            if (vkCreateImageView(device.device(), &viewInfo, nullptr, &depthImageViews[i]) != VK_SUCCESS) {
+            if (vkCreateImageView(device.device(), &viewInfo, nullptr, &depthImageViews[i]) != VK_SUCCESS) _UNLIKELY {
                 throw std::runtime_error("failed to create texture image view!");
             }
         }
@@ -365,7 +365,7 @@ namespace Voortman {
                 VK_SUCCESS ||
                 vkCreateSemaphore(device.device(), &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]) !=
                 VK_SUCCESS ||
-                vkCreateFence(device.device(), &fenceInfo, nullptr, &inFlightFences[i]) != VK_SUCCESS) {
+                vkCreateFence(device.device(), &fenceInfo, nullptr, &inFlightFences[i]) != VK_SUCCESS) _UNLIKELY {
                 throw std::runtime_error("failed to create synchronization objects for a frame!");
             }
         }

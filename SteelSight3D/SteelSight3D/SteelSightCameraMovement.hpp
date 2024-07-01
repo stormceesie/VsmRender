@@ -16,11 +16,9 @@ namespace Voortman {
 			int lookRight = GLFW_KEY_RIGHT;
 			int lookUp = GLFW_KEY_UP;
 			int lookDown = GLFW_KEY_DOWN;
-		};
+		} keys{};
 
 		void moveInPlaneXZ(GLFWwindow* window, float dt, SteelSightSimulationObject& gameObject);
-
-		KeyMappings keys{};
 		const float moveSpeed{ 3.f };
 		const float lookSpeed{ 1.5f };
 	};

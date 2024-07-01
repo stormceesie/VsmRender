@@ -68,7 +68,7 @@ namespace Voortman {
 
         auto currentTime = std::chrono::high_resolution_clock::now();
 
-        while (!SSWindow.ShouldClose()) {
+        while (!SSWindow.ShouldClose()) _LIKELY {
             glfwPollEvents();
 
             auto newTime = std::chrono::high_resolution_clock::now();

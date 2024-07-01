@@ -23,14 +23,14 @@ namespace Voortman {
         VkDescriptorBufferInfo descriptorInfoForIndex(int index);
         VkResult invalidateIndex(int index);
 
-        inline VkBuffer getBuffer() const { return buffer; }
-        inline void* getMappedMemory() const { return mapped; }
-        inline uint32_t getInstanceCount() const { return instanceCount; }
-        inline VkDeviceSize getInstanceSize() const { return instanceSize; }
-        inline VkDeviceSize getAlignmentSize() const { return instanceSize; }
-        inline VkBufferUsageFlags getUsageFlags() const { return usageFlags; }
-        inline VkMemoryPropertyFlags getMemoryPropertyFlags() const { return memoryPropertyFlags; }
-        inline VkDeviceSize getBufferSize() const { return bufferSize; }
+        [[nodiscard]] const inline VkBuffer getBuffer()                           const noexcept { return buffer; }
+        [[nodiscard]] const inline void* getMappedMemory()                        const noexcept { return mapped; }
+        [[nodiscard]] const inline uint32_t getInstanceCount()                    const noexcept { return instanceCount; }
+        [[nodiscard]] const inline VkDeviceSize getInstanceSize()                 const noexcept { return instanceSize; }
+        [[nodiscard]] const inline VkDeviceSize getAlignmentSize()                const noexcept { return instanceSize; }
+        [[nodiscard]] const inline VkBufferUsageFlags getUsageFlags()             const noexcept { return usageFlags; }
+        [[nodiscard]] const inline VkMemoryPropertyFlags getMemoryPropertyFlags() const noexcept { return memoryPropertyFlags; }
+        [[nodiscard]] const inline VkDeviceSize getBufferSize()                   const noexcept { return bufferSize; }
 
     private:
         static VkDeviceSize getAlignment(VkDeviceSize instanceSize, VkDeviceSize minOffsetAlignment);
