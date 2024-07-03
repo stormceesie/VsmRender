@@ -99,7 +99,7 @@ namespace Voortman {
 		poolInfo.flags =
 			VK_COMMAND_POOL_CREATE_TRANSIENT_BIT | VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
 
-		if (vkCreateCommandPool(device_, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) [[UNlikely]] {
+		if (vkCreateCommandPool(device_, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) _UNLIKELY {
 			throw std::runtime_error("failed to create command pool!");
 		}
 	}
@@ -146,7 +146,7 @@ namespace Voortman {
 		createInfo.enabledLayerCount = 0;
 #endif
 
-		if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device_) != VK_SUCCESS) [[UNlikely]] {
+		if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device_) != VK_SUCCESS) _UNLIKELY {
 			throw std::runtime_error("failed to create logical device!");
 		}
 
@@ -155,10 +155,10 @@ namespace Voortman {
 	}
 
 	SteelSightDevice::~SteelSightDevice() {
-		if (commandPool) [[likely]] {
+		if (commandPool) _LIKELY {
 			vkDestroyCommandPool(device_, commandPool, nullptr);
 		}
-		if (device_) [[likely]] {
+		if (device_) _LIKELY {
 			vkDestroyDevice(device_, nullptr);
 		}
 
@@ -167,10 +167,10 @@ namespace Voortman {
 		DestroyDebugUtilsMessengerEXT(instance_, debugMessenger, nullptr);
 #endif
 
-		if (surface_) [[likely]] {
+		if (surface_) _LIKELY {
 			vkDestroySurfaceKHR(instance_, surface_, nullptr);
 		}
-		if (instance_) [[likely]] {
+		if (instance_) _LIKELY {
 			vkDestroyInstance(instance_, nullptr);
 		}
 	}
@@ -180,11 +180,11 @@ namespace Voortman {
 			VkFormatProperties props;
 			vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &props);
 
-			if (tiling == VK_IMAGE_TILING_LINEAR && (props.linearTilingFeatures & features) == features) [[UNlikely]] {
+			if (tiling == VK_IMAGE_TILING_LINEAR && (props.linearTilingFeatures & features) == features) _UNLIKELY {
 				return format;
 			}
 			else if (
-				tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & features) == features) [[likely]] {
+				tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & features) == features) _LIKELY {
 				return format;
 			}
 		}
@@ -206,8 +206,8 @@ namespace Voortman {
 	}
 
 	VkSurfaceFormatKHR SteelSightDevice::chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) {
-		for (const auto& availableFormat : availableFormats) [[likely]] {
-			if (availableFormat.format == VK_FORMAT_B8G8R8A8_SRGB && availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) [[UNlikely]] {
+		for (const auto& availableFormat : availableFormats) _LIKELY {
+			if (availableFormat.format == VK_FORMAT_B8G8R8A8_SRGB && availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) _UNLIKELY {
 				return availableFormat;
 			}
 		}
@@ -215,10 +215,10 @@ namespace Voortman {
 	}
 
 	VkExtent2D SteelSightDevice::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) {
-		if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) [[likely]] {
+		if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) _LIKELY {
 			return capabilities.currentExtent;
 		}
-		else [[UNlikely]] {
+		else _UNLIKELY {
 			int width, height;
 			glfwGetFramebufferSize(window.getGLFWwindow(), &width, &height);
 
@@ -240,7 +240,7 @@ namespace Voortman {
 		uint32_t deviceCount = 0;
 		vkEnumeratePhysicalDevices(instance_, &deviceCount, nullptr);
 
-		if (deviceCount == 0) [[UNlikely]] {
+		if (deviceCount == 0) _UNLIKELY {
 			throw std::runtime_error("Failed to find GPU's with Vulkan support!");
 		}
 
@@ -269,10 +269,10 @@ namespace Voortman {
 				}
 			}
 		}
-		if (physicalDevice != VK_NULL_HANDLE) [[likely]] {
+		if (physicalDevice != VK_NULL_HANDLE) _LIKELY {
 			std::cout << "Selected device: " << HighestProperties.deviceName << std::endl;
 		}
-		else [[UNlikely]] {
+		else _UNLIKELY {
 			throw std::runtime_error("No suitable GPU found!");
 		}
 	}
