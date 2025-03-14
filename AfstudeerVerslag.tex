@@ -1,6 +1,6 @@
 \documentclass[12pt, letterpaper]{article}
 
-\usepackage[a4paper, left=3.5cm,right=3.5cm]{geometry}
+\usepackage[a4paper, left=3.5cm,right=3.5cm,bottom=3.5cm]{geometry}
 \usepackage{graphicx}
 \graphicspath{{images/}}
 \usepackage{mathrsfs}
@@ -12,6 +12,8 @@
 \usepackage[]{eso-pic}
 \usepackage[dutch]{babel}
 \usepackage{fancyhdr}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
 
 \pagestyle{fancy}
 
@@ -26,12 +28,16 @@
 % Voettekst-instellingen
 \fancyfoot[L]{Auteur: Florent Kegler}
 \fancyfoot[C]{Pagina \thepage}
-\fancyfoot[R]{\textit{Voortman Steel Machinery}}
+\fancyfoot[R]{\includegraphics[width=4cm]{VoortmanLogo}}
+
+% maak de tabel ietsje groter want de standaard is soms beetje smal
+\setlength{\arrayrulewidth}{0.5mm}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{1.5}
 
 \begin{document}
 	\include{TitlePage}
 	\include{InhoudsOpgave}
 	\include{Afkortingen}
 	\include{Introductie}
-	
 \end{document}
