@@ -10,10 +10,28 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usepackage[]{eso-pic}
+\usepackage[dutch]{babel}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\fancyhf{}
 
 \newenvironment{myfont}{\fontfamily{phv}\selectfont}{\par}
 
+\fancyhead[L]{\textbf{Afstudeerstage}}
+\fancyhead[C]{}
+\fancyhead[R]{\today}
+
+% Voettekst-instellingen
+\fancyfoot[L]{Auteur: Florent Kegler}
+\fancyfoot[C]{Pagina \thepage}
+\fancyfoot[R]{\textit{Voortman Steel Machinery}}
+
 \begin{document}
 	\include{TitlePage}
+	\include{InhoudsOpgave}
+	\include{Afkortingen}
+	\include{Introductie}
 	
 \end{document}
