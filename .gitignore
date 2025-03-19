@@ -14,3 +14,6 @@
 *.toc
 *.ist
 *.glo
+*.bbl
+*.run.xml
+*.bcf
