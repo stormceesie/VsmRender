@@ -14,6 +14,10 @@
 \usepackage{fancyhdr}
 \usepackage{multirow}
 \usepackage[table]{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage[toc, acronym, nomain]{glossaries-extra}
+
+\makeglossaries
 
 \pagestyle{fancy}
 
@@ -37,8 +41,16 @@
 
 \begin{document}
 	\include{TitlePage}
+	\include{Voorwoord}
 	\include{InhoudsOpgave}
 	\include{Afkortingen}
 	\include{Introductie}
+	\include{ProbleemAnalyseEnEisen}
+	\include{TheoretischKader}
+	\include{SoftwareOntwerpEnImplementatie}
+	\include{UitbreidingenEnVerbeteringen}
+	\include{TestenEnResultaten}
+	\include{ConclusieEnAanbevelingen}
+	\include{Reflectie}
 	\include{ReferencesPage}
 \end{document}

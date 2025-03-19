@@ -3,3 +3,14 @@
 *.pdf
 *.gz
 *.blg
+*.toc
+*.out
+*.glsdefs
+*.acn
+*.acr
+*.alg
+*.blg
+*.blg
+*.toc
+*.ist
+*.glo
