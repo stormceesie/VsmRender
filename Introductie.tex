@@ -24,25 +24,37 @@ Voortman Machinery, gevestigd in Rijssen is producent van geavanceerde metaalbew
 
 \subsection{Doelstelling}
 
+Op het moment zit er een Beckhoff \gls{AX5140} servo drive in de testkast gebouwd voor het aansturen van de motoren. De parameters die in deze drive zitten kunnen momenteel alleen de servomotor HQL100X aansturen. Andere motoren kunnen niet worden aangestuurd met deze parameters omdat deze motoren bijvoorbeeld een andere encoder hebben, andere \gls{pid}-instellingen of de motor werkt simpelweg volgens een ander principe (asynchrone of synchrone servo). De \gls{AX5140} heeft meer dan 400 parameters de meeste hiervan kunnen worden aangepast.
 
+\vspace{1cm}
+
+Ook is het testprotocol van Voortman op de spindels niet erg geavanceerd zo worden motoren alleen aangestuurd naar een bepaald tourental voor een bepaald aantal seconden waarbij er gelet wordt of de motor niet te veel trilt en of deze niet te warm wordt. Zij kwantificeren deze waardes niet het is daarom erg lastig om aantoonbaar de motor te beoordelen op zijn prestaties.
+
+\vspace{1cm}
+
+De wens is daarom vanuit Voortman om uit te zoeken welke parameters relevant zijn voor wanneer er een motor gewisseld wordt en welke waardes dit moeten zijn voor de motoren die zij willen gaan testen. Met daarbij een programma die ervoor kan zorgen dat deze parameters eenvoudig naar de drive kunnen worden geschreven. Daarnaast moet er uitgezocht worden wat Voortman wil gaan testen aan de motoren en wat hiervoor eventueel voor nodig is zoals een trilling sensor die de trillingen van de spindel kan meten.
+
+\newpage
 
 \subsection{Onderzoeksvragen}
 
 Tijdens de afstudeerperiode zullen de volgende onderzoeksvragen beantwoord worden:
 
 \begin{enumerate}
-	\item Welke motorparameters in de drive zijn relevant om verschillende motortypes aan te sturen?
+	\item Welke specifieke motorparameters zijn noodzakelijk om minimaal 90\% van de door Voortman gebruikte motortypes aan te sturen en hoe kunnen deze parameters binnen zes weken worden geïdentificeerd?
 	
-	\item Hoe kunnen motorparameters eenvoudig en automatisch in de drive geschreven worden?
+	\item Hoe kunnen motorparameters automatisch geschreven worden naar de drive, en hoe kan dit binnen zes weken worden geïmplementeerd en getest voor tenminste drie motortypes?
 	
-	\item Welke encoderinterfaces moeten er allemaal ondersteunt worden zodat alle motortypes die Voortman wil testen aangesloten kunnen worden?
+	\item Welke encoderinterfaces (e.g. SSI of EnDat) zijn noodzakelijk om 90\% van de door Voortman gebruikte motoren te ondersteunen op de testkast, en hoe kunnen deze interfaces binnen zes weken worden getest op te testkast.
 	
-	\item Hoe kan een elektromotor effectief worden getest en welke parameters in de drive kunnen worden gebruikt om de prestaties te analyseren?
+	\item Welke meetmethodes en testcriteria (e.g. temperatuur, stroomverbruik toerental en trillingen) kunnen worden gebruikt om minimaal 90\% van de potentiële defecten in gereviseerde motoren te detecteren, en hoe kan een testprotocol binnen acht weken worden opgesteld en gevalideerd?
 	
-	\item Hoe kan de software automatisch rapporten genereren die de prestaties van de motoren beschrijven, inclusief waarschuwingen bij afwijkingen (bijv. te hoge trillingen, overbelasting)?
+	\item Hoe kan de software op de testkast binnen acht weken worden geprogrammeerd om automatisch testresultaten te loggen, waarbij afwijkingen in bijvoorbeeld trillingen of overbelasting kunnen worden gedetecteerd en gerapporteerd in een gestructureerd PDF-rapport.
 	
-	\item Hoe kan de testkast worden aangepast om nieuwe motortypes (met andere parameters en communicatieprotocollen) in de toekomst gemakkelijk te integreren?
+	\item Welke software of hardware aanpassingen zijn er nodig om binnen drie maanden een modulaire testomgeving te onwikkelen, waarbij nieuwe motortypes zonder codewijzigingen en een maximale configuratie tijd van maximaal één uur kunnen worden toegevoegd?
 \end{enumerate}
+
+\newpage
 
 \subsection{Afbakening}
 
