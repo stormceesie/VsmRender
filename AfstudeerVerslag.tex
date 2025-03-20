@@ -1,7 +1,7 @@
-\documentclass[12pt, letterpaper]{article}
+\documentclass[12pt, letterpaper, final]{article}
 
 \usepackage[a4paper, left=3.5cm,right=3.5cm,bottom=3.5cm]{geometry}
-\usepackage{graphicx}
+\usepackage[final]{graphicx}
 \graphicspath{{images/}}
 \usepackage{mathrsfs}
 \usepackage{newtxtext}
@@ -18,11 +18,26 @@
 \usepackage[toc, acronym, nomain]{glossaries-extra}
 \usepackage{attachfile}
 
+% Mooi hoekje links bovenin net als in de Voortman template
+\newcounter{pagecount}
+\AtBeginShipout{%
+	\stepcounter{pagecount} % Tel de pagina's
+	\ifnum\value{pagecount}>1 % Pas toe vanaf pagina 2
+	\AtBeginShipoutUpperLeft{%
+		\begin{tikzpicture}[remember picture, overlay]
+			\fill[customred] (current page.north west) ++(3.0cm,0) -- (current page.north west) -- ++(0,-6.5cm) -- cycle;
+		\end{tikzpicture}
+	}
+	\fi
+}
+
 \makeglossaries
 
 \pagestyle{fancy}
 
 \fancyhf{}
+
+\definecolor{customred}{HTML}{D78C91}
 
 \newenvironment{myfont}{\fontfamily{phv}\selectfont}{\par}
 
