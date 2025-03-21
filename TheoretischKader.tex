@@ -1,2 +1,58 @@
 \section{Theoretisch Kader} \label{sec:TheoretischKader}
 
+In dit hoofdstuk wordt de theorie achter de motordrive en de testprotocollen uitgelegd.
+
+\subsection{Motor Testen}
+
+Voorheen werden de spindels die getest werden op de testkast alleen bekeken of deze draaiden en of deze niet te veel trilden. Hierbij werden geen meetgegevens gekwantifiseerd, waardoor er eigenlijk niet veel gezegd kan worden over de staat van de motor met duidelijke meetgegevens. Het zou voor de klant, maar ook voor Voortman, toegevoegde waarde hebben om meetgegevens van de motor te kwantifiseren en deze ook statistisch te beoordelen in een testrapport. Voortman kan op deze manier bewijzen dat de spindel weer correct werkt en in wat voor staat de spindel zich momenteel bevindt.
+
+\subsubsection{Fast Fourier Transformation}
+
+Veel motortesten maken gebruik van een Fourier transformatie om op deze manier iets te kunnen zeggen over het frequentiedomein van de meetgegevens. De Discrete Fourier Transform (\gls{DFT}) converteert een eindige reeks van op een gelijke afstand geplaatste reeks van samples van dezelfde lengte van de discrete-time Fourier transformatie (\gls{DTFT}), wat een frequentiefunctie met complexe getallen is. De DFT is een frequentiedomeinrepresentatie van de originele invoerreeks \ref{fig:FourierTransform}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=300pt]{FourierTransform}
+	\label{fig:FourierTransform}
+	\caption{Fourier Transformatie}
+\end{figure}
+
+\newpage
+
+De formule voor de \gls{DFT} is als volgt:
+
+\begin{equation}
+	X_k = \sum_{n=0}^{N-1}X_n e^{-i2\pi\frac{k}{N}n}
+\end{equation}
+
+Echter kan deze formule erg intensief zijn bij een hoog aantal samples daarom is het beter om een \gls{FFT} te gebruiken zoals het Radix-2 algoritme die het aantal berekeningen aanzienlijk verminderd:
+
+\begin{equation}
+	X_k = {\sum_{m=0}^{\frac{N}{2}-1}X_{2m}e^{-\frac{2\pi i}{N}(2m)k}} + {\sum_{m=0}^{\frac{N}{2}-1}X_{2m+1}e^{-\frac{2\pi i}{N}(2m+1)k}}
+\end{equation}
+
+Het idee achter het Radix-2 algoritme is dat eerst alle even getallen berekend worden en hierna de oneven getallen waarna de resultaten gecombineerd worden. Vervolgens kan dit recursief worden berekend. De enige eis hiervan is dat de sample set grootte een macht van 2 moet zijn.
+
+\subsubsection{Lager schade detectie}
+
+De meeste gevallen van motorstoringen komen door slijtage of schade aan de lagers. Lagerschade kan worden gedetecteerd onder andere door het meten van de trillingen van de motor of spindel. Hierbij kan men vier frequentie pieken berekenen in de \gls{FFT} van de trillingen van de spindel waardoor de oorzaak van de schade of de staat van de lager kan worden bepaaldt. Lager schade vormt zich in vier fasen, in de een na laatste fase zullen de berekende pieken zich vormen. Het vervangen van de lager is op dat moment noodzakelijk aangezien de lager het uiteindelijk zal begeven in de laatste fase. Voor meer informatie zie bijlage \ref{sec:LiteratuurOnderzoek} hoofdstuk 6.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=350pt]{LagerSchade}
+	\label{fig:LagerSchade}
+	\caption{Lager schade herkennen door trillingen}
+\end{figure}
+
+\begin{enumerate}
+	\item \textbf{Balls Pass Frequency Outer Race \gls{BPFO}} Deze frequentie komt overeen met het aantal kogels dat door een bepaald punt van de buitenring gaat bij elke volledige draai.
+	
+	\begin{equation}
+		BPFO = RPM\frac{N_b}{2}(1-\frac{B_D}{P_D}\cos\cos\beta)
+	\end{equation}
+	\newpage
+	
+	\item \textbf{Ball Pass Frequency Inner Race \gls{BPFI}} 
+\end{enumerate}
+

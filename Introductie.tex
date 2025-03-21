@@ -24,7 +24,7 @@ Om dit probleem op te lossen, wordt in dit verslag onderzocht hoe de testkast ka
 
 \subsection{Doelstelling}
 
-Op het moment zit er een Beckhoff \gls{AX5140} servo drive in de testkast gebouwd voor het aansturen van de motoren. De parameters die in deze drive zitten kunnen momenteel alleen de servomotor HQL100X aansturen. Andere motoren kunnen niet worden aangestuurd met deze parameters omdat deze motoren bijvoorbeeld een andere encoder hebben, andere \gls{pid}-instellingen of de motor werkt simpelweg volgens een ander principe (asynchrone of synchrone servo). De \gls{AX5140} heeft meer dan 400 parameters de meeste hiervan kunnen worden aangepast.
+Op het moment zit er een Beckhoff \gls{AX5140} servo drive in de testkast gebouwd voor het aansturen van de motoren. De parameters die in deze drive zitten kunnen momenteel alleen de servomotor HQL100X aansturen. Andere motoren kunnen niet worden aangestuurd met deze parameters omdat deze motoren bijvoorbeeld een andere encoder hebben, andere \gls{pid}-instellingen of de motor werkt simpelweg volgens een ander principe (asynchrone of synchrone servo). De \gls{AX5140} heeft meer dan 400 parameters de meeste hiervan kunnen worden aangepast. Naast deze parameters zijn er ook nog parameters instelbaar aan de PLC kant in de zogehete \gls{NC}-task die verantwoordelijk is voor het aansturen van de drive.
 
 \vspace{0.5cm}
 
@@ -32,7 +32,7 @@ Ook is het testprotocol van Voortman op de spindels niet erg geavanceerd zo word
 
 \vspace{0.5cm}
 
-De wens is daarom vanuit Voortman om uit te zoeken welke parameters relevant zijn voor wanneer er een motor gewisseld wordt en welke waardes dit moeten zijn voor de motoren die zij willen gaan testen. Met daarbij een programma die ervoor kan zorgen dat deze parameters eenvoudig naar de drive kunnen worden geschreven. Daarnaast moet er uitgezocht worden wat Voortman wil gaan testen aan de motoren en wat hiervoor eventueel voor nodig is zoals een trilling sensor die de trillingen van de spindel kan meten.
+De wens is daarom vanuit Voortman om uit te zoeken welke parameters relevant zijn voor wanneer er een motor gewisseld wordt en welke waardes dit moeten zijn voor de motoren die zij willen gaan testen. Met daarbij een programma die ervoor kan zorgen dat deze parameters eenvoudig naar de drive kunnen worden geschreven. Daarnaast zou het mooi zijn als er uitgezocht wordt wat Voortman wil gaan testen aan de motoren en wat hiervoor eventueel voor nodig is zoals een trilling sensor die de trillingen van de spindel kan meten zodat de testen op de motoren gekwantificeerd en gedocumenteerd kunnen worden in plaats van de huidige manier van testen waarbij er niks aan de motor gemeten wordt.
 
 \newpage
 
@@ -41,17 +41,17 @@ De wens is daarom vanuit Voortman om uit te zoeken welke parameters relevant zij
 Tijdens de afstudeerperiode zullen de volgende onderzoeksvragen beantwoord worden:
 
 \begin{enumerate}
-	\item Welke specifieke motorparameters zijn noodzakelijk om minimaal 90\% van de door Voortman gebruikte motortypes aan te sturen en hoe kunnen deze parameters binnen zes weken worden geïdentificeerd?
+	\item Welke specifieke motorparameters zijn noodzakelijk om minimaal 90\% van de door Voortman gebruikte motortypes aan te sturen en hoe kunnen deze parameters binnen zes weken worden geïdentificeerd? \label{OZV:1}
 	
-	\item Hoe kunnen motorparameters automatisch geschreven worden naar de drive, en hoe kan dit binnen zes weken worden geïmplementeerd en getest voor tenminste drie motortypes?
+	\item Hoe kunnen motorparameters automatisch geschreven worden naar de drive, en hoe kan dit binnen zes weken worden geïmplementeerd en getest voor tenminste drie motortypes? \label{OZV:2}
 	
-	\item Welke encoderinterfaces (e.g. \gls{SSI} of EnDat) zijn noodzakelijk om 90\% van de door Voortman gebruikte motoren te ondersteunen op de testkast, en hoe kunnen deze interfaces binnen zes weken worden getest op te testkast.
+	\item Welke encoderinterfaces (e.g. \gls{SSI} of EnDat) zijn noodzakelijk om 90\% van de door Voortman gebruikte motoren te ondersteunen op de testkast, en hoe kunnen deze interfaces binnen zes weken worden getest op te testkast. \label{OZV:3}
 	
-	\item Welke meetmethodes en testcriteria (e.g. temperatuur, stroomverbruik toerental en trillingen) kunnen worden gebruikt om minimaal 90\% van de potentiële defecten in gereviseerde motoren te detecteren, en hoe kan een testprotocol binnen acht weken worden opgesteld en gevalideerd?
+	\item Welke meetmethodes en testcriteria (e.g. temperatuur, stroomverbruik toerental en trillingen) kunnen worden gebruikt om minimaal 90\% van de potentiële defecten in gereviseerde motoren te detecteren, en hoe kan een testprotocol binnen acht weken worden opgesteld en gevalideerd? \label{OZV:4}
 	
-	\item Hoe kan de software op de testkast binnen acht weken worden geprogrammeerd om automatisch testresultaten te loggen, waarbij afwijkingen in bijvoorbeeld trillingen of overbelasting kunnen worden gedetecteerd en gerapporteerd in een gestructureerd \gls{PDF}-rapport.
+	\item Hoe kan de software op de testkast binnen acht weken worden geprogrammeerd om automatisch testresultaten te loggen, waarbij afwijkingen in bijvoorbeeld trillingen of overbelasting kunnen worden gedetecteerd en gerapporteerd in een gestructureerd \gls{PDF}-rapport. \label{OZV:5}
 	
-	\item Welke software of hardware aanpassingen zijn er nodig om binnen drie maanden een modulaire testomgeving te onwikkelen, waarbij nieuwe motortypes zonder codewijzigingen en een maximale configuratie tijd van maximaal één uur kunnen worden toegevoegd?
+	\item Welke software of hardware aanpassingen zijn er nodig om binnen drie maanden een modulaire testomgeving te onwikkelen, waarbij nieuwe motortypes zonder codewijzigingen en een maximale configuratie tijd van maximaal één uur kunnen worden toegevoegd? \label{OZV:6}
 \end{enumerate}
 
 \newpage
@@ -60,7 +60,8 @@ Tijdens de afstudeerperiode zullen de volgende onderzoeksvragen beantwoord worde
 
 \subsubsection{Belangrijkste doelstelling}
 
-Voortman heeft er in eerste instantie het meeste belang bij dat er meer spindels op de testkast kunnen worden getest daarom zal de prioriteit van dit onderzoek liggen bij het uitbreiden van de testmogelijkheden van de testkast voor verschillende spindels (Onderzoeksvraag 1 en 2).
+% Mooie referenties naar de vragen heen (:
+Voortman heeft er in eerste instantie het meeste belang bij dat er meer spindels op de testkast kunnen worden getest daarom zal de prioriteit van dit onderzoek liggen bij het uitbreiden van de testmogelijkheden van de testkast voor verschillende spindels (Onderzoeksvraag \ref{OZV:1}, \ref{OZV:2} en \ref{OZV:3}). De overige onderzoeksvragen hebben een lagere prioriteit maar het zou wel mooi zijn als dit ook op de testkast zou zitten (Onderzoeksvraag \ref{OZV:4}, \ref{OZV:5} en \ref{OZV:6}).
 
 \subsubsection{Aannames en Uitgangspunten}
 

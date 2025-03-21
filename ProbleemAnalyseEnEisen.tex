@@ -4,15 +4,15 @@ In deze sectie worden de beperkingen van de huidige testopstelling opgesomt en w
 
 \subsection{Huidige Situatie}
 
-In de testkast zit de \gls{AX5140} servo drive geïnstalleerd (Figuur \ref{fig:AX5140}). Deze drive is uitgebreidt met een \gls{AX5801}-0200 veiligheidskaart waardoor het mogelijk is om veiligheids functies zoals Safe Torque Off (\gls{STO}) te configureren om veilig (en snel) tot stilstand te komen.
+In de testkast zit de \gls{AX5140} \cite{web:AX5140Drive} servo drive geïnstalleerd (Figuur \ref{fig:AX5140}). Deze drive is uitgebreidt met een \gls{AX5801}-0200 \cite{web:AX5801} veiligheidskaart waardoor het mogelijk is om veiligheids functies zoals Safe Torque Off (\gls{STO}) te configureren om veilig (en snel) tot stilstand te komen.
 
 \vspace{0.5cm}
 
-De \gls{AX5140} servo drive ondersteunt standaard niet alle encoder protocollen en is daarom uit uitgebreid met de \gls{AX5701} Encoder optie kaart zodat bijvoorbeeld EnDat en Hiperface encoders ook aangesloten kunnen worden.
+De \gls{AX5140} servo drive ondersteunt standaard niet alle encoder protocollen en is daarom uit uitgebreid met de \gls{AX5701} \cite{web:AX5701} Encoder optie kaart zodat bijvoorbeeld EnDat en Hiperface encoders ook aangesloten kunnen worden.
 
 \vspace{0.5cm}
 
-Het testprogramma die momenteel op de testkast staat bevat maar één parameter set voor één type motor. Zelfs wanneer er meer parameter sets aanwezig zouden zijn is er in het huidige programma geen manier om deze automatisch te schrijven naar de drive heen. Nieuwe parametersets zullen handmatig met TwinCAT XAE naar de drive moeten worden geschreven. Dit kan tijdsintensief zijn en lastig zijn voor mensen die dit nooit eerder gedaan hebben het is daarom wenselijk om dit zo makkelijk mogelijk te maken.
+Het testprogramma die momenteel op de testkast staat bevat maar één parameter set voor één type motor. Zelfs wanneer er meer parameter sets aanwezig zouden zijn is er in het huidige programma geen manier om deze automatisch te schrijven naar de drive heen. Nieuwe parametersets zullen handmatig met TwinCAT XAE \cite{web:DriveManager2} naar de drive moeten worden geschreven. Dit kan tijdsintensief zijn en lastig zijn voor mensen die dit nooit eerder gedaan hebben het is daarom wenselijk om dit zo makkelijk mogelijk te maken.
 
 \begin{figure}[h]
 	\centering
