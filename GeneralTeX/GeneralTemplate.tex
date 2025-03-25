@@ -18,6 +18,14 @@
 \usepackage{array}
 \usepackage{float}
 
+\input{../GeneralTeX/LijstMetAfkortingen}
+
+\makeglossaries
+
+\usepackage{chngcntr}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
 % Mooi hoekje links bovenin net als in de Voortman template
 \newcounter{pagecount}
 \AtBeginShipout{%
@@ -30,8 +38,6 @@
 	}
 	\fi
 }
-
-\makeglossaries
 
 \pagestyle{fancy}
 

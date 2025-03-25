@@ -17,3 +17,5 @@
 *.bbl
 *.run.xml
 *.bcf
+*.lot
+*.lof

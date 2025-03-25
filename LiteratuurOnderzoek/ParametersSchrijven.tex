@@ -29,7 +29,7 @@ In figuur \ref{fig:SoEReadWrite} is gedacht aan herbruikbaarheid daarom is zo ve
 	\caption{Parameter Array}
 \end{figure}
 
-Om alle parameter informatie makkelijk te kunnen uitlezen over ADS is er een array gemaakt van FB\_Parameter. De parameter heeft bijvoorbeeld een buffer, IDN en een counter zodat de FB\_AX5140SoECommunication weet hoe vaak de parameter per seconde uit gelezen moet worden.
+Om alle parameter informatie makkelijk te kunnen uitlezen over \gls{ADS} is er een array gemaakt van FB\_Parameter. De parameter heeft bijvoorbeeld een buffer, \gls{IDN} en een counter zodat de FB\_AX5140SoECommunication weet hoe vaak de parameter per seconde uit gelezen moet worden.
 
 \begin{figure}[H]
 	\centering
@@ -38,9 +38,41 @@ Om alle parameter informatie makkelijk te kunnen uitlezen over ADS is er een arr
 	\caption{FB\_Parameter}
 \end{figure}
 
-Helaas bleek het slecht mogelijk om dynamisch geheugen toe te wijzen aan de buffer omdat de pointer die hieruit komt slecht uit te lezen is over ADS in de C\# applicatie. Voortman zelf gebruikt ook geen dynamisch geheugen in hun PLC code. Daarom is ervoor gekozen om een byte array te gebruiken die altijd groot genoeg is voor de data van de parameter.
+Helaas bleek het slecht mogelijk om dynamisch geheugen toe te wijzen aan de buffer omdat de pointer die hieruit komt slecht uit te lezen is over \gls{ADS} in de C\# applicatie. Voortman zelf gebruikt ook geen dynamisch geheugen in hun \gls{PLC} code. Daarom is ervoor gekozen om een byte array te gebruiken die altijd groot genoeg is voor de data van de parameter.
 
 \vspace{0.5cm}
 
-Daarnaast heeft elke parameter ook een pointer naar een MQTT handler om eventueel de parameter ook te publiceren waardoor er ook op afstand mee gekeken kan worden.
+Daarnaast heeft elke parameter ook een pointer naar een \gls{MQTT} handler om eventueel de parameter ook te publiceren waardoor er ook op afstand mee gekeken kan worden.
+
+\vspace{0.5cm}
+
+In de \gls{gui} kan bijvoorbeeld een parameter aangemaakt worden er komt dan een scherm tevoorschijn waar men kan kiezen welke parameter er op het scherm gemonitord moet worden. Dit is te zien in figuur \ref{fig:GUIParameter}. In figuur \ref{fig:ParameterMonitor} is te zien dat er een grafiek is aangemaakt voor de parameter die de parameter zal monitoren. De \gls{PLC} en de \gls{gui} moeten kunnen communiceren met elkaar dit proces is afgebeeld in figuur \ref{fig:CommunicatieGUIenPLC}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{GUIParameter}
+	\label{fig:GUIParameter}
+	\caption{Parameter aanmaken om uit te lezen}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{ParameterMonitor}
+	\label{fig:ParameterMonitor}
+	\caption{Grafiek van de parameter}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=90pt]{CommunicatieGUIenPLC}
+	\label{fig:CommunicatieGUIenPLC}
+	\caption{Communicatie PLC en GUI}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{ParameterReading}
+	\label{fig:ParameterRead}
+	\caption{S\_0\_0045 wordt uitgelezen uit de drive door de \gls{PLC}}
+\end{figure}
 
