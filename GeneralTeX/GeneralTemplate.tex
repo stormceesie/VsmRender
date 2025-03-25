@@ -1,8 +1,6 @@
-\documentclass[12pt, letterpaper, final]{article}
-
 \usepackage[a4paper, left=3.5cm,right=3.5cm,bottom=3.5cm]{geometry}
 \usepackage[final]{graphicx}
-\graphicspath{{images/}}
+\graphicspath{{../images/}}
 \usepackage{mathrsfs}
 \usepackage{newtxtext}
 \usepackage{float}
@@ -19,8 +17,6 @@
 \usepackage{attachfile}
 \usepackage{array}
 
-\usepackage{background}
-
 % Mooi hoekje links bovenin net als in de Voortman template
 \newcounter{pagecount}
 \AtBeginShipout{%
@@ -33,8 +29,6 @@
 	}
 	\fi
 }
-
-\makeglossaries
 
 \pagestyle{fancy}
 
@@ -57,21 +51,3 @@
 \setlength{\arrayrulewidth}{0.5mm}
 \setlength{\tabcolsep}{18pt}
 \renewcommand{\arraystretch}{1.5}
-
-\begin{document}
-	\include{TitlePage}
-	\include{Voorwoord}
-	\include{Samenvatting}
-	\include{InhoudsOpgave}
-	\include{Afkortingen}
-	\include{Introductie}
-	\include{ProbleemAnalyseEnEisen}
-	\include{TheoretischKader}
-	\include{SoftwareOntwerpEnImplementatie}
-	\include{UitbreidingenEnVerbeteringen}
-	\include{TestenEnResultaten}
-	\include{ConclusieEnAanbevelingen}
-	\include{Reflectie}
-	\include{ReferencesPage}
-	\include{Appendix}
-\end{document}
