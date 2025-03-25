@@ -6,7 +6,7 @@ Momenteel is het programma die op de testkast staat alleen werkend bij één typ
 	\centering
 	\includegraphics[width=350pt]{TestProgrammaVoorheen}
 	\label{fig:TestProgrammaVoorheen}
-	\caption{Programma op testkast}
+	\caption{Programma op de testkast}
 \end{figure}
 
 \subsection{Parameters automatisch inladen}
@@ -74,5 +74,28 @@ In de \gls{gui} kan bijvoorbeeld een parameter aangemaakt worden er komt dan een
 	\includegraphics[width=\linewidth]{ParameterReading}
 	\label{fig:ParameterRead}
 	\caption{S\_0\_0045 wordt uitgelezen uit de drive door de \gls{PLC}}
+\end{figure}
+
+Een voorbeeld van een gemakkelijke \gls{gui} waarmee parameters in de drive geladen kunnen worden is te zien in figuur \ref{fig:GUIControl}. Er is hier gedacht aan VACAM (de besturingssoftware van Voortman) hier zijn de meeste mensen bekend mee bij Voortman en daarom zal het logisch zijn om de besturingssoftware van de testkast in soortgelijke stijl te maken zodat men hier makkelijk doorheen kan navigeren. Voortman programmeert hun \gls{gui} in C\# en gebruikt \gls{WPF} voor het ontwerpen van hun \gls{gui} om het programma onderhoudbaar te houden is er voor gekozen om ook de \gls{gui} van de testkast in C\# te maken met \gls{WPF} voor dit \gls{POC}. De communicatie tussen de \gls{PLC} en de \gls{gui} gaat over \gls{ADS} dit is te zien in figuur \ref{fig:ADSCom}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{GUI}
+	\label{fig:GUIControl}
+	\caption{De \gls{gui} waarmee de motordrive aangestuurd kan worden}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{ADSComm}
+	\label{fig:ADSCom}
+	\caption{\gls{ADS} communicatie tussen de \gls{PLC} en andere applicaties}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=250pt]{ParametersSchrijven}
+	\label{fig:ParametersSchrijven}
+	\caption{Simpele beschrijving voor schrijven van parameters in de drive}
 \end{figure}
 
