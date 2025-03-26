@@ -7,10 +7,10 @@ Momenteel worden de spindels die getest worden op de testkast alleen bekeken of 
 Veel testen op een elektro motor zijn gebaseerd op de volgende parameters:
 
 \begin{enumerate}
-	\item Voltage
-	\item Ampère
-	\item Trillingen
-	\item Temperatuur
+	\item \textbf{Voltage}
+	\item \textbf{Ampère}
+	\item \textbf{Trillingen}
+	\item \textbf{Temperatuur}
 \end{enumerate}
 
 Het voltage en de Ampère kunnen direct uitgelezen worden uit de drive. De \gls{AX5140} heeft een minimale sync cyclus tijd van 62,5 microseconden. Beckhoff \gls{PLC}’s ondersteunen cyclus tijden tot 50 microseconden mits de achterliggende \gls{PLC}-code niet te complex is waardoor de cyclus tijd niet gehaald kan worden. Dit zou betekenen dat er 16000 samples per seconde gemaakt kunnen worden wat weer zou betekenen dat de Nyquist frequentie 8000 is. Dit betekend dat er wat gezegd kan worden over frequenties tot 8000 Hz zonder dat er aliasing optreedt.
@@ -18,6 +18,8 @@ Het voltage en de Ampère kunnen direct uitgelezen worden uit de drive. De \gls{
 \vspace{0.5cm}
 
 Trillingen kunnen niet standaard uitgelezen worden uit de drive en hiervoor moet zou daarom een extra sensor moeten komen zoals de MPB10 van SICK [8] die ook de motortemperatuur kan meten. Deze sensor moet echter aangesloten worden op een IO-Link terminal, deze terminals zijn vaak veel minder snel wat ten koste zou gaan van de Nyquist frequentie.
+
+\newpage
 
 \subsection{Fast Fourier Transformation}
 
@@ -48,8 +50,6 @@ Waarbij de complexiteit van de formule $O\left(N^2\right)$ is wat betekend dat e
 \end{equation}
 
 Het idee achter het Radix-2 algoritme is dat het eerst de even getallen berekend en daarna de oneven getallen waarna de 2 resultaten worden gecombineerd. Dit kan vervolgens recursief worden berekend. Met als enige eis dat de sample set grootte een macht van 2 is \cite{web:Radix-2FFT}.
-
-\newpage
 
 \subsection{Rotorstang test}
 
@@ -179,3 +179,29 @@ De excentriciteit fouten tussen de rotor en de stator van een motor zorgen voor 
 	\label{fig:Excentricity}
 	\caption{Motor excentriciteit \cite{staticdynamicexcentricity}}
 \end{figure}
+
+Bij excentriciteit kan men de volgende trillingen verwachten:
+
+\begin{itemize}
+	\item \textbf{Basisfrequentie van excentriciteit}
+		\begin{equation}
+			f_r=\frac{RPM}{60}
+		\end{equation}
+		
+	\item \textbf{Harmonischen van de rotatiefrequentie} Statische en dynamische excentriciteit veroorzaken trillingen die een veelvoud zijn van de rotatie frequentie.
+		\begin{equation}
+			f_n=nf_r
+		\end{equation}
+\end{itemize}
+
+\subsection{\gls{MCSA} (Motor Current Signature Analysis)}
+
+Aan de hand van de motorstroom per fase van de motor kan men ook het een en ander zeggen over de staat van de motor. Zo kunnen afwijkingen in de stroom duiden op magneetschade, lager schade, slechte wikkelingen of op asymmetrie. Uit de AX5140 kan de stroom per fase gehaald worden en ook het voltage kan worden opgehaald uit de drive. Bij een inductie motor kunnen de pieken van de Fourier getransformeerde grafiek van het voltage en ampère worden vergeleken. Wanneer er een piek is in het voltage en ook bij de stroom dan is de fout van elektrische aart. Wanneer de piek alleen in de stroom zit dan is het probleem mechanisch \cite{web:MCSA}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{MechanischeFout}
+	\label{fig:MechanischeFout}
+	\caption{Mechanische fout gevonden doormiddel van MCSA \cite{web:MCSA}}
+\end{figure}
+

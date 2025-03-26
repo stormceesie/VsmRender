@@ -7,10 +7,9 @@
 	\include{TitlePage}
 	\include{Voorwoord}
 	\include{Samenvatting}
-	\include{InhoudsOpgave} % Inhouds opgave is over het algemeen altijd hetzelfde
-	\include{ListOfFigures}
-	\include{ListOfTables}
-	\include{Afkortingen}
+	
+	% Herbruikbaar omdat dit altijd hetzelfde moet zijn bij elk document
+	\input{../GeneralTeX/ListOfBodies} % Lijst met inhoud, tabellen en figuren
 	\include{Introductie}
 	\include{ProbleemAnalyseEnEisen}
 	\include{TheoretischKader}
@@ -19,6 +18,6 @@
 	\include{TestenEnResultaten}
 	\include{ConclusieEnAanbevelingen}
 	\include{Reflectie}
-	\include{ReferencesPage}
+	\input{../GeneralTeX/ReferencesPage}
 	\include{Appendix}
 \end{document}

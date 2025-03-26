@@ -1,0 +1,19 @@
+\section{Conclusie}
+
+In dit literatuuronderzoek is een methode ontwikkeld om de \gls{AX5140} te configureren voor alle verschillende spindels die Voortman wil gaan testen op de testkast. Hieronder zijn de belangrijkste bevindingen te zien:
+
+\begin{enumerate}
+	\item \textbf{Motorparameters en de compatibiliteit} Er is vastgesteld welke parameters aangepast moeten worden wanneer er een andere motor aangesloten wordt op de testkast. Belangrijke parameters zijn bijvoorbeeld stroomlimieten, snelheidsgrenzen, feedbacksystemen en PID instellingen.
+	
+	\item \textbf{Automatisch parameters schrijven} Er is uitgezocht hoe er automatisch parameters naar de drive geschreven kunnen worden en hoe dit kan op een gebruiksvriendelijke manier. Automatisch parameters schrijven kan met \gls{SERCOS} over \gls{EtherCAT} \gls{SoE}.
+	
+	\item \textbf{Ondersteuning van Encoderinterfaces} Er is uitgezocht welke encoder interfaces er allemaal gebruikt worden op de spindels van Voortman zoals TTL en Hiperface. Doormiddel van een uitbreiding van de drive is het mogelijk om alle encoder interfaces te ondersteunen die Voortman gebruikt in hun spindels.
+	
+	\item \textbf{Diagnostische testmethodes} Om de prestaties van de spindels te beoordelen zijn er verschillende testmethodes onderzocht waaronder \gls{FFT}, \gls{MCSA} en trillingsanalyse. Met behulp van deze methods kunnen bijvoorbeeld lagerproblemen, rotorstangdefecten en excentriciteit worden gedetecteerd.
+	
+	\item \textbf{Software-integratie en automatisering} Er is software ontwikkeld waarmee automatisch parameters uitgelezen kunnen worden en gelogd kunnen worden in een grafiek.
+	
+	\item \textbf{Toekomst bestendig} Er zijn aanpassingen voorgesteld om de testomgeving modulair te maken, zodat nieuwe motoren gemakkelijk toegevoegd kunnen worden aan de testkast.
+\end{enumerate}
+
+Dit onderzoek heeft bijgedragen aan een flexibele en geautomatiseerde oplossing voor de uitbreiding van de testkast. De resultaten laten zien dat het mogelijk is om een universele parameterconfiguratie te ontwikkelen, waarmee de testkast efficiënt en breedt ingezet kan worden voor verschillende spindel types. Toekomstig onderzoek zou zich kunnen richten op het optimaliseren van de testcycli.

@@ -5,15 +5,18 @@
 
 \begin{document}
 	\include{TitlePage}
-	\include{InhoudsOpgave}
-	\include{ListOfFigures}
-	\include{ListOfTables}
-	\include{Afkortingen}
+	
+	% Herbruikbaar omdat dit in elk document hetzelfde moet zijn.
+	\input{../GeneralTeX/ListOfBodies} % Lijst met inhoud, tabellen en figuren 
 	\include{Inleiding}
 	\include{AX5140Drive}
 	\include{MotorParameters}
 	\include{EncoderInterfaces}
 	\include{ParametersSchrijven}
 	\include{SpindelTesten}
-	\include{ReferencesPage}
+	\include{MechanischeAnalyse}
+	\include{Conclusie}
+	
+	% References page should always be the same
+	\input{../GeneralTeX/ReferencesPage}
 \end{document}
