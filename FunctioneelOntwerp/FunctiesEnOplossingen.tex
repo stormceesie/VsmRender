@@ -4,3 +4,38 @@ In deze sectie wordt per functie bepaald welke oplossing hiervoor gekozen zal wo
 
 \subsection{Morfologisch overzicht}
 
+In het morfologisch overzicht worden vooral de hardware eisen doorgenomen aangezien de meeste functies al geïmplementeerd zijn op de testkast of deze moeten slechts ingeprogrammeerd worden in de software.
+
+\begin{xltabular}{\linewidth}{|p{0.2\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|}
+	\caption{Morfologisch overzicht} \\
+	\hline
+	\textbf{Functie} & \textbf{Oplossing 1} & \textbf{Oplossing 2} & \textbf{Oplossing 3} \\
+	\hline
+	\endfirsthead
+	\hline
+	\textbf{Functie} & \textbf{Oplossing 1} & \textbf{Oplossing 2} & \textbf{Oplossing 3} \\
+	\hline
+	\endhead
+	\hline
+	\endfoot
+	\hline
+	\endlastfoot
+	\textbf{Trillingsensor positie} & \cellcolor{green} Montageplaat & Motor & - \\
+	\hline
+	\textbf{Temperatuur sensor} & \cellcolor{green} Infrarood camera & Hittesensor & - \\
+	\hline
+	\textbf{Luchtdruk sensor positie} & Tussen leiding & \cellcolor{green} Op T-stuk & - \\
+	\hline
+	\textbf{Trilling sensor communicatie protocol} & \cellcolor{green} IO-Link & analoog & - \\
+	\hline
+	\textbf{Luchtdruk sensor communicatie protocol} & IO-Link & \cellcolor{green} analoog & - \\
+	\hline 
+	\textbf{Temperatuur sensor communicatie protocol} & \cellcolor{green} IO-Link & analoog & - \\
+	\hline
+	\textbf{Testprotocol} & Altijd hetzelfde & Configureerbaar & \cellcolor{green} Configureerbaar en kunnen wisselen tussen verschillende testprogramma's \\
+	\hline
+	\textbf{Frontend Backend} & \cellcolor{green} Frontend en backend gescheiden & Beide in TwinCAT & - \\
+	\hline
+	\textbf{Noodstop en deurschakkelaar} & Beiden op één safety ingang & \cellcolor{green} Apart op eigen safety ingang & - \\
+	\hline
+\end{xltabular}
