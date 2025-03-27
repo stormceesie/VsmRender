@@ -3,11 +3,40 @@
 % All the documents are structured the same way described in a general document
 \input{../GeneralTeX/GeneralTemplate}
 
+% Makkelijk commando om eisen in te voegen met xltabular
+\newcommand{\eistabel}[6]{
+	\begin{xltabular}{\linewidth}{|p{0.15\linewidth}|p{0.5\linewidth}|p{0.2\linewidth}|}
+		\caption{#1 #2}\\
+		\hline
+		\textbf{#1} & \textbf{#2} & \textbf{#3} \\
+		\hline
+		\endfirsthead
+		\hline
+		\textbf{#1} & \textbf{#2} & \textbf{#3} \\
+		\hline
+		\endhead
+		\hline
+		\endfoot
+		\hline
+		\endlastfoot
+		\textbf{Stelling} & \multicolumn{2}{p{0.7\linewidth}|}{#4}\\
+		\hline
+		\textbf{Meetmethode} & \multicolumn{2}{p{0.7\linewidth}|}{#5} \\
+		\hline
+		\textbf{Opmerking} & \multicolumn{2}{p{0.7\linewidth}|}{#6} \\
+		\hline
+	\end{xltabular}
+}
+
 \begin{document}
 	\include{TitelPage}
 	\input{../GeneralTeX/ListOfBodies}
 	\include{Doelstelling}
 	\include{GebruikersBeschrijving}
+	\include{HardwareEisen}
+	\include{NietFunctioneleEisen}
+	\include{KritischeAnalyse}
 	
 	\input{../GeneralTeX/ReferencesPage}
+	\include{Appendix}
 \end{document}

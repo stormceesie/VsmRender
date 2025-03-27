@@ -1,0 +1,22 @@
+\appendix
+
+\section{Bijlage: Fourier Transformatie} \label{sec:FourierTransform}
+
+Doe vervolgens de fourier transformatie voor elke dataset. De formule voor de \gls{DFT} (Discrete Fourier Transform) is \cite{web:FFT}: 
+
+\begin{equation}
+	X_k=\sum_{n=0}^{N-1}X_ne^{-i2\pi \frac{k}{N}n}
+\end{equation}
+
+De standaard DFT heeft een complexiteit van $O\left(N^2\right)$. Deze complexiteit kan worden verlaagd naar $O\left(N\log{N}\right)$. doormiddel van bijvoorbeeld het radix-2 \gls{FFT} algoritme \cite{web:Radix-2FFT}.
+
+\begin{equation}
+	X_k= {\sum_{m=0}^{\frac{N}{2}-1}X_{2m}e^{-\frac{2\pi i}{N}(2m)k}} + {\sum_{m=0}^{\frac{N}{2}-1} X_{2m+1}e^{-\frac{2\pi i}{N}(2m + 1)k}}
+\end{equation}
+
+Hiernaast kan het ook nog handig zijn om een \gls{STFT} (Short-Time Fourier transform) uit te voeren op de dataset mochten trillingen erg variëren in de tijd.
+De formule voor de \gls{STFT} is \cite{web:STFT}:
+
+\begin{equation}
+	STFT\{x[n]\} \equiv X(m,k) = \sum_{n=-\infty}^{\infty}X[n]w[n-m]e^{-j 2\pi k\frac{n}{N}}
+\end{equation}

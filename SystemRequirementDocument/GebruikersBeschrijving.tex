@@ -110,27 +110,7 @@ In deze sectie worden alle verschillende gebruikersscenario’s geschetst om de 
 
 \subsection{Voorbeeld eis}
 
-In deze sectie is een kort voorbeeld gemaakt over hoe de eisen in elkaar zitten. Dit is te zien in \ref{tab:Uniek ID}.
-
-% Makkelijk command om eisen in te voegen
-\newcommand{\eistabel}[6]{
-	\begin{table}[H]
-		\centering
-		\caption{#1 #2}
-		\label{tab:#1}
-		\begin{tabular}{|p{0.15\linewidth}|p{0.5\linewidth}|p{0.2\linewidth}|}
-			\hline
-			\textbf{#1} & \textbf{#2} & \textbf{#3} \\
-			\hline
-			\textbf{Stelling} & \multicolumn{2}{p{0.7\linewidth}|}{#4}\\ 
-			\hline
-			\textbf{Meetmethode} & \multicolumn{2}{p{0.7\linewidth}|}{#5} \\ 
-			\hline
-			\textbf{Opmerking} & \multicolumn{2}{p{0.7\linewidth}|}{#6} \\ 
-			\hline
-		\end{tabular}
-	\end{table}
-}
+In deze sectie is een kort voorbeeld gemaakt over hoe de eisen in elkaar zitten. Dit is te zien in onderstaande tabel.
 
 \eistabel{Uniek ID}{Titel}{Prioriteit}{Eis van de stelling}{Meetmethode}{Eventuele opmerkingen}
 
@@ -180,13 +160,13 @@ De rest van de tabel omvat het volgende:
 
 \eistabel{FR-003}{Spindel validatie}{LAAG}{Na afloop van de test moet de testkast doormiddel van een statistische analyse van de opgenomen parameters aan kunnen geven of dit binnen de toegestane toleranties en specificaties valt, en of de spindel als ‘goed’ of ‘afgekeurd’ geclassificeerd moet worden.}{De eis is behaald wanneer de testkast spindels kan keuren op basis van tenminste het stroomverbruik deze mag niet significant afwijken van nieuwe spindels met een betrouwbaarheidsinterval van 95\%. De controlegroep moet hiervoor normaal verdeeld zijn met ideaal >30 observaties van nieuwe correct werkende spindels op verschillende toerentallen.}{}
 
-\eistabel{FR-004}{Real time grafieken}{HOOG}{Tijdens de test moeten er op het scherm grafieken komen met real-time data van de spindel. Welke data er op het scherm moet komen moet kunnen worden gekozen door de gebruiker.}{De eis is behaald wanneer de gebruiker een willekeurige parameter kan kiezen en deze kan monitoren op de GUI tijdens de test. Ook de hoeveelheid samples per seconde moet gekozen kunnen worden door de gebruiker.}{}
+\eistabel{FR-004}{Real time grafieken}{HOOG}{Tijdens de test moeten er op het scherm grafieken komen met real-time data van de spindel. Welke data er op het scherm moet komen moet kunnen worden gekozen door de gebruiker.}{De eis is behaald wanneer de gebruiker een willekeurige parameter kan kiezen en deze kan monitoren op de \gls{gui} tijdens de test. Ook de hoeveelheid samples per seconde moet gekozen kunnen worden door de gebruiker.}{}
 
 \eistabel{FR-005}{Op afstand testen}{GEMIDDELD}{Wanneer de testkast bezig is moet de gebruiker op afstand de testgegevens kunnen bekijken via bijvoorbeeld het \gls{MQTT}-protocol op grafana.}{De eis is behaald wanneer de gebruiker tenminste het stroomverbruik en hoelang het testen nog duurt kan monitoren vanaf een andere laptop die niet is aangesloten op de testkast.}{}
 
-\eistabel{FR-006}{Automatisch parameters inladen}{URGENT}{De testkast moet geautomatiseerd andere parameters in kunnen laden van andere motoren.}{De eis is behaald op het moment dat er een andere motor wordt aangesloten dat de gebruiker slechts door de motor te selecteren in de GUI de parameters kan inladen in de drive die passen bij die motor.}{}
+\eistabel{FR-006}{Automatisch parameters inladen}{URGENT}{De testkast moet geautomatiseerd andere parameters in kunnen laden van andere motoren.}{De eis is behaald op het moment dat er een andere motor wordt aangesloten dat de gebruiker slechts door de motor te selecteren in de \gls{gui} de parameters kan inladen in de drive die passen bij die motor.}{}
 
-\eistabel{FR-007}{Handmatig testen}{URGENT}{De gebruiker moet de spindels handmatig kunnen aansturen met de GUI op de testkast. }{Deze eis is behaald wanneer de gebruiker handmatig de motor kan aansturen met de GUI op de testkast.}{Het aansturen kan bijvoorbeeld met een slider.}
+\eistabel{FR-007}{Handmatig testen}{URGENT}{De gebruiker moet de spindels handmatig kunnen aansturen met de \gls{gui} op de testkast. }{Deze eis is behaald wanneer de gebruiker handmatig de motor kan aansturen met de \gls{gui} op de testkast.}{Het aansturen kan bijvoorbeeld met een slider.}
 
 \eistabel{FR-008}{TwinSAFE geconfigureerd}{GEMIDDELD}{De veiligheidskritieke onderdelen in de testkast zoals de deurschakelaars maar ook de motordrive moeten worden geconfigureerd in een TwinSAFE project zodat de veiligheid van de gebruiker te allen tijde kan worden gewaarborgd.}{Deze eis is behaald wanneer de motor automatisch en gecontroleerd wordt afgeremd met een TwinSAFE project zodra één van de volgende veiligheidsvoorwaarden worden geactiveerd:
 \begin{itemize}
@@ -207,13 +187,147 @@ De rest van de tabel omvat het volgende:
 \eistabel{FR-010}{FFT-analyse}{LAAG}{De Testkast moet een Fast Fourier Analysis (\gls{FFT}) kunnen uitvoeren op de gemeten trilling gegevens om frequentiespectra te genereren.}{De eis is behaald wanneer de testkast de spindel die getest wordt kan vergelijken met een aantal juist werkende spindels op basis van de trillingen van de motor en ook kan aangeven waar de verschillen zitten om zo mogelijke problemen aan te kunnen duiden.
 	
 	\vspace{0.5cm}
-Meet eerst de trillingen van de motor bij de volgende snelheden:
+Meet eerst de trillingen van de motor bij 20\%, 50\% en 80\% van de maximum snelheid.
+
+Voer de fourier transformatie uit op de samples. De formules hiervan zijn te vinden in bijlage \ref{sec:FourierTransform}.
+
+De Referentie $X_k$ is betrouwbaarder wanneer hier een gemiddelde van wordt genomen met ideaal meer dan 30 samples maar aangezien dit veel tijd kan kosten is het ook al waardevol om dit met minder spindels te doen. Dit gemiddelde kan berekend worden met de volgende formule:
+
+\begin{equation}
+	\bar{X}_k=\frac{1}{M}\sum_{i=1}^{M}X_{i,k}
+\end{equation}
+
+$M$ is hier het aantal referentie metingen (aantal juiste spindels)
+
+Vervolgens om aan te geven hoeveel afwijking er mag zijn bij goede spindels kan de standaarddeviatie per frequentie worden berekend met de volgende vergelijking:
+
+\begin{equation}
+	\sigma_k=\sqrt{\frac{1}{M}\sum_{i=1}^{M}(X_{i,k}-\bar{X}_k)^2}
+\end{equation}
+
+De testkast moet vervolgens de verschilspectra laten zien door een soort heat map te laten zien waar de grootste afwijkingen zitten dit kan makkelijk met de volgende formule:
+
+\begin{equation}
+	\Delta X_k=\frac{|X_{gereviseerd,k} - \bar{X}_k|}{\sigma_k}
+\end{equation}
+
+Dit geeft de afwijking in termen van de standaarddeviatie per frequentie. Als $\Delta X_k$ nu groter is dan 2 betekend dit dat het meer dan 2x de standaarddeviatie is. Dit kan betekenen dat de trillingen te veel afwijken bij een bepaalde frequentie van een normale spindel bij een bepaalde frequentie wat kan wijzen op problemen \cite{web:FLUKE}. 
+
+}{Mochten de frequenties nou erg afwijken in de tijd kan er ook mogelijk een spectrogram gemaakt worden in de tijd of eventueel tegen de motorsnelheid in plaats van de tijd.
+\gls{STFT} (Short Time Fourier Transform) \cite{web:STFT} .
+Door de PLC cycle snelheid zou de sampling frequentie niet zo hoog kunnen zijn dit zal voor de test betekenen dat hogere frequenties niet kunnen worden geanalyseerd omdat hier aliasing zal optreden.
+}
+
+\eistabel{FR-011}{\gls{MCSA} (Motor Current Signature Analysis)}{MEDIUM}{De testkast moet een FFT kunnen uitvoeren op de meet gegevens van alle fasen van de motor als functie van de tijd om wikkelfouten, lager schade of speling te analyseren.}{De eis is behaald als de testkast de spindel die getest wordt kan vergelijken met een aantal juist werkende spindels op basis van de variatie in stroom per fase van de motor. De methode hiervan is grotendeels hetzelfde als FR-010 en zal daarom niet uitgebreid uitgelegd worden hieronder.
+
+\vspace{0.5cm}
+
+Meet de stroom per fase bij de in FR-010 beschreven snelheden en pas de DFT hierop toe om de volgende data reeksen te krijgen: $I_U\left(\mathcal{F}\right), I_V\left(\mathcal{F}\right) en I_W\left(\mathcal{F}\right)$ bij elke snelheid.
+
+\vspace{0.5cm}
+
+Gebruik net als bij de trillingen meerdere juist werkende motoren om een gemiddeld spectrum te krijgen met daarbij de standaarddeviatie per frequentie.
+
+\vspace{0.5cm}
+
+${\bar{I}}_U\left(\mathcal{F}\right), {\bar{I}}_V\left(\mathcal{F}\right)$ en ${\bar{I}}_W\left(\mathcal{F}\right)$
+
+\vspace{0.5cm}
+
+${\sigma I}_U\left(\mathcal{F}\right), {\sigma I}_V\left(\mathcal{F}\right)$ en $\sigma I_W\left(\mathcal{F}\right)$
+
+\vspace{0.5cm}
+
+Er moeten vervolgens drie heatmaps gemaakt worden voor elke fase één van de gestandaardiseerde afwijking per frequentie met de volgende formules:
+
+\begin{equation}
+	\Delta I_U\left(\mathcal{F}\right)=\frac{\left|{I_U\left(\mathcal{F}\right)}_{gereviseerd}-{\bar{I}}_U\left(\mathcal{F}\right)\right|}{{\sigma I}_U\left(\mathcal{F}\right)}
+\end{equation}
+
+\begin{equation}
+	\Delta I_V\left(\mathcal{F}\right)=\frac{\left|{I_V\left(\mathcal{F}\right)}_{gereviseerd}-{\bar{I}}_V\left(\mathcal{F}\right)\right|}{{\sigma I}_V\left(\mathcal{F}\right)}
+\end{equation}
+
+\begin{equation}
+	\Delta I_W\left(\mathcal{F}\right)=\frac{\left|{I_W\left(\mathcal{F}\right)}_{gereviseerd}-{\bar{I}}_W\left(\mathcal{F}\right)\right|}{{\sigma I}_W\left(\mathcal{F}\right)}
+\end{equation}
+
+Wanneer een bijvoorbeeld hoger is dan 2 op een bepaald punt kan dit wijzen op een significante afwijking ten opzichte van de juiste spindels. Afwijkingen in de frequentie van de stroom kunnen duiden op asymmetrie, magneetschade (bij synchrone motoren), slechte wikkelingen of een ongelijke belasting. 
+
+}{Mochten de frequenties nou erg afwijken in de tijd kan er ook mogelijk een spectrogram gemaakt worden in de tijd of eventueel tegen de motorsnelheid in plaats van de tijd. (\gls{STFT}) \cite{web:STFT}
+Door de \gls{SoE} communicatiesnelheid en de \gls{PLC} cyclus snelheid zou de sampling frequentie niet zo hoog kunnen zijn dit zal voor de test betekenen dat hogere frequenties niet kunnen worden geanalyseerd omdat hier aliasing zal optreden.
+}
+
+
+\eistabel{FR-012}{\gls{RMS} (Root Mean Squared) of the motor vibration}{MEDIUM}{De testkast moet aan kunnen geven of de spindel gemiddeld gezien significant meer trilt dan de referentie spindel.}{De eis is behaald wanneer de testkast de gemeten trillingen vergelijkt met de referentie spindel metingen. Dit kan worden berekend op de volgende manier:
 	
+	Om te weten of de spindel meer of minder trilt kan worden gebaseerd op de RMS-waarde van de sample de formule hiervoor is als volgt:
+	
+	\begin{equation}
+		X_{RMS}=\sqrt{\frac{1}{n}\sum_{i=0}^{n-1}X_i^2}
+	\end{equation}
+	
+	
+	Deze waarde van de gereviseerde spindel mag niet te veel afwijken van de gemiddelde waarde van de referentiegroep (juist werkende spindels) +- 2x de standaarddeviatie hiervan. Waarbij de sample grootte van de referentiegroep ideaal >30 is om zo een normaalverdeling te hebben echter kan dit erg veel werk zijn een lagere sample grootte is daarom ook al waardevol.
+	
+	De volgende vergelijking kan gebruikt worden om de standaarddeviatie te berekenen van de controlegroep:
+	
+	\begin{equation}
+		\sigma_{RMS}=\sqrt{\frac{1}{N}\sum_{i=0}^{N}\left(X_{i,RMS}-{\bar{X}}_{RMS}\right)^2}
+	\end{equation}
+	
+	
+	Hier kunnen we een getal mee berekenen die de gebruiker verteld hoeveel de $X_{RMS}$ van de geteste spindel van het gemiddelde zit van de controlegroep met de volgende formule:
+	\begin{equation}
+		\Delta X_{RMS}=\frac{X_{RMS,gereviseerd}-{\bar{X}}_{RMS}}{\sigma_{RMS}}
+	\end{equation}
+	 Wanneer de $\left|\Delta X_{RMS}\ \right|$ groter is dan 2 betekend dit dat het verschil significant is en dat er mogelijk een probleem is. Met uitzondering van wanneer $\Delta X_{RMS}$ negatief is dit zou namelijk betekenen dat de trilling minder is geworden ten opzichte van de control groep na het reviseren.
+}{}
+
+\eistabel{FR-013}{Thermische analyse}{LAAG}{De testkast moet op basis van de temperatuur van de motor kunnen beoordelen of deze afwijkt van de toegestane waarden. De testkast moet op dat moment een waarschuwing geven en moet hiernaast ook de temperatuur statistisch vergelijken met de temperatuurdata van goed functionerende spindels, zodat de testkast kan aangeven of de afwijking significant is. Dit maakt het mogelijk om te detecteren of de motor mogelijk te zwaar loopt of andere mankementen.}{
+Deze eis is behaald op het moment dat de testkast kan aangeven dat: 
+
 \begin{itemize}
-	\item \textit{20\% van de maximumsnelheid}
-	\item \textit{50\% van de maximumsnelheid}
-	\item \textit{80\% van de maximumsnelheid}
+	\item De gemeten temperatuur van de motor significant afwijkt van de controle groep.
+	
+	\item Op basis van statistische vergelijking wordt een inschatting gemaakt of de motor mogelijk te zwaar loopt.
 \end{itemize}
 
-Doe vervolgens de transformatie voor elke dataset. De formule voor de \gls{DFT} (Discrete Fourier Transform) is (voor grote datasets is het Cooley–Tukey \gls{FFT} algorithm sneller) \cite{web:FFT,web:Radix-2FFT}
-}{}
+\textbf{Meet methode:}
+
+De motor draait op de volgende snelheden voor 10 minuten:
+
+\begin{itemize}
+	\item 20\% maximum snelheid
+	\item 50\% maximum snelheid
+	\item 80\% maximum snelheid
+\end{itemize}
+
+De temperatuur wordt minstens elke seconde opgenomen bij zowel de control groep als de gereviseerde spindel. Vervolgens wordt per seconde het gemiddelde berekent van alle spindels in de controle groep en ook de standaard deviatie met de volgende formules:
+
+\begin{equation}
+	\bar{T}_{controle}=\frac{1}{N}\sum_{n=0}^{N-1}T_n
+\end{equation}
+
+\begin{equation}
+	\sigma_{controle}=\sqrt{\frac{1}{N-1}\sum_{n=0}^{N-1}(T_n-\bar{T}_{controle})^2}
+\end{equation}
+
+Vervolgens kan er een tabel gemaakt worden van het genormaliseerde temperatuurverschil met de volgende formules:
+
+\begin{equation}
+	\Delta T= T_{gereviseerd} - \bar{T}_{controle}
+\end{equation}
+
+\begin{equation}
+	Z=\frac{\Delta T}{\sigma_{controle}}
+\end{equation}
+
+Wanneer er ergens een waarde hoger is dan 2 dan betekent dit dat de waarde significant afwijkt van de controle groep het kan dan zijn dat er iets aan de hand is.
+
+}{Het aansturen kan bijvoorbeeld met een slider.}
+
+
+
+
+

@@ -1,0 +1,18 @@
+\section{Kritische analyse van de eisen}
+
+De urgente eisen in dit lijstje zijn de eisen waar in het begin de focus zal liggen. De volgende eisen zullen mogelijk voor problemen zorgen.
+
+\begin{itemize}
+	\item \textbf{FR-011 \gls{MCSA} (Motor Current Signature Analysis)}
+	\begin{itemize}
+		\item Wanneer de motorstroom Fourier transformatie van alle fasen van de gereviseerde spindel vergeleken moeten gaan worden met normaal verdeelde testdata zal dit betekenen dat er veel (meer dan 30) goed werkende spindels getest moeten gaan worden om dit te bereiken. Doe dit maal het aantal verschillende spindels dan kan dit nog wel eens lastig gaan worden om dit te halen binnen het tijdsbestek van de opdracht. Een oplossing hiervoor zou kunnen zijn om dit maar voor een paar spindels te doen en goed te documenteren hoe dit te werk gaat. Of er moet genoegen worden genomen met een lager aantal dan 30.
+		
+		\item Omdat de sampling frequentie van de stroom afhankelijk is van de \gls{PLC} cyclus tijd kan het nog wel eens lastig worden om hoge frequenties te analyseren omdat de Nyquist frequentie de helft is van de steekproeffrequentie de \gls{PLC} cyclus tijd ligt vaak tussen de 1-10\gls{ms} dit zal betekenen dat slechts de frequenties tot 500\gls{Hz} kunnen worden geanalyseerd.
+	\end{itemize}
+	
+	\item \textbf{FR-010 \gls{FFT} analyse}
+	\begin{itemize}
+		\item Net als bij eis FR-011 zal het veel werk zijn om veel juist werkende spindels te testen.
+		\item Ook de sampling frequentie zal net zoals FR-011 mogelijk te laag zijn.
+	\end{itemize}
+\end{itemize}
