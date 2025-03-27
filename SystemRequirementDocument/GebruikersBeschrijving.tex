@@ -327,6 +327,14 @@ Wanneer er ergens een waarde hoger is dan 2 dan betekent dit dat de waarde signi
 
 }{Het aansturen kan bijvoorbeeld met een slider.}
 
+\eistabel{FR-014}{Reset}{URGENT}{Wanneer de reset knop is ingedrukt moeten alle foutmeldingen in het systeem gereset worden waardoor het programma kan vervolgen.}{Wanneer de reset knop is ingedrukt moet de testkast gereset worden dit houdt in dat alle foutmeldingen en ook de drive gereset worden. De drive kan gereset worden door \texttt{0b00000010} big endian naar S-0-0099 in de drive te schrijven.}{}
+
+\eistabel{FR-015}{Stoppen}{URGENT}{Wanneer de stopknop ingedrukt wordt moet het testprogramma dat aan het runnen is onderbroken worden en de spindel moet dan tot stilstand komen.}{De eis is behaald op het moment dat het testprogramma onderboken wordt wanneer de stopknop ingedrukt wordt. De spindel moet op dit moment tot stilstand komen.}{}
+
+\eistabel{FR-016}{Emergency stop}{URGENT}{Wanneer de emergency stop ingedrukt wordt of wanneer de deur van de testkast geopened wordt moet de spindel in \gls{STO} gaan en de safety card in de drive moet op dit moment active worden. Ook mag de toolchanger op dit moment niet meer werken zolang de emergency stop ingedrukt is.}{Deze eis is behaald op het moment dat alle bewegende delen in de testkast stoppen op het moment dat de noodstop is ingedrukt.}{}
+
+\eistabel{FR-017}{Starten}{URGENT}{Waneer de startknop in gedrukt is moet het testprogramma beginnen met lopen.}{Deze eis is behaald op het moment dat het testprogramma begint met afspelen wanneer de startknop is ingedrukt.}{}
+
 
 
 

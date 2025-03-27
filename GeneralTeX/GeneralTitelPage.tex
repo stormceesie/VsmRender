@@ -1,3 +1,14 @@
+\newcommand{\thesisAuthor}{Florent Kegler \newline 514277}
+\newcommand{\thesisSubTitle}{Ontwikkeling van een Universele Parameter set voor Spindletesten}
+\newcommand{\thesisDegree}{Afstudeerstage}
+\newcommand{\university}{Saxion University of Applied Sciences}
+\newcommand{\credits}{30 ECTS}
+\newcommand{\faculty}{Faculteit Engineering}
+\newcommand{\thesisPlaceDate}{\today}
+\newcommand{\company}{Voortman Steel Machinery}
+\newcommand{\address}{Ozonstraat 1, 7463 PK Rijssen}
+\newcommand{\bedrijfscoach}{ir. Sander Jansen}
+
 \thispagestyle{empty}
 \myfont
 
@@ -30,21 +41,35 @@
 \noindent
 
 \vspace{4cm}
+
 \noindent
 \LARGE
 \thesisAuthor\\
-\vspace{4 cm}
 \small
 \par \noindent
-\thesisDegree $\cdot$ \credits
-\par \noindent
-\university
-\par \noindent
-\faculty
-\par \noindent
-\company
-\par \noindent
-\thesisPlaceDate
+Bedrijfscoach: \bedrijfscoach\\
+\vspace{4cm}
+
+\noindent
+\makebox[0pt][r]{ % Zorgt ervoor dat de minipage naar links kan uitsteken
+	\begin{minipage}{0.3cm}
+		\rule{0.5pt}{3cm} % Dun verticaal lijntje (0.5pt dik, 3cm lang)
+	\end{minipage}
+}
+\begin{minipage}{0.5\linewidth}
+	\par \noindent
+	\thesisDegree $\cdot$ \credits
+	\par \noindent
+	\university
+	\par \noindent
+	\faculty
+	\par \noindent
+	\company
+	\par \noindent
+	\address
+	\par \noindent
+	\thesisPlaceDate
+\end{minipage}
 
 
 
