@@ -1,0 +1,33 @@
+\eistabel{FR-010}{FFT-analyse}{LAAG}{De Testkast moet een Fast Fourier Analysis (\gls{FFT}) kunnen uitvoeren op de gemeten trilling gegevens om frequentiespectra te genereren.}{De eis is behaald wanneer de testkast de spindel die getest wordt kan vergelijken met een aantal juist werkende spindels op basis van de trillingen van de motor en ook kan aangeven waar de verschillen zitten om zo mogelijke problemen aan te kunnen duiden.
+	
+	\vspace{0.5cm}
+Meet eerst de trillingen van de motor bij 20\%, 50\% en 80\% van de maximum snelheid.
+
+Voer de fourier transformatie uit op de samples. De formules hiervan zijn te vinden in bijlage \ref{sec:FourierTransform}.
+
+De Referentie $X_k$ is betrouwbaarder wanneer hier een gemiddelde van wordt genomen met ideaal meer dan 30 samples maar aangezien dit veel tijd kan kosten is het ook al waardevol om dit met minder spindels te doen. Dit gemiddelde kan berekend worden met de volgende formule:
+
+\begin{equation}
+	\bar{X}_k=\frac{1}{M}\sum_{i=1}^{M}X_{i,k}
+\end{equation}
+
+$M$ is hier het aantal referentie metingen (aantal juiste spindels)
+
+Vervolgens om aan te geven hoeveel afwijking er mag zijn bij goede spindels kan de standaarddeviatie per frequentie worden berekend met de volgende vergelijking:
+
+\begin{equation}
+	\sigma_k=\sqrt{\frac{1}{M}\sum_{i=1}^{M}(X_{i,k}-\bar{X}_k)^2}
+\end{equation}
+
+De testkast moet vervolgens de verschilspectra laten zien door een soort heat map te laten zien waar de grootste afwijkingen zitten dit kan makkelijk met de volgende formule:
+
+\begin{equation}
+	\Delta X_k=\frac{|X_{gereviseerd,k} - \bar{X}_k|}{\sigma_k}
+\end{equation}
+
+Dit geeft de afwijking in termen van de standaarddeviatie per frequentie. Als $\Delta X_k$ nu groter is dan 2 betekend dit dat het meer dan 2x de standaarddeviatie is. Dit kan betekenen dat de trillingen te veel afwijken bij een bepaalde frequentie van een normale spindel bij een bepaalde frequentie wat kan wijzen op problemen \cite{web:FLUKE}. 
+
+}{Mochten de frequenties nou erg afwijken in de tijd kan er ook mogelijk een spectrogram gemaakt worden in de tijd of eventueel tegen de motorsnelheid in plaats van de tijd.
+\gls{STFT} (Short Time Fourier Transform) \cite{web:STFT} .
+Door de PLC cycle snelheid zou de sampling frequentie niet zo hoog kunnen zijn dit zal voor de test betekenen dat hogere frequenties niet kunnen worden geanalyseerd omdat hier aliasing zal optreden.
+}

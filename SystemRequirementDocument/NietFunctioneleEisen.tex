@@ -2,40 +2,6 @@
 
 In deze sectie wordt beschreven hoe goed het systeem moet presteren en ook de beperkingen van het systeem worden hier beschreven.
 
-\eistabel{NFR-001}{\gls{pid} afstemming}{HOOG}{Tenminste de volgende motoren moeten kunnen worden aangestuurd door de \gls{AX5140} motordrive en deze mogen geen significante regelafwijking hebben in de rotatiesnelheid ten opzichte van de gestuurde snelheid:
-
-\begin{itemize}
-	\item MAD100D-0250-SA-C0-AK0-35-N3 (V623)
-	\item MAD130C-0150-SA-S2-AP0-05-N1 (V633)
-	\item HQL100X (V310 oud)
-	\item MSK101D-0450-NN-M1-AP0-NNNN (V505-250T, V320, V330C, V320C en V600)
-	\item MS2N10-D0BNN-AMVK0-NNNNN-NN (V630 nieuw)
-\end{itemize}
-
-}{
-Deze eis is behaald op het moment dat elk van deze motoren een \gls{CPK}-waarde (Capability Index) \cite{web:LeanSixSigmaGroep} heeft van boven de 1. Ook moet de \gls{CP} (Capability of the process) een waarde hebben boven de 1. Bij de volgende snelheden:
-
-\begin{itemize}
-	\item 20\% van de maximumsnelheid
-	\item 50\% van de maximumsnelheid
-	\item 80\% van de maximumsnelheid
-\end{itemize}
-
-De \gls{CPK} en \gls{CP} kunnen worden bepaald met de volgende formules:
-
-\begin{equation}
-	CPK = min(\frac{\mu - LSL}{3\sigma};\frac{USL - \mu}{3\sigma})
-\end{equation}
-
-\begin{equation}
-	CP = \frac{URL - LSL}{6\sigma}
-\end{equation}
-
-\gls{USL} (Upper Specification Limit)= nog in te vullen \newline
-\gls{LSL} (Lower Specification Limit)= nog in te vullen \newline
-Hierbij moet de sample grootte minstens 30 zijn over een periode van minstens 20 seconden.
-}{De regelaar die de motor aanstuurt mag niet te veel schommelen rond de ingestelde snelheid dit kan namelijk wijzen op een verkeerd ingesteld regelsysteem. Ook kan dit de testen belemmeren.}
-
-\eistabel{NFR-002}{Luchtdruk aanwezigheid}{LAAG}{Het mag niet toegestaan zijn dat de spindel roteert op het moment dat er geen luchtdruk op de testkast staat.}{De eis is behaald op het moment dat de spindel geblokkeerd door de software wanneer de luchtdruk niet op de spindel staat.}{Er moet luchtdruk op staan zodat het klemmingsmechanisme in de spindel niet kapot kan gaan.}
-
-\eistabel{NFR-003}{Thermische beveiliging}{LAAG}{Wanneer de motor warmer wordt dan de maximum aanvaardbare temperatuur die door de fabrikant is beschreven moet de testkast de gebruiker een waarschuwing geven en de motor moet op dit moment in een noodstop gaan.}{De eis is behaald op het moment dat de motor in een noodstop gaat wanneer de motor warmer wordt dan de maximum aanvaardbare temperatuur die door de fabrikant is beschreven.}{}
+\input{../GeneralTeX/Eisen/NFR-001}
+\input{../GeneralTeX/Eisen/NFR-002}
+\input{../GeneralTeX/Eisen/NFR-003}

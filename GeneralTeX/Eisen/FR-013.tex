@@ -1,0 +1,42 @@
+\eistabel{FR-013}{Thermische analyse}{LAAG}{De testkast moet op basis van de temperatuur van de motor kunnen beoordelen of deze afwijkt van de toegestane waarden. De testkast moet op dat moment een waarschuwing geven en moet hiernaast ook de temperatuur statistisch vergelijken met de temperatuurdata van goed functionerende spindels, zodat de testkast kan aangeven of de afwijking significant is. Dit maakt het mogelijk om te detecteren of de motor mogelijk te zwaar loopt of andere mankementen.}{
+Deze eis is behaald op het moment dat de testkast kan aangeven dat: 
+
+\begin{itemize}
+	\item De gemeten temperatuur van de motor significant afwijkt van de controle groep.
+	
+	\item Op basis van statistische vergelijking wordt een inschatting gemaakt of de motor mogelijk te zwaar loopt.
+\end{itemize}
+
+\textbf{Meet methode:}
+
+De motor draait op de volgende snelheden voor 10 minuten:
+
+\begin{itemize}
+	\item 20\% maximum snelheid
+	\item 50\% maximum snelheid
+	\item 80\% maximum snelheid
+\end{itemize}
+
+De temperatuur wordt minstens elke seconde opgenomen bij zowel de control groep als de gereviseerde spindel. Vervolgens wordt per seconde het gemiddelde berekent van alle spindels in de controle groep en ook de standaard deviatie met de volgende formules:
+
+\begin{equation}
+	\bar{T}_{controle}=\frac{1}{N}\sum_{n=0}^{N-1}T_n
+\end{equation}
+
+\begin{equation}
+	\sigma_{controle}=\sqrt{\frac{1}{N-1}\sum_{n=0}^{N-1}(T_n-\bar{T}_{controle})^2}
+\end{equation}
+
+Vervolgens kan er een tabel gemaakt worden van het genormaliseerde temperatuurverschil met de volgende formules:
+
+\begin{equation}
+	\Delta T= T_{gereviseerd} - \bar{T}_{controle}
+\end{equation}
+
+\begin{equation}
+	Z=\frac{\Delta T}{\sigma_{controle}}
+\end{equation}
+
+Wanneer er ergens een waarde hoger is dan 2 dan betekent dit dat de waarde significant afwijkt van de controle groep het kan dan zijn dat er iets aan de hand is.
+
+}{Het aansturen kan bijvoorbeeld met een slider.}

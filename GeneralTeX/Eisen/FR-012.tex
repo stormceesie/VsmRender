@@ -1,0 +1,24 @@
+\eistabel{FR-012}{\gls{RMS} (Root Mean Squared) of the motor vibration}{MEDIUM}{De testkast moet aan kunnen geven of de spindel gemiddeld gezien significant meer trilt dan de referentie spindel.}{De eis is behaald wanneer de testkast de gemeten trillingen vergelijkt met de referentie spindel metingen. Dit kan worden berekend op de volgende manier:
+	
+	Om te weten of de spindel meer of minder trilt kan worden gebaseerd op de RMS-waarde van de sample de formule hiervoor is als volgt:
+	
+	\begin{equation}
+		X_{RMS}=\sqrt{\frac{1}{n}\sum_{i=0}^{n-1}X_i^2}
+	\end{equation}
+	
+	
+	Deze waarde van de gereviseerde spindel mag niet te veel afwijken van de gemiddelde waarde van de referentiegroep (juist werkende spindels) +- 2x de standaarddeviatie hiervan. Waarbij de sample grootte van de referentiegroep ideaal >30 is om zo een normaalverdeling te hebben echter kan dit erg veel werk zijn een lagere sample grootte is daarom ook al waardevol.
+	
+	De volgende vergelijking kan gebruikt worden om de standaarddeviatie te berekenen van de controlegroep:
+	
+	\begin{equation}
+		\sigma_{RMS}=\sqrt{\frac{1}{N}\sum_{i=0}^{N}\left(X_{i,RMS}-{\bar{X}}_{RMS}\right)^2}
+	\end{equation}
+	
+	
+	Hier kunnen we een getal mee berekenen die de gebruiker verteld hoeveel de $X_{RMS}$ van de geteste spindel van het gemiddelde zit van de controlegroep met de volgende formule:
+	\begin{equation}
+		\Delta X_{RMS}=\frac{X_{RMS,gereviseerd}-{\bar{X}}_{RMS}}{\sigma_{RMS}}
+	\end{equation}
+	 Wanneer de $\left|\Delta X_{RMS}\ \right|$ groter is dan 2 betekend dit dat het verschil significant is en dat er mogelijk een probleem is. Met uitzondering van wanneer $\Delta X_{RMS}$ negatief is dit zou namelijk betekenen dat de trilling minder is geworden ten opzichte van de control groep na het reviseren.
+}{}

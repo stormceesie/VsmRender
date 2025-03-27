@@ -1,0 +1,6 @@
+\eistabel{FR-008}{TwinSAFE geconfigureerd}{GEMIDDELD}{De veiligheidskritieke onderdelen in de testkast zoals de deurschakelaars maar ook de motordrive moeten worden geconfigureerd in een TwinSAFE project zodat de veiligheid van de gebruiker te allen tijde kan worden gewaarborgd.}{Deze eis is behaald wanneer de motor automatisch en gecontroleerd wordt afgeremd met een TwinSAFE project zodra één van de volgende veiligheidsvoorwaarden worden geactiveerd:
+\begin{itemize}
+	\item Deurbeveiliging: op het moment dat er een deur op de testkast geopend wordt.
+	\item Noodstop: wanneer de noodstop wordt ingedrukt.
+	\item Wanneer veiligheidslimieten worden overschreden: Bijvoorbeeld een te hoge stroomafwijking.
+\end{itemize} De motor moet zo snel mogelijk afremmen. Omdat dit sterk afhankelijk is van welk type motor en welke massatraagheid de spindel heeft en mogelijk nog de tool die hierin zit kan hier geen vaste waarde aan gehangen worden.}{Momenteel is deze veiligheid al wel ingebouwd in de testkast echter is dit niet gedaan met TwinSAFE maar gewoon geprogrammeerd in een \gls{TwinCAT} \gls{PLC} project. }
