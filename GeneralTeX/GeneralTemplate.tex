@@ -22,6 +22,11 @@
 \usepackage{url}
 \usepackage{xltabular}
 \usepackage{background}
+\usepackage{numprint}
+\usepackage{xfp}
+
+\maxdeadcycles=1000
+\extrafloats{500}
 
 \input{../GeneralTeX/LijstMetAfkortingen}
 
@@ -67,6 +72,20 @@
 		\textbf{Opmerking} & \multicolumn{2}{p{0.7\linewidth}|}{#6} \\
 		\hline
 	\end{xltabular}
+}
+
+\NewDocumentCommand{\functietabel}{m m m m m m O{} O{}}{%
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|p{0.2\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|}
+			\hline
+			\textbf{Functie} & \textbf{Oplossing 1} & \textbf{Oplossing 2} & \textbf{Oplossing 3} & \textbf{Gewicht} \\
+			\hline
+			#1 & #2 & #3 & #4 & #5 \\
+			\hline
+		\end{tabular}
+		\caption{Morfologisch overzicht van functie: #1}
+	\end{table}
 }
 
 \pagestyle{fancy}

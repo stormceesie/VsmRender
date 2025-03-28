@@ -6,36 +6,217 @@ In deze sectie wordt per functie bepaald welke oplossing hiervoor gekozen zal wo
 
 In het morfologisch overzicht worden vooral de hardware eisen doorgenomen aangezien de meeste functies al geïmplementeerd zijn op de testkast of deze moeten slechts ingeprogrammeerd worden in de software.
 
-\begin{xltabular}{\linewidth}{|p{0.2\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|p{0.15\linewidth}|}
+\begin{xltabular}{\linewidth}{|p{0.3\linewidth}|p{0.2\linewidth}|p{0.2\linewidth}|}
 	\caption{Morfologisch overzicht} \\
 	\hline
-	\textbf{Functie} & \textbf{Oplossing 1} & \textbf{Oplossing 2} & \textbf{Oplossing 3} \\
+	\textbf{Functie} & \textbf{Oplossing 1} & \textbf{Oplossing 2} \\
 	\hline
 	\endfirsthead
 	\hline
-	\textbf{Functie} & \textbf{Oplossing 1} & \textbf{Oplossing 2} & \textbf{Oplossing 3} \\
+	\textbf{Functie} & \textbf{Oplossing 1} & \textbf{Oplossing 2} \\
 	\hline
 	\endhead
 	\hline
 	\endfoot
 	\hline
 	\endlastfoot
-	\textbf{Trillingsensor positie} & \cellcolor{green} Montageplaat & Motor & - \\
+	\textbf{Trillingsensor positie} & \cellcolor{green} Montageplaat & Motor \\
 	\hline
-	\textbf{Temperatuur sensor} & \cellcolor{green} Infrarood camera & Hittesensor & - \\
+	\textbf{Temperatuur sensor} & \cellcolor{green} Infrarood camera & Hittesensor \\
 	\hline
-	\textbf{Luchtdruk sensor positie} & Tussen leiding & \cellcolor{green} Op T-stuk & - \\
+	\textbf{Luchtdruk sensor positie} & Tussen leiding & \cellcolor{green} Op T-stuk \\
 	\hline
-	\textbf{Trilling sensor communicatie protocol} & \cellcolor{green} IO-Link & analoog & - \\
+	\textbf{Trilling sensor communicatie protocol} & \cellcolor{green} IO-Link & Analoog \\
 	\hline
-	\textbf{Luchtdruk sensor communicatie protocol} & IO-Link & \cellcolor{green} analoog & - \\
+	\textbf{Luchtdruk sensor communicatie protocol} & \cellcolor{green}  IO-Link & Analoog \\
 	\hline 
-	\textbf{Temperatuur sensor communicatie protocol} & \cellcolor{green} IO-Link & analoog & - \\
+	\textbf{Temperatuur sensor communicatie protocol} & \cellcolor{green} IO-Link & Analoog \\
 	\hline
-	\textbf{Testprotocol} & Altijd hetzelfde & Configureerbaar & \cellcolor{green} Configureerbaar en kunnen wisselen tussen verschillende testprogramma's \\
+	\textbf{Testprotocol} & Configureerbaar & \cellcolor{green} Configureerbaar en kunnen wisselen tussen verschillende testprogramma's \\
 	\hline
-	\textbf{Frontend Backend} & \cellcolor{green} Frontend en backend gescheiden & Beide in TwinCAT & - \\
+	\textbf{Frontend Backend} & \cellcolor{green} Frontend en backend gescheiden & Beide in TwinCAT \\
 	\hline
-	\textbf{Noodstop en deurschakkelaar} & Beiden op één safety ingang & \cellcolor{green} Apart op eigen safety ingang & - \\
+	\textbf{Noodstop en deurschakelaar} & Beiden op één safety ingang & \cellcolor{green} Apart op eigen safety ingang \\
 	\hline
 \end{xltabular}
+
+\begin{table}[H]
+	\centering
+	\caption{Trillingsensor positie becijfering}
+	\label{tab:TrillingPositie}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{\textbf{Trillingsensor positie}} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{Montageplaat} & \textbf{Motor} \\
+		\hline
+		Omwisseltijd & 1 & 100 & 40 \\
+		Precisie & 1 & 70 & 90 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{1*100 + 1*70} & \fpeval{1*40 + 1*90} \\ % Automatische berekening
+		\hline
+	\end{tabular}
+\end{table}
+
+Uit de becijfering van de oplossingen blijkt dus dat het monteren op de montageplaat beter is dan monteren aan de motor. Dit komt puur omdat het veel meer tijd kost om de sensor te monteren aan de motor. Hier komt nog bij dat de meeste trillingsensoren vastgedraait moeten worden aan de motor en dit zit niet standaard op elke motor. Daarom is de veronderstelling dat de trillingen genoeg doorgegeven worden aan de montage plaat om goede metingen te verrichten van de spindel.
+
+\begin{table}[H]
+	\centering
+	\label{tab:TemperatuurSensor}
+	\caption{Temperatuur sensor becijfering}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Temperatuur sensor} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{Infrarood camera} & \textbf{Hittesensor} \\
+		\hline
+		Resolutie & 2 & 100 & 20 \\
+		Precisie & 1 & 80 & 50 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*100+1*80} & \fpeval{2*20+1*50} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Uit de becijfering is gekomen dat de infrarood camera vele malen beter is dan de hittesensor. Dit komt omdat een hitte camera vooral veel meer resolutie heeft en de hitte een stuk beter in kaart kan brengen op de spindel. Ook kunnen hiermee heatspots gedetecteerd worden. Een hittesensor kan maar op één punt de temperatuur meten dit kan waardevol zijn maar dit heeft maar weinig resolutie.
+
+\begin{table}[H]
+	\centering
+	\label{tab:LuchtdrukSensorPositie}
+	\caption{Luchtdruk sensor positie becijfering}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Luchtdruk sensor positie} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{Tussen leiding} & \textbf{Op T-stuk} \\
+		\hline
+		Installatie gemak & 2 & 70 & 70 \\
+		Flexibiliteit & 1 & 70 & 70 \\
+		Kosten & 1 & 70 & 70 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*70+1*70+1*70} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+De positie van de luchtdruk sensor tussen een leiding of op een T-stuk maakt eigenlijk niet erg veel uit volgens de becijfering. Ook qua prijs maakt het weinig uit welke van de twee er gekozen worden. Wel zijn er veel meer industriële sensoren die op het T-stuk gedraait kunnen worden dan sensoren die tussen de leiding geplaatst wordt.
+
+\begin{table}[H]
+	\centering
+	\label{tab:TrillingsensorCommunicatieProtocol}
+	\caption{Trilling sensor communicatie protocol}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Trilling sensor communicatie protocol} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{IO-Link} & \textbf{Analoog} \\
+		\hline
+		Informatie overdracht & 2 & 70 & 40 \\
+		Installatie & 1 & 70 & 70 \\
+		Robuustheid & 1 & 70 & 50 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*40+1*70+1*50} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+IO-Link is volgens de becijfering het beste communicatie protocol voor de trillingsensor. IO-Link is tegenwoordig een veelgebruikt protocol wat in veel sensoren standaard is ingebouwd. IO-Link kan veel meer informatie over de sensor communiceren met zijn zo gehete IO-Link master die op zijn beurt weer over \gls{EtherCAT} met de \gls{PLC}. De installatie is in principe hetzelfde. Ook is het signaal van IO-Link veel robuuster en minder gevoelig voor \gls{EMC}. De informatie overdracht is hoger becijferd omdat een trillingsensor bijvoorbeeld trillingen in zowel X, Y en Z richting kan communiceren. Ook zijn IO-Link sensor beter instelbaar.
+
+\begin{table}[H]
+	\centering
+	\label{tab:LuchtdruksensorCommunicatieProtocol}
+	\caption{Luchtdruk sensor communicatie protocol}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Luchtdruk sensor communicatie protocol} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{IO-Link} & \textbf{Analoog} \\
+		\hline
+		Informatie overdracht & 2 & 70 & 60 \\
+		Installatie & 1 & 70 & 70 \\
+		Robuustheid & 1 & 70 & 50 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*60+1*70+1*50} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Voor de luchtdruk sensor is ook IO-Link het beste uit de becijfering gekomen. Echter maakt het bij deze sensor de informatieoverdracht minder uit omdat enkel de druk uitgelezen hoeft te worden. Er hoeft hierbij niks speciaals ingesteld te worden.
+
+\begin{table}[H]
+	\centering
+	\label{tab:TemperatuursensorCommunicatieProtocol}
+	\caption{Temperatuur sensor communicatie protocol}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Temperatuur sensor communicatie protocol} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{IO-Link} & \textbf{Analoog} \\
+		\hline
+		Informatie overdracht & 2 & 70 & 60 \\
+		Installatie & 1 & 70 & 70 \\
+		Robuustheid & 1 & 70 & 50 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*60+1*70+1*50} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Ook voor de temperatuursensor is IO-Link het beste uit de becijfering gekomen. Voor de temperatuursensor geldt eigenlijk hetzelfde als voor de luchtdruk sensor. Echter in geval van de thermische camera is dit niet van toepassing aangezien dit dan waarschijnlijk over \gls{USB} of EtherNET zal gaan.
+
+\begin{table}[H]
+	\centering
+	\label{tab:Testprotocol}
+	\caption{Temperatuur sensor communicatie protocol}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Temperatuur sensor communicatie protocol} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{Configureerbaar} & \textbf{Configureerbaar en wisselbaar} \\
+		\hline
+		Flexibiliteit & 2 & 60 & 80 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*60} & \fpeval{2*80} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+In het geval van het testprotocol is configureerbaar en wisselbaar gewoon het meest flexibel en daarom is dit het beste om dit te implementeren in het programma.
+
+\begin{table}[H]
+	\centering
+	\label{tab:FrontendBackend}
+	\caption{Frontend en backend}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Frontend en backend} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{Gescheiden} & \textbf{\gls{TwinCAT}} \\
+		\hline
+		Flexibiliteit & 2 & 80 & 60 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*80} & \fpeval{2*60} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Momenteel is zowel de \gls{gui} als de \gls{PLC} code geschreven in TwinCAT. Dit is voor simpele dingen prima, echter wanneer er relatief simpele dingen uitgevoerd zullen worden zoals het inladen van bestanden kan \gls{TwinCAT} simpelweg zijn cyclus tijd niet meer halen. Daarom is het beter om de frontend bescheiden te houden van de backend \gls{PLC} code. Ook biedt dit voordelen bij bijvoorbeeld het opnieuw starten van TwinCAT. De frontend hoeft in dit geval niet gesloten te worden en kan de gebruiker eventueel waarschuwen voor dingen die fout gaan.
+
+\begin{table}[H]
+	\centering
+	\label{tab:Noodstop}
+	\caption{Noodstop en deurschakkelaar}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Noodstop en deurschakkelaar} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{Doorgeschakelt} & \textbf{Apart} \\
+		\hline
+		Flexibiliteit & 2 & 60 & 80 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*60} & \fpeval{2*80} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Voor de noodstop en deurschakelaar is het simpelweg beter om deze gescheiden op een eigen safety ingang te plaatsen dit is omdat wanneer de noodstop ingedrukt is er niks meer mag bewegen op de testkast. Echter wanneer de deur geopened is om bijvoorbeeld een tool in te laden in de spindel dan mag de spindel alleen niet bewegen de toolchanger mag op dit moment best functioneren.

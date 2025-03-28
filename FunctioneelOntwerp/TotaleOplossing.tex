@@ -1,0 +1,20 @@
+\section{Totale Oplossing}
+
+In deze sectie wordt de totale oplossing nog even kort opgesomt om een compleet beeld te krijgen bij de uiteindelijke oplossing. De testkast zal verbeterd worden op de volgende punten:
+
+\begin{itemize}
+	\item \textbf{Trilling sensor} Op de testkast zal een trillingsensor worden geïnstalleerd om de trilingen van de spindel te kwantificeren en te beoordelen.
+	
+	\item \textbf{Temperatuur sensor} Om de temperatuur van de spindel goed in beeld te krijgen is het het beste om een thermische camera te installeren op de testkast om zo eventuele heat spots te detecteren op de spindel.
+	
+	\item \textbf{Luchtdruk sensor} Er komt een luchtdruk sensor op de testkast zodat de spindel geblokkeerd kan worden op het moment wanneer er geen druk op de testkast staat. Dit is omdat het toolwissel mechanisme beschadigd kan raken op het moment dat de toolchanger niet helemaal open staat.
+	
+	\item \textbf{Sensor Communicatie Protocol} Voor alle bovenstaande sensoren is het het beste om IO-Link te gebruiken als sensor communicatie middel. Dit is zo omdat IO-Link in erg veel sensoren al standaard is ingebouwd. Met IO-Link kan er veel meer informatie uit een sensor gehaald worden en daarnaast is het ook erg robuust en resistent tegen bijvoorbeeld \gls{EMC}.
+	
+	\item \textbf{Testprotocol} Om de testprotocollen zo flexibel mogelijk te maken is het het beste om testprogramma's verwisselbaar te maken zo kan de gebruiker bijvoorbeeld voor elk type spindel een eigen testprotocol in elkaar zetten en gemakkelijk inladen wanneer deze spindel is aangesloten op de testkast.
+	
+	\item \textbf{Frontend Backend} De fontend en de backend zullen niet meer beiden in TwinCAT geschreven worden maar apart zodat de frontend niet gesloten hoeft te worden bij bijvoorbeeld het opnieuw opstarten van TwinCAT.
+	
+	\item \textbf{Noodstop en deurschakelaar} De noodstop en de deurschakelaar zullen allebei een eigen safety ingang krijgen zodat wanneer de deur van de testkast open is dat het toolchanger mechanisme nog wel werkt. De spindel mag alleen niet draaien op het moment dat de deur los is.
+\end{itemize}
+	
