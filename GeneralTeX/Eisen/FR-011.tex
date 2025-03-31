@@ -1,8 +1,8 @@
-\eistabel{FR-011}{\gls{MCSA} (Motor Current Signature Analysis)}{MEDIUM}{De testkast moet een FFT kunnen uitvoeren op de meet gegevens van alle fasen van de motor als functie van de tijd om wikkelfouten, lager schade of speling te analyseren.}{De eis is behaald als de testkast de spindel die getest wordt kan vergelijken met een aantal juist werkende spindels op basis van de variatie in stroom per fase van de motor. De methode hiervan is grotendeels hetzelfde als FR-010 en zal daarom niet uitgebreid uitgelegd worden hieronder.
+\eistabel{FR-011}{\gls{MCSA} (Motor Current Signature Analysis)}{MEDIUM}{De testkast moet een \gls{FFT} kunnen uitvoeren op de meet gegevens van alle fasen van de motor als functie van de tijd om wikkelfouten, lager schade of speling te analyseren.}{De eis is behaald als de testkast de spindel die getest wordt kan vergelijken met een aantal juist werkende spindels op basis van de variatie in stroom per fase van de motor. De methode hiervan is grotendeels hetzelfde als FR-010 en zal daarom niet uitgebreid uitgelegd worden hieronder.
 
 \vspace{0.5cm}
 
-Meet de stroom per fase bij de in FR-010 beschreven snelheden en pas de DFT hierop toe om de volgende data reeksen te krijgen: $I_U\left(\mathcal{F}\right), I_V\left(\mathcal{F}\right) en I_W\left(\mathcal{F}\right)$ bij elke snelheid.
+Meet de stroom per fase bij de in FR-010 beschreven snelheden en pas de \gls{DFT} hierop toe om de volgende data reeksen te krijgen: $I_U\left(\mathcal{F}\right)$, $I_V\left(\mathcal{F}\right)$ en  $I_W\left(\mathcal{F}\right)$ bij elke snelheid.
 
 \vspace{0.5cm}
 
@@ -32,7 +32,7 @@ Er moeten vervolgens drie heatmaps gemaakt worden voor elke fase één van de ge
 	\Delta I_W\left(\mathcal{F}\right)=\frac{\left|{I_W\left(\mathcal{F}\right)}_{gereviseerd}-{\bar{I}}_W\left(\mathcal{F}\right)\right|}{{\sigma I}_W\left(\mathcal{F}\right)}
 \end{equation}
 
-Wanneer een bijvoorbeeld hoger is dan 2 op een bepaald punt kan dit wijzen op een significante afwijking ten opzichte van de juiste spindels. Afwijkingen in de frequentie van de stroom kunnen duiden op asymmetrie, magneetschade (bij synchrone motoren), slechte wikkelingen of een ongelijke belasting. 
+Wanneer een waarde hoger is dan 2 op een bepaald punt kan dit wijzen op een significante afwijking ten opzichte van de juiste spindels. Afwijkingen in de frequentie van de stroom kunnen duiden op asymmetrie, magneetschade (bij synchrone motoren), slechte wikkelingen of een ongelijke belasting. 
 
 }{Mochten de frequenties nou erg afwijken in de tijd kan er ook mogelijk een spectrogram gemaakt worden in de tijd of eventueel tegen de motorsnelheid in plaats van de tijd. (\gls{STFT}) \cite{web:STFT}
 Door de \gls{SoE} communicatiesnelheid en de \gls{PLC} cyclus snelheid zou de sampling frequentie niet zo hoog kunnen zijn dit zal voor de test betekenen dat hogere frequenties niet kunnen worden geanalyseerd omdat hier aliasing zal optreden.
