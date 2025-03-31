@@ -26,12 +26,7 @@ In het morfologisch overzicht worden vooral de hardware eisen doorgenomen aangez
 	\hline
 	\textbf{Luchtdruk sensor positie} & Tussen leiding & \cellcolor{green} Op T-stuk \\
 	\hline
-	\textbf{Trilling sensor communicatie protocol} & \cellcolor{green} IO-Link & Analoog \\
-	\hline
-	\textbf{Luchtdruk sensor communicatie protocol} & \cellcolor{green}  IO-Link & Analoog \\
-	\hline 
-	\textbf{Temperatuur sensor communicatie protocol} & \cellcolor{green} IO-Link & Analoog \\
-	\hline
+
 	\textbf{Testprotocol} & Configureerbaar & \cellcolor{green} Configureerbaar en kunnen wisselen tussen verschillende testprogramma's \\
 	\hline
 	\textbf{Frontend Backend} & \cellcolor{green} Frontend en backend gescheiden & Beide in TwinCAT \\
@@ -100,69 +95,6 @@ Uit de becijfering is gekomen dat de infrarood camera vele malen beter is dan de
 \end{table}
 
 De positie van de luchtdruk sensor tussen een leiding of op een T-stuk maakt eigenlijk niet erg veel uit volgens de becijfering. Ook qua prijs maakt het weinig uit welke van de twee er gekozen worden. Wel zijn er veel meer industriële sensoren die op het T-stuk gedraait kunnen worden dan sensoren die tussen de leiding geplaatst wordt.
-
-\begin{table}[H]
-	\centering
-	\label{tab:TrillingsensorCommunicatieProtocol}
-	\caption{Trilling sensor communicatie protocol}
-	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
-		\hline
-		\multicolumn{4}{|c|}{Trilling sensor communicatie protocol} \\
-		\hline
-		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{IO-Link} & \textbf{Analoog} \\
-		\hline
-		Informatie overdracht & 2 & 70 & 40 \\
-		Installatie & 1 & 70 & 70 \\
-		Robuustheid & 1 & 70 & 50 \\
-		\hline
-		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*40+1*70+1*50} \\
-		\hline
-	\end{tabular}
-\end{table}
-
-IO-Link is volgens de becijfering het beste communicatie protocol voor de trillingsensor. IO-Link is tegenwoordig een veelgebruikt protocol wat in veel sensoren standaard is ingebouwd. IO-Link kan veel meer informatie over de sensor communiceren met zijn zo gehete IO-Link master die op zijn beurt weer over \gls{EtherCAT} met de \gls{PLC}. De installatie is in principe hetzelfde. Ook is het signaal van IO-Link veel robuuster en minder gevoelig voor \gls{EMC}. De informatie overdracht is hoger becijferd omdat een trillingsensor bijvoorbeeld trillingen in zowel X, Y en Z richting kan communiceren. Ook zijn IO-Link sensor beter instelbaar.
-
-\begin{table}[H]
-	\centering
-	\label{tab:LuchtdruksensorCommunicatieProtocol}
-	\caption{Luchtdruk sensor communicatie protocol}
-	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
-		\hline
-		\multicolumn{4}{|c|}{Luchtdruk sensor communicatie protocol} \\
-		\hline
-		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{IO-Link} & \textbf{Analoog} \\
-		\hline
-		Informatie overdracht & 2 & 70 & 60 \\
-		Installatie & 1 & 70 & 70 \\
-		Robuustheid & 1 & 70 & 50 \\
-		\hline
-		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*60+1*70+1*50} \\
-		\hline
-	\end{tabular}
-\end{table}
-
-Voor de luchtdruk sensor is ook IO-Link het beste uit de becijfering gekomen. Echter maakt het bij deze sensor de informatieoverdracht minder uit omdat enkel de druk uitgelezen hoeft te worden. Er hoeft hierbij niks speciaals ingesteld te worden.
-
-\begin{table}[H]
-	\centering
-	\label{tab:TemperatuursensorCommunicatieProtocol}
-	\caption{Temperatuur sensor communicatie protocol}
-	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
-		\hline
-		\multicolumn{4}{|c|}{Temperatuur sensor communicatie protocol} \\
-		\hline
-		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{IO-Link} & \textbf{Analoog} \\
-		\hline
-		Informatie overdracht & 2 & 70 & 60 \\
-		Installatie & 1 & 70 & 70 \\
-		Robuustheid & 1 & 70 & 50 \\
-		\hline
-		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*60+1*70+1*50} \\
-		\hline
-	\end{tabular}
-\end{table}
-
-Ook voor de temperatuursensor is IO-Link het beste uit de becijfering gekomen. Voor de temperatuursensor geldt eigenlijk hetzelfde als voor de luchtdruk sensor. Echter in geval van de thermische camera is dit niet van toepassing aangezien dit dan waarschijnlijk over \gls{USB} of EtherNET zal gaan.
 
 \begin{table}[H]
 	\centering
