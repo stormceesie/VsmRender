@@ -2,3 +2,117 @@
 
 Vanuit Voortman was het de wens om een trillingssensor toe te voegen (HR-002) aan het systeem zodat trillingen van de motor of de spindel gekwantificeert kunnen worden. Daarnaast is was er de wens om een luchtdruk sensor bij de testkast op te bouwen zodat de \gls{PLC} de spindel kan blokkeren op het moment dat er geen luchtdruk op de testkast staat. De toolwisselaar van de spindel moet namelijk altijd helemaal open staan op het moment dat de spindel gaat draaien anders kan dit voor schade zorgen (HR-001). Verder was er de wens om de temperatuur van de spindel te meten (HR-003) om eventuele heatspots te detecteren tijdens het testen. Tot slot is er de wens om de deurschakelaars op een eigen veiligheids ingang te plaatsen zodat bij het openen van de deuren de toolwisselaar nog wel werkt (FR-008, FR-018).
 
+\subsection{Elektrisch Morfologisch Overzicht}
+
+In deze sectie worden de elektrische componenten gekozen op basis van een morfologisch overzicht.
+
+\begin{xltabular}{\linewidth}{|p{0.3\linewidth}|p{0.2\linewidth}|p{0.2\linewidth}|}
+	\caption{Elektrisch Morfologisch Overzicht} \\
+	\hline
+	\textbf{Component} & \textbf{Oplossing 1} & \textbf{Oplossing 2} \\
+	\hline
+	\endfirsthead
+	\hline
+	\textbf{Component} & \textbf{Oplossing 1} & \textbf{Oplossing 2} \\
+	\hline
+	\endhead
+	\hline
+	\endfoot
+	\hline
+	\endlastfoot
+	\textbf{Trillingsensor} & \cellcolor{green} SICK MPB10-VS00VSIQ00 & IFM VTV121 \\
+	\hline
+	\textbf{Thermische Camera} & Optris Xi 80 & \cellcolor{green} FLIR A50/70 \\
+	\hline
+	\textbf{Luchtdruk Sensor} & \cellcolor{green} IFM PV2304 & IFM PV8001 \\
+	\hline
+	\textbf{Trilling sensor communicatie protocol} & \cellcolor{green} IO-Link & Analoog \\
+	\hline
+	\textbf{Luchtdruk sensor communicatie protocol} & \cellcolor{green}  IO-Link & Analoog \\
+	\hline 
+	\textbf{Temperatuur sensor communicatie protocol} & \cellcolor{green} IO-Link & Analoog \\
+	\hline
+\end{xltabular}
+
+\begin{table}[H]
+	\centering
+	\caption{Trillingsensor}
+	\label{tab:TrillingPositie}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{\textbf{Trillingsensor}} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{SICK MPB10-VS00VSIQ00} & \textbf{IFM VTV121} \\
+		\hline
+		Prijs & 1 & 100 & 40 \\
+		Meetbereik & 1 & 70 & 90 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{1*100 + 1*70} & \fpeval{1*40 + 1*90} \\ % Automatische berekening
+		\hline
+	\end{tabular}
+\end{table}
+
+Voor de trillingsensor is er gekeken naar een IO-Link variant er uit de becijfering is gebleken dat IO-Link de beste optie is.  
+
+\begin{table}[H]
+	\centering
+	\label{tab:TrillingsensorCommunicatieProtocol}
+	\caption{Trilling sensor communicatie protocol}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Trilling sensor communicatie protocol} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{IO-Link} & \textbf{Analoog} \\
+		\hline
+		Informatie overdracht & 2 & 70 & 40 \\
+		Installatie & 1 & 70 & 70 \\
+		Robuustheid & 1 & 70 & 50 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*40+1*70+1*50} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+IO-Link is volgens de becijfering het beste communicatie protocol voor de trillingsensor. IO-Link is tegenwoordig een veelgebruikt protocol wat in veel sensoren standaard is ingebouwd. IO-Link kan veel meer informatie over de sensor communiceren met zijn zo gehete IO-Link master die op zijn beurt weer over \gls{EtherCAT} met de \gls{PLC}. De installatie is in principe hetzelfde. Ook is het signaal van IO-Link veel robuuster en minder gevoelig voor \gls{EMC}. De informatie overdracht is hoger becijferd omdat een trillingsensor bijvoorbeeld trillingen in zowel X, Y en Z richting kan communiceren. Ook zijn IO-Link sensor beter instelbaar.
+
+\begin{table}[H]
+	\centering
+	\label{tab:LuchtdruksensorCommunicatieProtocol}
+	\caption{Luchtdruk sensor communicatie protocol}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Luchtdruk sensor communicatie protocol} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{IO-Link} & \textbf{Analoog} \\
+		\hline
+		Informatie overdracht & 2 & 70 & 60 \\
+		Installatie & 1 & 70 & 70 \\
+		Robuustheid & 1 & 70 & 50 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*60+1*70+1*50} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Voor de luchtdruk sensor is ook IO-Link het beste uit de becijfering gekomen. Echter maakt het bij deze sensor de informatieoverdracht minder uit omdat enkel de druk uitgelezen hoeft te worden. Er hoeft hierbij niks speciaals ingesteld te worden.
+
+\begin{table}[H]
+	\centering
+	\label{tab:TemperatuursensorCommunicatieProtocol}
+	\caption{Temperatuur sensor communicatie protocol}
+	\begin{tabular}{|p{0.12\linewidth}|p{0.15\linewidth}|p{0.16\linewidth}|p{0.16\linewidth}|}
+		\hline
+		\multicolumn{4}{|c|}{Temperatuur sensor communicatie protocol} \\
+		\hline
+		\textbf{Criteria} & \textbf{Wegingsfactor} & \textbf{IO-Link} & \textbf{Analoog} \\
+		\hline
+		Informatie overdracht & 2 & 70 & 60 \\
+		Installatie & 1 & 70 & 70 \\
+		Robuustheid & 1 & 70 & 50 \\
+		\hline
+		\textbf{Totaal} & - & \fpeval{2*70+1*70+1*70} & \fpeval{2*60+1*70+1*50} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Ook voor de temperatuursensor is IO-Link het beste uit de becijfering gekomen. Voor de temperatuursensor geldt eigenlijk hetzelfde als voor de luchtdruk sensor. Echter in geval van de thermische camera is dit niet van toepassing aangezien dit dan waarschijnlijk over \gls{USB} of EtherNET zal gaan.
