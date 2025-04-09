@@ -17,7 +17,7 @@ Het voltage en de Ampère kunnen direct uitgelezen worden uit de drive. De \gls{
 
 \vspace{0.5cm}
 
-Trillingen kunnen niet standaard uitgelezen worden uit de drive en hiervoor moet zou daarom een extra sensor moeten komen zoals de MPB10 van SICK [8] die ook de motortemperatuur kan meten. Deze sensor moet echter aangesloten worden op een IO-Link terminal, deze terminals zijn vaak veel minder snel wat ten koste zou gaan van de Nyquist frequentie.
+Trillingen kunnen niet standaard uitgelezen worden uit de drive en hiervoor moet daarom een extra sensor moeten komen zoals de MPB10 van SICK die ook de motortemperatuur kan meten. Deze sensor moet echter aangesloten worden op een IO-Link terminal, deze terminals zijn vaak veel minder snel wat ten koste zou gaan van de Nyquist frequentie.
 
 \newpage
 
@@ -27,7 +27,7 @@ Op veel meetgegevens worden bij het testen van een motor fourier transformaties 
 
 \vspace{0.5cm}
 
-In de wiskunde converteert de discrete Fourier-transformatie (\gls{DFT}) een eindige reeks van op een gelijke afstand geplaatste reeks van samples in een reeks van even lange samples van dezelfde lengte van de discrete-time Fourier transformatie (\gls{DTFT}), wat een frequentiefunctie met complexe getallen is. De \gls{DFT} is een frequentiedomeinrepresentatie van de originele invoerreeks.
+In de wiskunde converteert de discrete Fourier-transformatie (\gls{DFT}) een eindige reeks van op een gelijke afstand geplaatste reeks van samples in een reeks van even lange samples van dezelfde lengte van de discrete-time Fourier transformatie (\gls{DTFT}), wat een frequentiefunctie met complexe getallen is. De \gls{DFT} is een frequentiedomeinrepresentatie van de originele invoerreeks \cite{web:FFT}.
 
 
 \begin{figure}[H]
@@ -48,6 +48,8 @@ Waarbij de complexiteit van de formule $O\left(N^2\right)$ is wat betekend dat e
 \begin{equation}
 	X_k = {\sum_{m=0}^{\frac{N}{2}-1}X_{2m}e^{-\frac{2\pi i}{N}(2m)k}} + {\sum_{m=0}^{\frac{N}{2}-1}X_{2m+1}e^{-\frac{2\pi i}{N}(2m+1)k}}
 \end{equation}
+
+\newpage
 
 Het idee achter het Radix-2 algoritme is dat het eerst de even getallen berekend en daarna de oneven getallen waarna de 2 resultaten worden gecombineerd. Dit kan vervolgens recursief worden berekend. Met als enige eis dat de sample set grootte een macht van 2 is \cite{web:Radix-2FFT}.
 
@@ -70,7 +72,7 @@ Met behulp van gedemoduleerde spannings- en stroom \gls{FFT}’s bij een hogere 
 
 \subsection{Lager schade detectie doormiddel van trilling analyse}
 
-Veel gevallen van motorstoringen komen door slijtage of schade aan de lager. Lager schade kan worden gedetecteerd door onder meer het trillen van de motor of spindel. Hierbij kan men bij de volgende vier frequentiepieken (door een \gls{FFT} uit te voeren op de trillingen) zien waar er schade aan de lager is.
+Veel gevallen van motorstoringen komen door slijtage of schade aan de lager. Lager schade kan worden gedetecteerd door onder meer het trillen van de motor of spindel. Hierbij kan men bij de volgende vier frequentiepieken (door een \gls{FFT} uit te voeren op de trillingen) zien waar er schade aan de lager is. \cite{web:BearingFault}
 
 \begin{figure}[H]
 	\centering
